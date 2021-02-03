@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Investigation Form</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="inner-wrapper">
+            <div class="banner-wrapper">
+                <div class="banner-logo">
+                    <img class="banner-logo_img" src="/CIV/images/Trust-hspital-logo.png" alt="">
+                </div>
+                <div class="banner-text">
+                    <h1>COVID INVESTIGATION FORM</h1>
+                </div>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Patient Information</h2>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Name of Patient:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="name">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Phone Number:</label>
+                            <input class="input--style-1" type="tel" placeholder="" name="phone">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Email Address:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="name">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Passport ID (for travelers):</label>
+                            <input class="input--style-1" type="text" placeholder="" name="ID">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t1">
+                            <label for="">Home Address:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Home Address">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Recepient Number:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Recepient Number">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Hospital Number:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Hospital Number">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2"> Sex:
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Male</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Symptoms Information</h2>
+                    <h5 style="margin-bottom: 20px;">Patient symptoms(check all reported informations)</h5>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> History of fever chills</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Shortness of Breath</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Pain</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> General Weakness</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Diarrhoea</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <p style="margin-bottom: 0;"> ( ) Muscular ( ) Chest </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Cough</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Nausea / Vommiting </label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <p style="margin-bottom: 0;"> ( ) Abdominal ( ) Joint </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Sore throat</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Headache</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Loss of smell</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Runny nose</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Irritability / Confusion</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Loss of tatse</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Others,</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">     
+                                <input class="input--style-3" type="text" placeholder="" name="specification">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
