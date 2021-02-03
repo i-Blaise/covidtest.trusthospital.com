@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Investigation Form</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="inner-wrapper">
+            <div class="banner-wrapper">
+                <div class="banner-logo">
+                    <img class="banner-logo_img" src="images/Trust-hspital-logo.png" alt="">
+                </div>
+                <div class="banner-text">
+                    <h1>COVID INVESTIGATION FORM</h1>
+                </div>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Patient Information</h2>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Name of Patient:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="name">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Phone Number:</label>
+                            <input class="input--style-1" type="tel" placeholder="" name="phone">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Email Address:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="name">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Passport ID (for travelers):</label>
+                            <input class="input--style-1" type="text" placeholder="" name="ID">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t1">
+                            <label for="">Home Address:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Home Address">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group">
+                            <label for="">Recepient Number:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Recepient Number">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Hospital Number:</label>
+                            <input class="input--style-1" type="text" placeholder="" name="Hospital Number">
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2"> Sex:
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Male" name="Male" value="Male">
+                                <label for="vehicle1"> Male</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Female" name="Female" value="Female">
+                                <label for="vehicle1"> Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Symptoms Information</h2>
+                    <h5 style="margin-bottom: 20px;">Patient symptoms(check all reported informations)</h5>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="fever" name="fever" value="fever">
+                                <label for="vehicle1"> History of fever chills</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Breath" name="Shortness of Breath" value="Shortness of Breath">
+                                <label for="vehicle1"> Shortness of Breath</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id=" Weakness" name="General Weakness" value="General Weakness">
+                                <label for="vehicle1"> General Weakness</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Diarrhoea" name="Diarrhoea" value="Diarrhoea">
+                                <label for="vehicle1"> Diarrhoea</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Cough" name="Cough" value="Cough">
+                                <label for="vehicle1"> Cough</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="NV" name="NV" value="Nausea / Vommiting">
+                                <label for="vehicle1"> Nausea / Vommiting </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Sore throat" name="Sore throat" value="Sore throat">
+                                <label for="vehicle1">Sore throat</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Headache" name="Headache" value="Headache">
+                                <label for="vehicle1"> Headache</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Loss of smell" name="Loss of smell" value="Loss of smell">
+                                <label for="vehicle1"> Loss of smell</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Runny nose" name="Runny nose" value="Runny nose">
+                                <label for="vehicle1"> Runny nose</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="IR" name="IR" value="Irritability / Confusio">
+                                <label for="vehicle1"> Irritability / Confusion</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Tatse" name="Tatse" value="Loss of tatse">
+                                <label for="vehicle1"> Loss of tatse</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cs-header" style="margin-top: 2.8rem;">
+                        <h5 style="margin-bottom: 0;">Pain (check all that apply)</h5>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper__t1" style="margin-left: 20px;">
+                                <label class="container">Muscular
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>   
+                            </div>
+                            <div class="ig-wrapper__t1" style="margin-left: 20px;">
+                                <label class="container">Chest
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="ig-wrapper__t1" style="margin-left: 20px;">
+                                <label class="container">Abdominal
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>   
+                            </div>
+                            <div class="ig-wrapper__t1" style="margin-left: 20px;">
+                                <label class="container">Joint
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Others" name="Others" value="Others">
+                                <label for="vehicle1"> Others,</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">     
+                                <input class="input--style-3" type="text" placeholder="" name="specification">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Patient Vital Signs</h2>
+                    <h5 style="margin-bottom: 20px;">Check all observed signs:</h5>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="fever" name="fever" value="fever">
+                                <label for="vehicle1"> Seizure</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Breath" name="Shortness of Breath" value="Shortness of Breath">
+                                <label for="vehicle1"> Pharnygeal exudate</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Pain" name="Pain" value="Pain">
+                                <label for="vehicle1"> Coma</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Pain" name="Pain" value="Pain">
+                                <label for="vehicle1"> Abnormal lung X-ray findings</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id=" Weakness" name="General Weakness" value="General Weakness">
+                                <label for="vehicle1"> Conjuctival Injection</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Diarrhoea" name="Diarrhoea" value="Diarrhoea">
+                                <label for="vehicle1"> Dyspnea / Tachpnea</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Pain" name="Pain" value="Pain">
+                                <label for="vehicle1"> Abnormal lung auscultation</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-stack__main">
+                <div class="cs-header">
+                    <h2>Patient Clinical Course</h2>
+                </div>
+                <form action="" method="post">
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <label for="birthday">Date of onset of symptoms:</label>
+                                <input type="date" id="date of symptoms" name="date of symptoms">
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Breath" name="Shortness of Breath" value="Shortness of Breath">
+                                <label for="vehicle1"> Asymptomatic</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Pain" name="Pain" value="Pain">
+                                <label for="vehicle1"> Unknown</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <label for="birthday">Date first seen at a health facility:</label>
+                                <input type="date" id="date of facility" name="date of facility">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2" style="padding-left: 1.2rem;"> Admission to hospital:
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="No" name="No" value="No">
+                                <label for="vehicle1"> No</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Yes" name="Yes" value="Yes">
+                                <label for="vehicle1"> Yes</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Unknown" name="Unknown" value="Unknown">
+                                <label for="vehicle1"> Unknown</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <label for="birthday">First Date of Admission to hospital:</label>
+                                <input type="date" id="date of admission" name="date of admission">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper" style="margin-top: 4rem;">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;"> Name of hospital:     
+                                <input class="input--style-3" type="text" placeholder="" name="specification">
+                            </div>
+                        </div>
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;"> Hospital visit number:     
+                                <input class="input--style-3" type="text" placeholder="" name="specification">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <label for="birthday">Date of isolation:</label>
+                                <input type="date" id="date of isolation" name="date of isolation">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2" style="padding-left: 1.2rem;"> Was the person ventilated:
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="No" name="No" value="No">
+                                <label for="vehicle1"> No</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Yes" name="Yes" value="Yes">
+                                <label for="vehicle1"> Yes</label>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Unknown" name="Unknown" value="Unknown">
+                                <label for="vehicle1"> Unknown</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <label for="birthday">Date of death, if applicable:</label>
+                                <input type="date" id="date of isolation" name="date of isolation">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group__wrapper">
+                        <div class="input-group__t2">
+                            <div class="ig-wrapper" style="margin-left: 20px;">
+                                <input type="checkbox" id="Others" name="Others" value="Others">
+                                <label for="vehicle1"> Others underlining conditions and comorbidity:</label><br>
+                            </div>
+                            <div class="ig-wrapper" style="margin-left: 20px;">     
+                                <input class="input--style-3" type="text" placeholder="" name="specification">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
