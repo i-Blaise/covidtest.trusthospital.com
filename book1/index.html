@@ -26,22 +26,22 @@
 				</div>
             	<div id="wizard">
             		<!-- SECTION 1 -->
-	                <h4>Choose Date</h4>
+	                <h4>General Info</h4>
 	                <section>
 						<div class="form-row">
 							<div class="form-holder">
-								<input type="text" class="form-control datepicker-here pl-85" data-language='en' data-date-format="dd - m - yyyy" id="dp1">
+								<input type="text" class="form-control datepicker-here pl-140" data-language='en' data-date-format="dd - m - yyyy" id="dp1">
 								<span class="lnr lnr-chevron-down"></span>
-								<span class="placeholder">Check in :</span>
+								<span class="placeholder">Reporting Date :</span>
 							</div>
-							<div class="form-holder">
+							<!-- <div class="form-holder">
 								<input type="text" class="form-control datepicker-here pl-96" data-language='en'  data-date-format="dd - m - yyyy" id="dp2">
 								<span class="lnr lnr-chevron-down"></span>
 								<span class="placeholder">Check out :</span>
-							</div>
+							</div> -->
 						</div>
 						<div class="form-row">
-							<div class="select">
+							<!-- <div class="select">
 								<div class="form-holder">
 									<div class="select-control">Duration :</div>
 									<span class="lnr lnr-chevron-down"></span>
@@ -53,19 +53,36 @@
 									<li rel="4 Night">4 Night</li>
 									<li rel="5 Night">5 Night</li>
 								</ul>
+							</div> -->
+							
+							<div class="select-control">Test Classification :</div>
+							<div class="checkbox">
+								<label>
+									Suspected
+									<input type="checkbox"> 
+									<span class="checkmark"></span>
+								</label>
 							</div>
-							<div class="select">
-								<div class="form-holder">
-									<div class="select-control">Room :</div>
-									<span class="lnr lnr-chevron-down"></span>
-								</div>
-								<ul class="dropdown">
-									<li rel="1 Room">1 Room</li>
-									<li rel="2 Room">2 Room</li>
-									<li rel="3 Room">3 Room</li>
-									<li rel="4 Room">4 Room</li>
-									<li rel="5 Room">5 Room</li>
-								</ul>
+							<div class="checkbox">
+								<label>
+									Confirmed
+									<input type="checkbox"> 
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									Re-Testing
+									<input type="checkbox"> 
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									For Traveling
+									<input type="checkbox"> 
+									<span class="checkmark"></span>
+								</label>
 							</div>
 						</div>
 
