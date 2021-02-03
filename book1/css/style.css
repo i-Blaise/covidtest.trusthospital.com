@@ -203,6 +203,8 @@ label {
     padding-left: 85px; }
   .form-control.pl-96 {
     padding-left: 96px; }
+  .form-control.pl-140 {
+    padding-left: 140px; }
   .form-control::-webkit-input-placeholder {
     color: #fff; }
   .form-control::-moz-placeholder {
