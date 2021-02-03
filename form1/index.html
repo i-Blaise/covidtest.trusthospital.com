@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MKAY Registeration </title>
+	<link rel="icon" type="image/png" href="img/trust-logo.png">
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<!-- @if (session('status') === 'email exists')
+<body class="form-v10" onload="email_exixts()">
+@elseif (session('status') === 'tmc')
+<body class="form-v10" onload="tmc()">
+@else -->
+<body class="form-v10">
+<!-- @endif -->
+	<div class="page-content">
+		<img class="logo" src="img/Trust-hspital-logo.png">
+		<div class="form-v10-content">
+			<form class="form-detail" action="http://127.0.0.1:8000/log" method="post" enctype="multipart/form-data" id="myform">
+				<div class="form-left">
+					<h2>Personal Info</h2>
+					<!-- <div class="form-row">
+						<select name="title">
+						    <option class="option" value="title">Title</option>
+						    <option class="option" value="businessman">Businessman</option>
+						    <option class="option" value="reporter">Reporter</option>
+						    <option class="option" value="secretary">Secretary</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>
+					</div> -->
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="first_name" id="first_name" class="input-text" placeholder="First Name" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Last Name" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="text" name="email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+					</div>
+					<!-- <div class="form-row">
+						<select name="position">
+						    <option value="position">Position</option>
+						    <option value="director">Director</option>
+						    <option value="manager">Manager</option>
+						    <option value="employee">Employee</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>
+					</div> -->
+					<div class="form-row">
+						<input type="text" name="store_name" class="company" id="store_name" placeholder="Store Name" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="location" class="company" id="location" placeholder="Store Location" required>
+					</div>
+						<div class="form-row">
+							<input type="text" name="phone" class="phone" id="phone" placeholder="Store Phone Number" required>
+						</div>
+						<div class="form-group">
+							<div class="form-row form-row-1">
+								<input type="password" name="password" class="input-text" placeholder="Password" required>
+							</div>
+							<div class="form-row form-row-2">
+								<input type="password" name="confirmed_pass" class="input-text" placeholder="Confirm Pass" required>
+							</div>
+						</div>
+
+
+				</div>
+				<div class="form-right">
+					<h2>Inventory Details</h2>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+					<div class="form-checkbox">
+						<label class="container"><p>Accessories</p>
+						  	<input type="checkbox" name="accessories" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Children Wear</p>
+						  	<input type="checkbox" name="children_wear" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Coats</p>
+						  	<input type="checkbox" name="coats" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Dresses</p>
+						  	<input type="checkbox" name="dresses" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Footwear</p>
+						  	<input type="checkbox" name="footwear" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Jumpsuits</p>
+						  	<input type="checkbox" name="jumpsuit" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Lingeries</p>
+						  	<input type="checkbox" name="lingeries" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Masks</p>
+						  	<input type="checkbox" name="masks" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Pants</p>
+						  	<input type="checkbox" name="pants" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Pyjamas</p>
+						  	<input type="checkbox" name="pyjamas" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+
+				<div class="form-row form-row-2">
+					<div class="form-checkbox">
+						<label class="container"><p>Robes & Cloaks</p>
+						  	<input type="checkbox" name="robes_n_cloaks" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Saris</p>
+						  	<input type="checkbox" name="saris" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Shorts</p>
+						  	<input type="checkbox" name="shorts" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Skirts</p>
+						  	<input type="checkbox" name="skirts" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Socks</p>
+						  	<input type="checkbox" name="socks" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Suits</p>
+						  	<input type="checkbox" name="suits" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Tops</p>
+						  	<input type="checkbox" name="tops" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Undergarments</p>
+						  	<input type="checkbox" name="undergarment" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Waist Trainers</p>
+						  	<input type="checkbox" name="waist_trainers" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-checkbox">
+						<label class="container"><p>Wedding Cloths</p>
+						  	<input type="checkbox" name="wedding_cloths" value="1">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+					<div class="form-checkbox">
+						<label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of MKAY.</p>
+						  	<input type="checkbox" name="terms_n_conditions">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Register Store">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+	function email_exixts() {
+  alert("This email is already in our system");
+}
+
+function tmc() {
+  alert("accept terms and conditions");
+}
+</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
