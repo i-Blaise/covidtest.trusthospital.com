@@ -24,7 +24,7 @@
 		<div class="form-v10-content">
 			<form class="form-detail" action="http://127.0.0.1:8000/log" method="post" enctype="multipart/form-data" id="myform">
 				<div class="form-left">
-					<h2>Personal Info</h2>
+					<h2>Patient Information</h2>
 					<!-- <div class="form-row">
 						<select name="title">
 						    <option class="option" value="title">Title</option>
@@ -38,14 +38,22 @@
 					</div> -->
 					<div class="form-group">
 						<div class="form-row form-row-1">
-							<input type="text" name="first_name" id="first_name" class="input-text" placeholder="First Name" required>
+							<input type="text" name="full_name" id="full_name" class="input-text" placeholder="Name of Patient">
 						</div>
 						<div class="form-row form-row-2">
-							<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Last Name" required>
+							<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="passport" class="input-text" id="passport" placeholder="Passport ID" required>
 						</div>
 					</div>
 					<div class="form-row">
-						<input type="text" name="email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+						<input type="text" name="address" id="address" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Home Address">
 					</div>
 					<!-- <div class="form-row">
 						<select name="position">
@@ -58,86 +66,88 @@
 						  	<i class="zmdi zmdi-chevron-down"></i>
 						</span>
 					</div> -->
-					<div class="form-row">
-						<input type="text" name="store_name" class="company" id="store_name" placeholder="Store Name" required>
-					</div>
-					<div class="form-row">
-						<input type="text" name="location" class="company" id="location" placeholder="Store Location" required>
-					</div>
-						<div class="form-row">
-							<input type="text" name="phone" class="phone" id="phone" placeholder="Store Phone Number" required>
-						</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
-								<input type="password" name="password" class="input-text" placeholder="Password" required>
+								<input type="text" name="Receipt" class="input-text" placeholder="Receipt Number" required>
 							</div>
 							<div class="form-row form-row-2">
-								<input type="password" name="confirmed_pass" class="input-text" placeholder="Confirm Pass" required>
+								<input type="text" name="Hospital" class="input-text" placeholder="Hospital Number" required>
 							</div>
 						</div>
-
-
+						<p style="margin-left: 4rem; margin-bottom: 0;">Sex :</p>
+						<div class="form-checkbox">
+							<label class="container"><p style="color: black;">Male</p>
+								  <input type="checkbox" name="accessories" value="1">
+								  <span class="checkmark" style="border: 1px solid #424242"></span>
+							</label>
+						</div>
+						<div class="form-checkbox">
+							<label class="container"><p style="color: black;">Female</p>
+								  <input type="checkbox" name="accessories" value="1">
+								  <span class="checkmark" style="border: 1px solid #424242"></span>
+							</label>
+						</div>
 				</div>
 				<div class="form-right">
 					<h2>Inventory Details</h2>
 					<div class="form-group">
 						<div class="form-row form-row-1">
 					<div class="form-checkbox">
-						<label class="container"><p>Accessories</p>
+						<label class="container"><p>History of fever / Chills</p>
 						  	<input type="checkbox" name="accessories" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Children Wear</p>
+						<label class="container"><p>Shortness of Breath</p>
 						  	<input type="checkbox" name="children_wear" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Coats</p>
+						<label class="container"><p>General Weakness</p>
 						  	<input type="checkbox" name="coats" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Dresses</p>
+						<label class="container"><p>Diarrhoea</p>
 						  	<input type="checkbox" name="dresses" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Footwear</p>
+						<label class="container"><p>Cough</p>
 						  	<input type="checkbox" name="footwear" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Jumpsuits</p>
+						<label class="container"><p>Nausea / Vomitting</p>
 						  	<input type="checkbox" name="jumpsuit" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Lingeries</p>
+						<label class="container"><p>Sore Throat</p>
 						  	<input type="checkbox" name="lingeries" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Masks</p>
+						<label class="container"><p>Headache</p>
 						  	<input type="checkbox" name="masks" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Pants</p>
+						<label class="container"><p>Loss of Smell</p>
 						  	<input type="checkbox" name="pants" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Pyjamas</p>
+						<label class="container"><p>Runny Nose</p>
 						  	<input type="checkbox" name="pyjamas" value="1">
 						  	<span class="checkmark"></span>
 						</label>
@@ -146,13 +156,13 @@
 
 				<div class="form-row form-row-2">
 					<div class="form-checkbox">
-						<label class="container"><p>Robes & Cloaks</p>
+						<label class="container"><p>Irritability / Confusion</p>
 						  	<input type="checkbox" name="robes_n_cloaks" value="1">
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
 					<div class="form-checkbox">
-						<label class="container"><p>Saris</p>
+						<label class="container"><p>Loss of Tatse</p>
 						  	<input type="checkbox" name="saris" value="1">
 						  	<span class="checkmark"></span>
 						</label>
@@ -214,7 +224,7 @@
 						</label>
 					</div>
 					<div class="form-row-last">
-						<input type="submit" name="register" class="register" value="Register Store">
+						<input type="submit" name="register" class="register" value="Submit">
 					</div>
 				</div>
 			</form>
