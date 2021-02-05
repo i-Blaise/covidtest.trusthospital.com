@@ -4,13 +4,23 @@ body {
 
 .logo {
 	width: 12%;
-	height: 10%;
+	height: 12%;
 	position: absolute;
 	top: 2%;
+	align-items: center;
 }
 @media screen and (max-width: 1101px) {
 	.logo {
-		width: 8%;
+		width: 15%;
+		height: 10%;
+		position: absolute;
+		top: 2%;
+		align-items: center;
+	}
+}
+@media screen and (max-width: 1075px) {
+	.logo {
+		width: 12%;
 		height: 10%;
 		position: absolute;
 		top: 2%;
