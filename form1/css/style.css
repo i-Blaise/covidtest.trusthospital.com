@@ -19,7 +19,7 @@ body {
 }
 @media screen and (max-width: 767px) {
 	.logo {
-		width: 15%;
+		width: 50%;
 		height: 10%;
 		position: absolute;
 		top: 2%;
@@ -91,7 +91,7 @@ body {
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
-.form-v10-content .form-detail .form-right h2 {
+.form-v10-content .form-detail .form-right h2,h5 {
 	color: #fff;
 	text-align: center;
 }
