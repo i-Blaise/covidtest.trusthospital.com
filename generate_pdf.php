@@ -3,7 +3,7 @@ namespace Dompdf;
 require_once 'vendor/autoload.php';
 session_start();
 
-if(isset($_POST['download']))
+if(isset($_GET['download']))
 {
 $fever_and_chills = ($_SESSION['fever_or_chills'] == 1) ?  "Yes" : "No";
 $generalWeakness = ($_SESSION['generalWeakness'] == 1) ?  "Yes" : "No";
@@ -46,6 +46,15 @@ $admitted_to_hospital = ($_SESSION['admitted_to_hospital'] == 1) ?  "Yes" : "No"
 $ventialted = ($_SESSION['ventialted'] == 1) ?  "Yes" : "No";
 
 
+// Logo Base 64 for pdf
+$registration_number = $_SESSION['registration_number'];
+$path = 'https://covidtest.thetrusthospital.com/dev/assets/img/icons/Trust-hspital-logo.png';
+$type = pathinfo($path, PATHINFO_EXTENSION);
+$data = file_get_contents($path);
+$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+
+
 $dompdf = new Dompdf(); 
 $dompdf->loadHtml('<!DOCTYPE html>
 <html>
@@ -69,9 +78,11 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-
+<img src="'.$path.' ?>" width="150" height="150"/>
+<h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
 <h2>Patient Booking Form</h2>
 
+<h3>Registration Number: '.$_SESSION['registration_number'].'</h3>
 <table>
   <tr>
     <th>Full Name: </th>
@@ -79,7 +90,7 @@ tr:nth-child(even) {
   </tr>
   <tr>
     <th>Email Address: </th>
-    <td>'. $_SESSION["email"].'</td>
+    <td>'. $_SESSION['email'].'</td>
   </tr>
   <tr>
     <th>Phone Number: </th>
@@ -271,6 +282,10 @@ tr:nth-child(even) {
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream("BookingFormPDF",array("Attachment" => true));
+// def("DOMPDF_ENABLE_REMOTE", true);
+$options = new Options();
+$options->set('isRemoteEnabled',true);      
+$dompdf = new Dompdf( $options );
 exit(0);
 }else{
     echo "wrong";

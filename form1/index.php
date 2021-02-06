@@ -332,18 +332,18 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 				<div class="form-left">
 					<h2>Patient Information</h2>
 					<div class="form-row">
-						<input type="text" name="name" class="input-text" placeholder="Full Name" required>
+						<input type="text" name="name" class="input-text" placeholder="Full Name*" required>
 					</div>
 					<div class="form-row">
-						<input type="text" name="email" class="input-text" placeholder="Email Address" required  pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+						<input type="text" name="email" class="input-text" placeholder="Email Address*" required  pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
 					</div>
 					<div class="form-group">
 						<div class="form-row form-row-1">
-							<input type="text" name="phone" class="input-text" placeholder="Phone Number" required>
+							<input type="text" name="phone" class="input-text" placeholder="Phone Number*" required>
 						</div>
 						<div class="form-row form-row-2">
-						<select name="gender">
-						    <option value="" disabled selected>Gender</option>
+						<select name="gender" required>
+						    <option value="" disabled selected>Gender*</option>
 						    <option value="male">Male</option>
 						    <option value="female">Female</option>
 						</select>
@@ -356,15 +356,15 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 						<input type="text" name="passport" class="input-text" placeholder="Passport ID (For Travellers)">
 					</div>
 					<div class="form-row">
-						<input type="text" name="address" class="input-text" required placeholder="Home Address">
+						<input type="text" name="address" class="input-text" required placeholder="Home Address*">
 					</div>
 					<div class="form-row">
-						<label style="color: black;">Date Of Birth:</label>
+						<label style="color: black;">Date Of Birth*:</label>
 						<input type="date" name="DOB" class="input-text" required placeholder="Date Of Birth">
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
-								<input type="text" name="receipt_number" class="input-text" placeholder="Receipt Number" required>
+								<input type="text" name="receipt_number" class="input-text" placeholder="Receipt Number">
 							</div>
 							<div class="form-row form-row-2">
 								<input type="text" name="hospital_number" class="input-text" placeholder="Hospital Number">
@@ -536,7 +536,7 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 	<h2>Patient Clinical Course</h2>	
 	
 	<div class="form-row">
-	<label style="color: white;">Date of onset of symptoms:</label>
+	<label style="color: white;">Date of onset of symptoms*:</label>
 		<input type="date" name="date_of_onset_symptoms" class="input-text" required>
 	</div>
 			<div class="form-group">
@@ -555,12 +555,12 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 
 	<div class="form-row">
 		<label style="color: white;">Date first seen at hospital:</label>
-			<input type="date" name="date_first_at_hospital" class="input-text" required>
+			<input type="date" name="date_first_at_hospital" class="input-text">
 	</div>
 
 	<div class="form-row">
-		<select name="admitted_to_hospital">
-			<option value="" disabled selected>Admitted to hospital?</option>
+		<select name="admitted_to_hospital" required>
+			<option value="" disabled selected>Admitted to hospital?*</option>
 			<option value="1">Yes</option>
 			<option value="0">No</option>
 			<option value="2">Unknown</option>
@@ -587,8 +587,8 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 		</div>
 
 		<div class="form-row">
-			<select name="ventialted">
-				<option value=""disabled selected>Was the person ventilated:</option>
+			<select name="ventialted" required>
+				<option value=""disabled selected>Was the person ventilated*:</option>
 				<option value="1">Yes</option>
 				<option value="0">No</option>
 				<option value="2">Unknown</option>
@@ -603,7 +603,7 @@ if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_numbe
 					<input type="date" name="date_of_death" class="input-text">
 		</div>
 		<div class="form-row">
-			<input type="text" name="other_symptoms" placeholder="Other underlining conditions" class="input-text" required>
+			<input type="text" name="other_symptoms" placeholder="Other underlying conditions" class="input-text">
 		</div>
 					<div class="form-row-last">
 						<input type="submit" name="submit" class="register" value="Submit">
@@ -621,5 +621,5 @@ function tmc() {
   alert("accept terms and conditions");
 }
 </script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </html>
