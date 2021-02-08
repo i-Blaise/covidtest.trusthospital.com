@@ -1,25 +1,9 @@
-<!--
-
-=========================================================
-* Gaia Bootstrap Template - v1.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/gaia-bootstrap-template
-* Licensed under MIT (https://github.com/creativetimofficial/gaia-bootstrap-template/blob/master/LICENSE.md)
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
--->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
+<head runat="server">
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- <script src="JavaScript/jquery-1.6.1.min.js" type="text/javascript"></script> -->
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/icons/Trust-hspital-logo.png">
@@ -36,6 +20,28 @@
     <link href="assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+
+      <!-- Notification -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+
+
+<?php
+    if(isset($_GET['status']) && $_GET['status'] == "saved")
+    {
+        ?>
+        <!-- Notification -->
+     <script type='text/javascript'>   
+    $(document).ready(function() {      
+    toastr.options.positionClass = "toast-top-right";
+    toastr.options.closeButton = true;
+    toastr.options.closeDuration = 300;
+    toastr.success('Your Covid Test has been booked!', 'Success');
+});
+</script>
+     
+       <?php
+    }
+       ?>
 </head>
 
 <body>
@@ -390,6 +396,17 @@
             </div>
         </div>
     </footer>
+    <script>
+    $(document).ready(function() {
+
+// show when page load
+// toastr.info('Hey - it works!');
+// alert('hi');
+
+});
+
+
+</script>
 
 </body>
 
@@ -403,10 +420,34 @@
 <!--  script for google maps   -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-<!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
+<!--   file where we handle all the script from the - Bootstrap Template   -->
 <script type="text/javascript" src="assets/js/main.js"></script>
 
 <!--   smooth scrolling jquer   -->
 <script type="text/javascript" src="assets/js/smooth-scroll.js"></script>
 
+
+<!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
+
+
+<script type = "text/javascript">  
+function successNotif() {   
+    $(document).ready(function() {
+    toastr.options.positionClass = "toast-top-right";
+    toastr.options.closeButton = true;
+    toastr.success('Check your email', 'Success')
+    //    die();
+    // alert('hello');
+//     window.alert = null;
+// alert('test'); // fail
+// delete window.alert; // true
+// alert('test'); // win
+//     }
+});
+
+</script>  
 </html>

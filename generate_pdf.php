@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_GET['download']))
 {
-$fever_and_chills = ($_SESSION['fever_or_chills'] == 1) ?  "Yes" : "No";
+$fever_or_chills = ($_SESSION['fever_or_chills'] == 1) ?  "Yes" : "No";
 $generalWeakness = ($_SESSION['generalWeakness'] == 1) ?  "Yes" : "No";
 $cough = ($_SESSION['cough'] == 1) ?  "Yes" : "No";
 $soreThroat = ($_SESSION['soreThroat'] == 1) ?  "Yes" : "No";
@@ -126,7 +126,7 @@ tr:nth-child(even) {
 <table>
 <tr>
   <th>History of fever / chills: </th>
-  <td>'. $fever_and_chills .'</td>
+  <td>'. $fever_or_chills .'</td>
 </tr>
 <tr>
   <th>General Weakness: </th>

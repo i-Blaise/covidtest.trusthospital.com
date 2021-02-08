@@ -474,9 +474,9 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 <h3>Please review the data you provided</h3>
 
 <div class="multi-button">
-  <button><a href="javascript:;">Go back</a></button>
+  <button><a href="javascript:history.go(-1)">Go back</a></button>
    <button><a href="http://localhost/covid.trusthospital/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button>  <a href="http://localhost/covid.trusthospital/generate_pdf.php">Proceed</a></button>
+  <button>  <a href="http://localhost/covid.trusthospital/proceed_to_save.php?status=save">Proceed</a></button>
   </a>
 </div>
 <br>
