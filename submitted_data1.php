@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,12 +112,14 @@ body {
 
 
 <?php
+include('class_libraries/class_lib.php');
+$database_con = new DB_con();
+$getData = new dbData();
+
 
 
 if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 {
-
-
     // Personal info
 	$fullName = $_POST["name"];
 	$email = $_POST["email"];
@@ -306,9 +305,59 @@ if(isset($_POST["headache"]))
     $date_of_isolation = $_POST["date_of_isolation"];
     $admitted_to_hospital = $_POST["admitted_to_hospital"];
     $other_symptoms = $_POST["other_symptoms"];
+    
+
+    if(isset($fullName, $phone, $email, $address, $date_of_birth))
+  {
+
+    // Store in session
+    $_SESSION['name'] = $fullName;                                 
+		$_SESSION['phone'] = $phone;                                                  
+		$_SESSION['email'] = $email;
+		$_SESSION['passport'] = $passport;
+		$_SESSION['address']  = $address;
+		$_SESSION['DOB']  = $date_of_birth;
+    $_SESSION['receipt_number'] = $receipt_number;
+		$_SESSION['hospital_number']  = $hospital_number;
+		$_SESSION['gender'] = $gender;
+		$_SESSION['fever_or_chills']  = $fever_or_chills;
+		$_SESSION['generalWeakness'] = $generalWeakness;
+		$_SESSION['cough']  = $cough;
+		$_SESSION['soreThroat']  = $soreThroat;
+		$_SESSION['runnyNose']  = $runnyNose;
+		$_SESSION['shortness_of_breath']  = $shortness_of_breath;
+		$_SESSION['diarrhoea']  = $diarrhoea;
+		$_SESSION['nausea_or_vomiting']  = $nausea_or_vomiting;
+		$_SESSION['headache']  = $headache;
+		$_SESSION['irritability_or_confusion']  =	$irritability_or_confusion;
+		$_SESSION['loss_of_smell']  = $loss_of_smell;
+		$_SESSION['loss_of_taste']  = $loss_of_taste;
+		$_SESSION['muscular_pain']  =	$muscular_pain;
+		$_SESSION['chest_pain']  = $chest_pain;
+		$_SESSION['abdominal_pain']  =	$abdominal_pain;
+		$_SESSION['joint_pain']  = $joint_pain;
+		$_SESSION['seizure']  =	$seizure;
+		$_SESSION['pharnygeal_exudate']  = $pharnygeal_exudate;
+		$_SESSION[' abnormal_lung_xray']  =	$abnormal_lung_xray;
+		$_SESSION['conjuctival_injection']  =	$conjuctival_injection;
+		$_SESSION['dyspnea_or_tachpnea']  = $dyspnea_or_tachpnea;
+		$_SESSION['abnormal_lung_ausculation']  =	$abnormal_lung_ausculation;
+		$_SESSION['date_of_onset_symptoms']  =	$date_of_onset_symptoms;
+		$_SESSION['date_first_at_hospital']  = $date_first_at_hospital;
+		$_SESSION['asymptomatic']  = $asymptomatic;
+		$_SESSION['admitted_to_hospital']  = $admitted_to_hospital;
+		$_SESSION['date_of_admission']  = $date_of_admission;
+		$_SESSION['name_of_hospital']  =	$name_of_hospital;
+		$_SESSION['hospital_visit_number']  =	$hospital_visit_number;
+		$_SESSION['date_of_isolation']  = $date_of_isolation;
+		$_SESSION['ventialted']  =	$ventialted;
+		$_SESSION['date_of_death']  =	$date_of_death;
+    $_SESSION['other_symptoms'] =	$other_symptoms;
+    $_SESSION['registration_number'] = mt_rand(1262055681,1262055681);
+  
+  }
+
 }
-
-
 ?>
 <body>
 <img class="logo" src="assets/img/icons/Trust-hspital-logo.png">
@@ -322,13 +371,6 @@ if(isset($_POST["headache"]))
    <button><a href="http://localhost/covid.trusthospital/generate_pdf.php?download=true">Download as PDF</a></button>
   <button>  <a href="http://localhost/covid.trusthospital/proceed_to_save.php?status=save">Proceed</a></button>
   </a>
-</div>
-
-<!-- <div class="multi-button">
-  <button><a href="javascript:history.go(-1)">Go back</a></button>
-   <button><a href="https://covidtest.thetrusthospital.com/dev/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button>  <a href="https://covidtest.thetrusthospital.com/dev/proceed_to_save.php?status=save">Proceed</a></button>
-  </a> -->
 </div>
 <br>
 <br>
@@ -354,6 +396,10 @@ if(isset($_POST["headache"]))
   <tr>
     <th>Phone Number: </th>
     <td><?php echo $phone ?></td>
+  </tr>
+  <tr>
+    <th>Gender: </th>
+    <td><?php echo $gender ?></td>
   </tr>
   <tr>
     <th>Gender: </th>
@@ -556,57 +602,9 @@ if(isset($_POST["headache"]))
   <button>Download as PDF</button>
   <button>Proceed</button>
 </div> -->
-<?php
-  $_SESSION['name'] = $fullName;                                 
-  $_SESSION['phone'] = $phone;                                                  
-  $_SESSION['email'] = $email;
-  $_SESSION['passport'] = $passport;
-  $_SESSION['address']  = $address;
-  $_SESSION['DOB']  = $date_of_birth;
-  $_SESSION['receipt_number'] = $receipt_number;
-  $_SESSION['hospital_number']  = $hospital_number;
-  $_SESSION['gender'] = $gender;
-  $_SESSION['fever_or_chills']  = $fever_or_chills;
-  $_SESSION['generalWeakness'] = $generalWeakness;
-  $_SESSION['cough']  = $cough;
-  $_SESSION['soreThroat']  = $soreThroat;
-  $_SESSION['runnyNose']  = $runnyNose;
-  $_SESSION['shortness_of_breath']  = $shortness_of_breath;
-  $_SESSION['diarrhoea']  = $diarrhoea;
-  $_SESSION['nausea_or_vomiting']  = $nausea_or_vomiting;
-  $_SESSION['headache']  = $headache;
-  $_SESSION['irritability_or_confusion']  =	$irritability_or_confusion;
-  $_SESSION['loss_of_smell']  = $loss_of_smell;
-  $_SESSION['loss_of_taste']  = $loss_of_taste;
-  $_SESSION['muscular_pain']  =	$muscular_pain;
-  $_SESSION['chest_pain']  = $chest_pain;
-  $_SESSION['abdominal_pain']  =	$abdominal_pain;
-  $_SESSION['joint_pain']  = $joint_pain;
-  $_SESSION['seizure']  =	$seizure;
-  $_SESSION['pharnygeal_exudate']  = $pharnygeal_exudate;
-  $_SESSION['abnormal_lung_xray']  =	$abnormal_lung_xray;
-  $_SESSION['conjuctival_injection']  =	$conjuctival_injection;
-  $_SESSION['dyspnea_or_tachpnea']  = $dyspnea_or_tachpnea;
-  $_SESSION['abnormal_lung_ausculation']  =	$abnormal_lung_ausculation;
-  $_SESSION['date_of_onset_symptoms']  =	$date_of_onset_symptoms;
-  $_SESSION['date_first_at_hospital']  = $date_first_at_hospital;
-  $_SESSION['asymptomatic']  = $asymptomatic;
-  $_SESSION['admitted_to_hospital']  = $admitted_to_hospital;
-  $_SESSION['date_of_admission']  = $date_of_admission;
-  $_SESSION['name_of_hospital']  =	$name_of_hospital;
-  $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
-  $_SESSION['date_of_isolation']  = $date_of_isolation;
-  $_SESSION['ventialted']  =	$ventialted;
-  $_SESSION['date_of_death']  =	$date_of_death;
-  $_SESSION['other_symptoms'] =	$other_symptoms;
-
-  
-  $_SESSION['registration_number'] = mt_rand(1262055681,1262055681);
-  ?>
 
 </body>
 </html>
-
 
 
 

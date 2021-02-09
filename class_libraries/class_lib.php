@@ -7,8 +7,6 @@ define('DB_NAME', 'covidtest.trusthospital');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require_once "vendor/autoload.php";
 class DB_con
 {
   // public static $con;

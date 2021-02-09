@@ -1,23 +1,37 @@
 
 <?php
-include('class_libraries/class_lib.php');
-$database_con = new DB_con();
-$getData = new dbData();
+
 
 if(isset($_GET['status']) && $_GET['status'] == "save")
 {
+	include('class_libraries/class_lib.php');
+	$database_con = new DB_con();
+	$getData = new dbData();
+	// For php mailer
+	require_once 'vendor/autoload.php';
+
+	
+	if(isset($_SESSION['registration_number'], $_SESSION['name'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['gender'], $_SESSION['address']))
+	{
+		$registration_number = $_SESSION['registration_number'];
+		$fullName = $_SESSION['name'];
+		$email = $_SESSION['email'];
+		$phone_unfiltered = $_SESSION['phone'];
+		$gender = $_SESSION['gender'];
+		$passport = $_SESSION['passport'];
+		$address = $_SESSION['address'];
+		$dob = $_SESSION['DOB'];
+		$receipt_number = $_SESSION['receipt_number'];
+		$hospital_number = $_SESSION['hospital_number'];
+
+	}else{
+		// header("Location: https://covidtest.thetrusthospital.com/dev/index.php?status=errrror");
+		session_destroy();
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=errrror'</script>";
+		die();
+	}
 
 
-	$registration_number = $_SESSION['registration_number'];
-	$fullName = $_SESSION['name'];
-	$email = $_SESSION['email'];
-	$phone = $_SESSION['phone'];
-	$gender = $_SESSION['gender'];
-	$passport = $_SESSION['passport'];
-	$address = $_SESSION['address'];
-	$dob = $_SESSION['DOB'];
-	$receipt_number = $_SESSION['receipt_number'];
-	$hospital_number = $_SESSION['hospital_number'];
 	
 	$fever_or_chills = ($_SESSION['fever_or_chills'] == 1) ?  1 : 0;
 	$generalWeakness = ($_SESSION['generalWeakness'] == 1) ?  1 : 0;
@@ -60,8 +74,19 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 	$ventialted = ($_SESSION['ventialted'] == 1) ?  1 : 0;
 
 
+
+	// SMS
 $client = 'TTH101010';
 $password = 'Keep@123$';
+$check_code = substr($phone_unfiltered,0,3);
+$check_first_char = substr($phone_unfiltered,0,1);
+$country_code = 233;
+if($check_code != $country_code)
+{
+    $phone = $phone_unfiltered;
+}else{
+    $phone = $country_code.$phone_unfiltered;
+}
 $text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'
 The Trust Hospital';
 $msg = urlencode($text);
@@ -70,16 +95,17 @@ $response = new SimpleXMLElement($get_data);
 // print_r($response);
 $sms_status = $response->sms[0]->status;
 $sms_msgid = $response->sms[0]->msgid;
-// echo $sms_status;
-// echo $sms_msgid;
+
+
+
 
 
 $email_data = $getData->sendEmail($email, $fullName, $text);
 if(isset($email_data) && $email_data == 'sent')
 {
-	$email_status = true;
+	$email_status = 1;
 }else{
-	$email_status = false;
+	$email_status = 0;
 }
 
 
@@ -182,14 +208,15 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		'$email_status')";
     $result=mysqli_query($database_con->dbh, $myQuery);
     if($result){
-		echo "worked";
-		header("Location: http://localhost/covid.trusthospital/index.php?status=saved");
+		// echo "worked";
+		session_destroy();
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
 die();
-		// echo $result;
     }else{
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=error'</script>";
 		echo "Error" .mysqli_error($database_con->dbh);
 	}
 }else{
-	echo "not set";
+	echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=notset'</script>";
 }
 }
