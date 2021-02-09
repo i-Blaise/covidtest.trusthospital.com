@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <!-- Custom CSS -->
     <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../dist/css/style.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -201,6 +202,11 @@
                                     <li class="breadcrumb-item active" aria-current="page">Patient Information Table</li>
                                 </ol>
                             </nav>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="text-right upgrade-btn">
+                            <input id="myInput" type="text" placeholder="Search..">
                         </div>
                     </div>
                 </div>
@@ -533,6 +539,16 @@
     <script src="../../dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="../../dist/js/custom.js"></script>
+    <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("tbody tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
 </body>
 
 </html>
