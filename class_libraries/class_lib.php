@@ -43,22 +43,6 @@ class dbData extends DB_con{
 //   $this -> id = $cat_id;
 // }
 
-//this gets data for ad1
-  public function getAdData($cat_id){
-    $this -> id = $cat_id;
-    $myQuery = "SELECT * FROM categories WHERE id = $this->id";
-    $result=mysqli_query($this->dbh, $myQuery);
-    return $result;
-  }
-
-
-//get data for categories page
-  public function getCatData($cat_id){
-    $this -> id = $cat_id;
-    $myQuery = "SELECT * FROM products WHERE cat_id = $this->id";
-    $result=mysqli_query($this->dbh, $myQuery);
-    return $result;
-  }
 
   public function adminLogin($admin_email, $admin_pass){
      $encrypted_pass = md5($admin_pass);
@@ -78,6 +62,29 @@ class dbData extends DB_con{
     }
     
   }
+
+  public function searchPatient($reg_num){
+  $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
+  $result=mysqli_query($this->dbh, $myQuery);
+ //  return $result;
+  $num = mysqli_num_rows($result);
+  if($num == 1)
+  {
+    return $result;
+  }elseif($num < 1){
+     echo 'not found';
+  }else{
+   echo 'error';
+  }
+  
+}
+
+public function checkDataNum($reg_num){
+   $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
+   $result=mysqli_query($this->dbh, $myQuery);
+   $num = mysqli_num_rows($result);
+    return $num;
+ }
 
   public function checkLogin($admin_email, $admin_pass){
    $encrypted_pass = md5($admin_pass);

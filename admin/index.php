@@ -14,6 +14,31 @@ $getData = new dbData();
 	<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/icons/Trust-hspital-logo.png">
     <link rel="stylesheet" href="style.css">
     <title>Covid Portal Admin || The Trust Hospital</title>
+
+          <!-- Notification -->
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <?php
+    if(isset($_GET['status']) && $_GET['status'] == "saved")
+    {
+        ?>
+        <!-- Notification -->
+     <script type='text/javascript'>   
+    $(document).ready(function() {
+    toastr.options.positionClass = "toast-top-right";
+    toastr.options.closeButton = true;
+    toastr.options.closeDuration = 300;
+    toastr.success('Your Covid Test has been booked!', 'Success');
+});
+</script>
+     
+       <?php
+    }
+       ?>
 </head>
 <?php
 if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
@@ -28,7 +53,18 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
         $row=mysqli_fetch_array($get_admin);
         $_SESSION['user_name'] = $row['admin_username'];
         $_SESSION['user_email'] = $row['admin_email'];
+		echo "<script>location='http://localhost/covid.trusthospital/admin/dashboard.php'</script>";
         die();
+    }else
+    {
+        echo "     <script type='text/javascript'>   
+        $(document).ready(function() {
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 300;
+        toastr.warning('Wrong Credentials', 'Warning');
+    });
+    </script>";
     }
 }
 ?>

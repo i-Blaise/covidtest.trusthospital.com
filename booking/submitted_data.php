@@ -603,7 +603,7 @@ if(isset($_POST["headache"]))
   $_SESSION['other_symptoms'] =	$other_symptoms;
 
   
-  $_SESSION['registration_number'] = mt_rand(1262055681,1262055681);
+  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
   ?>
 
 </body>

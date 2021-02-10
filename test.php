@@ -7,4 +7,6 @@ $email = 'email@test.com';
 $pass = 'test';
 
 // $get_data = $getData->adminLogin($email, $pass);
-var_dump($_SESSION['user']);
+// var_dump($_SESSION['user']);
+$NUM = 'TTH'.mt_rand(10000000, 99999999);
+ECHO $NUM;
