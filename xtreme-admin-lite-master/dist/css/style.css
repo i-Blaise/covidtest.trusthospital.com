@@ -597,13 +597,21 @@ textarea {
   font-size: inherit;
   line-height: inherit; }
 
-  #myInput {
-    width: 50%;
-    font-size: 16px;
-    padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
-    margin-bottom: 12px;
-} 
+#myInput {
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#searchbtn {
+  font-size: 16px;
+  padding: 12px 20px 12px 24px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  background: #f3fafd;
+}
 
 button,
 input {
