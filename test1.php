@@ -74,7 +74,7 @@ if($check_code == $country_code)
 		// $_SESSION['name_of_hospital']  =	$name_of_hospital;
 		// $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
 		// $_SESSION['date_of_isolation']  = $date_of_isolation;
-		// $_SESSION['ventialted']  =	$ventialted;
+		// $_SESSION['ventilated']  =	$ventilated;
 		// $_SESSION['date_of_death']  =	$date_of_death;
     // $_SESSION['other_symptoms'] =	$other_symptoms;
 

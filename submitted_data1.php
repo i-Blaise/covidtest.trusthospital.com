@@ -299,7 +299,7 @@ if(isset($_POST["headache"]))
 	}
     $name_of_hospital = $_POST["name_of_hospital"];
     $hospital_visit_number = $_POST["hospital_visit_number"];
-    $ventialted = $_POST["ventialted"];
+    $ventilated = $_POST["ventilated"];
     $date_of_death = $_POST["date_of_death"];
     $date_of_admission = $_POST["date_of_admission"];
     $date_of_isolation = $_POST["date_of_isolation"];
@@ -350,7 +350,7 @@ if(isset($_POST["headache"]))
 		$_SESSION['name_of_hospital']  =	$name_of_hospital;
 		$_SESSION['hospital_visit_number']  =	$hospital_visit_number;
 		$_SESSION['date_of_isolation']  = $date_of_isolation;
-		$_SESSION['ventialted']  =	$ventialted;
+		$_SESSION['ventilated']  =	$ventilated;
 		$_SESSION['date_of_death']  =	$date_of_death;
     $_SESSION['other_symptoms'] =	$other_symptoms;
     $_SESSION['registration_number'] = mt_rand(1262055681,1262055681);
@@ -577,10 +577,10 @@ if(isset($_POST["headache"]))
   </tr>
   <tr>
     <th>Was person ventilated: </th>
-    <td><?php if($ventialted == 1)
+    <td><?php if($ventilated == 1)
     {
       echo "Yes";
-    }elseif($ventialted == 0)
+    }elseif($ventilated == 0)
     {
       echo "No";
     }else{

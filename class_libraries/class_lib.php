@@ -60,13 +60,33 @@ class dbData extends DB_con{
     return $result;
   }
 
-  public function countCatData($cat_id){
-    $this -> id = $cat_id;
-    $myQuery = "SELECT * FROM products WHERE cat_id = $this->id";
+  public function adminLogin($admin_email, $admin_pass){
+     $encrypted_pass = md5($admin_pass);
+    $myQuery = "SELECT * FROM user WHERE admin_email = '$admin_email' AND admin_pass = '$encrypted_pass'";
     $result=mysqli_query($this->dbh, $myQuery);
+   //  return $result;
     $num = mysqli_num_rows($result);
-    return $num;
+    if($num == 1)
+    {
+      return $result;
+    }elseif($num < 1)
+    {
+       return 'not found';
+    }else
+    {
+      return 'error';
+    }
+    
   }
+
+  public function checkLogin($admin_email, $admin_pass){
+   $encrypted_pass = md5($admin_pass);
+  $myQuery = "SELECT * FROM user WHERE admin_email = '$admin_email' AND admin_pass = '$encrypted_pass'";
+  $result=mysqli_query($this->dbh, $myQuery);
+  $num = mysqli_num_rows($result);
+   return $num;
+  
+}
 
   function callAPI($method, $url, $data){
     $curl = curl_init();
@@ -142,7 +162,7 @@ class dbData extends DB_con{
   
   try {
       $mail->send();
-      echo "sent";
+      echo "Loading...";
   } catch (Exception $e) {
       echo "Mailer Error: " . $mail->ErrorInfo;
   }
