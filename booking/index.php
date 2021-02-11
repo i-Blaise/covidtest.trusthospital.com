@@ -44,7 +44,7 @@
 				<div class="form-left">
 					<h2>Patient Information</h2>
 					<div class="form-row">
-						<input type="text" name="name" class="input-text" placeholder="Full Name" required>
+						<input type="text" name="name" class="input-text" placeholder="Full Name*" required>
 					</div>
 					<div class="form-row">
 						<input type="text" name="email" class="input-text" placeholder="Email Address*" required  pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
@@ -82,7 +82,27 @@
 								<input type="text" name="hospital_number" class="input-text" placeholder="Hospital Number">
 							</div>
 						</div>
+
+					<h5 style="font-weight: bold; color: #EC8D62; ">Patient symptoms(check all reported informations)</h5>
+
+					<div class="form-row">
+			<select name="ventilated" required>
+				<option value=""disabled selected>Available Packages*:</option>
+				<option value=""disabled><b>On-Premises</b></option>
+				<option value="1">48 hours - GHS 300</option>
+				<option value="1">12 hours - GHS 500</option>
+				<option value="1">2-4 hours - GHS 900</option>
+				<option value=""disabled><b>Home Service (Premium)</b></option>
+				<option value="1">12 hours - GHS 700 per test</option>
+				<option value="1">4 hours - GHS 1000 per test</option>
+			</select>
+			<span class="select-btn">
+				  <i class="zmdi zmdi-chevron-down"></i>
+			</span>
 				</div>
+				</div>
+
+
 				<div class="form-right">
 					<h2>Symptoms Information</h2>
 					<h5 style="font-weight: bold; ">Patient symptoms(check all reported informations)</h5>
