@@ -1,0 +1,201 @@
+/* Cards css */
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+.main-section {
+    display: flex;
+    height: 100vh;
+}
+.full-flex__right {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 65%;
+    align-items: center;
+}
+.full-flex__left {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    width: 35%;
+    background: #ff8c00;
+    padding: 40px;
+}
+.full-flex__inner.left {
+    display: flex;
+    flex-flow: column;
+    margin: 30px 30px 0;
+    background: #ff8c00;
+    border-radius: 30px;
+    padding: 50px 30px;
+    width: 80%;
+}
+.full-flex__inner {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-card {
+    display: flex;
+}
+.card-stack {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: column;
+    width: 240px;
+    height: 285px;
+    border-radius: 30px;
+    background: antiquewhite;
+    margin: 2rem;
+}
+.card-stack.one{
+	background: #fff5ea;
+}
+.card-stack.one img, .card-stack.two img, .card-stack.three img{
+	width: 50%;
+}
+.card-stack.one .card-btn {
+    background: #0e2265;
+    padding: 20px 40px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+.card-stack.two .card-btn {
+    background: #0e2265;
+    padding: 20px 40px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+ a.card-btn:hover {
+    background: #fff!important;
+    color: #0e2265!important;
+    font-weight: 500;
+    border: 2px solid #0e2265!important;
+}
+.card-stack.two{
+	background: #fff5ea;
+}
+.card-stack.three{
+	background: #fff5ea;
+}
+.card-stack.three .card-btn {
+    background: #0e2265;
+    padding: 20px 40px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+.font-weight-normal {
+    display: flex;
+    align-items: center;
+    margin: 1rem 2rem;
+    padding: 20px;
+    border-radius: 15px;
+    background: #fff;
+    font-size: 16px;
+    width: 265px;
+}
+span.badge.badge-dark.rounded.pl-2.pr-2.mr-2 {
+    background: #0e2265;
+    padding: 7px 14px;
+    border-radius: 10px;
+    color: #fff;
+    margin-right: 10px;
+}
+.logo-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+h1.title {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+.main-content {
+    padding: 0 20px;
+}
+.fab.fa-facebook-f {
+    color: #000;
+    padding: 15px 18px;
+    margin-right: 8px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+.fab.fa-facebook-f:hover, .fab.fa-twitter:hover {
+    background: #fff;
+}
+.fab.fa-twitter {
+    color: #000;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.footer-icons {
+    padding: 0 20px;
+}
+
+/* Mobile Css */
+
+@media only screen and (max-width: 767px) {
+    .main-section {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .full-flex__left {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        width: 83.5%;
+        background: #ff8c00;
+        padding: 40px;
+    }
+    .full-flex__right {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+    }
+    .full-flex__inner {
+        width: auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-flow: column;
+    }
+    .flex-card {
+        display: flex;
+        flex-flow: column;
+    }
+    .card-stack {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        width: 350px;
+        height: 350px;
+    }
+    .full-flex__inner.left {
+        display: flex;
+        flex-flow: column;
+        margin: 40px 15px 0;
+        background: #ff8c00;
+        border-radius: 30px;
+        padding: 35px 15px;
+        width: 70%;
+    }
+    .flex-h3 {
+        text-align: center;
+    }
+  }
