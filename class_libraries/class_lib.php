@@ -44,6 +44,14 @@ class dbData extends DB_con{
 // }
 
 
+public function getPatientInfoForQRCode($reg_num)
+{
+   $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
+   $result=mysqli_query($this->dbh, $myQuery);
+
+}
+
+
   public function adminLogin($admin_email, $admin_pass){
      $encrypted_pass = md5($admin_pass);
     $myQuery = "SELECT * FROM user WHERE admin_email = '$admin_email' AND admin_pass = '$encrypted_pass'";
@@ -66,7 +74,8 @@ class dbData extends DB_con{
   public function searchPatient($reg_num){
   $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
   $result=mysqli_query($this->dbh, $myQuery);
- //  return $result;
+//   return $reg_num;
+//   die();
   $num = mysqli_num_rows($result);
   if($num == 1)
   {
@@ -166,12 +175,11 @@ public function checkDataNum($reg_num){
   $mail->Subject = "Subject Text";
   $mail->Body = $msg;
   // $mail->AltBody = "This is the plain text version of the email content";
-  
-  try {
-      $mail->send();
-      echo "Loading...";
-  } catch (Exception $e) {
-      echo "Mailer Error: " . $mail->ErrorInfo;
-  }
+      if($mail->send())
+      {
+         return 'Loading...';
+      }else{
+         echo "Mailer Error: " . $mail->ErrorInfo;
+      }
  }
 }

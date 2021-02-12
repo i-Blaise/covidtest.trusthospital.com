@@ -81,9 +81,12 @@ $password = 'Keep@123$';
 $check_code = substr($phone_unfiltered,0,3);
 $check_first_char = substr($phone_unfiltered,0,1);
 $country_code = 233;
-if($check_code != $country_code)
+if($check_code == $country_code)
 {
     $phone = $phone_unfiltered;
+}elseif($check_first_num == 0){
+    $new_number = substr($phone_unfiltered, 1);
+    $phone = $country_code.$new_number;
 }else{
     $phone = $country_code.$phone_unfiltered;
 }

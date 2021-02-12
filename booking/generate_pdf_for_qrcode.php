@@ -2,7 +2,8 @@
 // namespace Dompdf;
 use Dompdf\Dompdf;
 require_once '../vendor/autoload.php';
-session_start();
+include('../class_libraries/class_lib.php');
+// $getData = new dbData();
 
 function turnTOBase64($path){
   $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -10,66 +11,70 @@ function turnTOBase64($path){
   $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
   return $base64;
 }
+if(isset($_GET['status']))
+{ 
+  $getData = new dbData();
+  $check = $_GET['status'];
+  $check_code = substr($check,0,3);
+  if($check_code == 'TTH')
+  {
+    $registration_number = $_GET['status'];
+    $data = $getData->searchPatient($registration_number);
+    $row = mysqli_fetch_array($data);
+    // print($row['full_name']);
+    // var_dump($row);
 
-if(isset($_GET['download']))
-{
-$url = 'https://covidtest.thetrusthospital.com/dev/booking/generate_pdf_for_qrcode.php?status='.$_SESSION['registration_number'];   
-$url_filter = htmlspecialchars($url); 
-$online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$url_filter.'&choe=UTF-8';
-$qrcode_img = 'img/qrcodes/code'.$_SESSION['registration_number'];
-if(file_put_contents($qrcode_img, file_get_contents($online_pdf_url)))
-{
-
-
-$fever_or_chills = ($_SESSION['fever_or_chills'] == 1) ?  "Yes" : "No";
-$generalWeakness = ($_SESSION['generalWeakness'] == 1) ?  "Yes" : "No";
-$cough = ($_SESSION['cough'] == 1) ?  "Yes" : "No";
-$soreThroat = ($_SESSION['soreThroat'] == 1) ?  "Yes" : "No";
-$runnyNose = ($_SESSION['runnyNose'] == 1) ?  "Yes" : "No";
-$shortness_of_breath = ($_SESSION['shortness_of_breath'] == 1) ?  "Yes" : "No";
-$diarrhoea = ($_SESSION['diarrhoea'] == 1) ?  "Yes" : "No";
-$nausea_or_vomiting = ($_SESSION['nausea_or_vomiting'] == 1) ?  "Yes" : "No";
-$headache = ($_SESSION['headache'] == 1) ?  "Yes" : "No";
-$irritability_or_confusion = ($_SESSION['irritability_or_confusion'] == 1) ?  "Yes" : "No";
-$loss_of_smell = ($_SESSION['loss_of_smell'] == 1) ?  "Yes" : "No";
-$loss_of_taste = ($_SESSION['loss_of_taste'] == 1) ?  "Yes" : "No";
+    // die();
+    
 
 
-$muscular_pain = ($_SESSION['muscular_pain'] == 1) ?  "Yes" : "No";
-$chest_pain = ($_SESSION['chest_pain'] == 1) ?  "Yes" : "No";
-$abdominal_pain = ($_SESSION['abdominal_pain'] == 1) ?  "Yes" : "No";
-$joint_pain = ($_SESSION['joint_pain'] == 1) ?  "Yes" : "No";
+
+$fever_or_chills = ($row['fever_or_chills'] == 1) ?  "Yes" : "No";
+$generalWeakness = ($row['general_weakness'] == 1) ?  "Yes" : "No";
+$cough = ($row['cough'] == 1) ?  "Yes" : "No";
+$soreThroat = ($row['sore_throat'] == 1) ?  "Yes" : "No";
+$runnyNose = ($row['runny_nose'] == 1) ?  "Yes" : "No";
+$shortness_of_breath = ($row['shortness_of_breath'] == 1) ?  "Yes" : "No";
+$diarrhoea = ($row['diarrhoea'] == 1) ?  "Yes" : "No";
+$nausea_or_vomiting = ($row['nausea_or_vomiting'] == 1) ?  "Yes" : "No";
+$headache = ($row['headache'] == 1) ?  "Yes" : "No";
+$irritability_or_confusion = ($row['irritability_or_confusion'] == 1) ?  "Yes" : "No";
+$loss_of_smell = ($row['loss_of_smell'] == 1) ?  "Yes" : "No";
+$loss_of_taste = ($row['loss_of_taste'] == 1) ?  "Yes" : "No";
 
 
-$seizure = ($_SESSION['seizure'] == 1) ?  "Yes" : "No";
-$pharnygeal_exudate = ($_SESSION['pharnygeal_exudate'] == 1) ?  "Yes" : "No";
-$abnormal_lung_xray = ($_SESSION['abnormal_lung_xray'] == 1) ?  "Yes" : "No";
-$conjuctival_injection = ($_SESSION['conjuctival_injection'] == 1) ?  "Yes" : "No";
-$dyspnea_or_tachpnea = ($_SESSION['dyspnea_or_tachpnea'] == 1) ?  "Yes" : "No";
-$abnormal_lung_ausculation = ($_SESSION['abnormal_lung_ausculation'] == 1) ?  "Yes" : "No";
+$muscular_pain = ($row['muscular_pain'] == 1) ?  "Yes" : "No";
+$chest_pain = ($row['chest_pain'] == 1) ?  "Yes" : "No";
+$abdominal_pain = ($row['abdominal_pain'] == 1) ?  "Yes" : "No";
+$joint_pain = ($row['joint_pain'] == 1) ?  "Yes" : "No";
 
 
-$date_of_onset_symptoms = $_SESSION['date_first_at_hospital'];
-$date_of_admission = $_SESSION['date_of_admission'];
-$date_first_at_hospital = $_SESSION['date_first_at_hospital'];
-$name_of_hospital = $_SESSION['name_of_hospital'];
-$hospital_visit_number = $_SESSION['hospital_visit_number'];
-$date_of_isolation = $_SESSION['date_of_isolation'];
-$date_of_death = $_SESSION['date_of_death'];
-$other_symptoms = $_SESSION['other_symptoms'];
-$asymptomatic = ($_SESSION['asymptomatic'] == 1) ?  "Yes" : "No";
-$admitted_to_hospital = ($_SESSION['admitted_to_hospital'] == 1) ?  "Yes" : "No";
-$ventilated = ($_SESSION['ventilated'] == 1) ?  "Yes" : "No";
+$seizure = ($row['seizure'] == 1) ?  "Yes" : "No";
+$pharnygeal_exudate = ($row['pharnygeal_exudate'] == 1) ?  "Yes" : "No";
+$abnormal_lung_xray = ($row['abnormal_lung_xray'] == 1) ?  "Yes" : "No";
+$conjuctival_injection = ($row['conjuctival_injection'] == 1) ?  "Yes" : "No";
+$dyspnea_or_tachpnea = ($row['dyspnea_or_tachpnea'] == 1) ?  "Yes" : "No";
+$abnormal_lung_ausculation = ($row['abnormal_lung_ausculation'] == 1) ?  "Yes" : "No";
 
 
-// Logo Base 64 for pdf
-$registration_number = $_SESSION['registration_number'];
-$qrcode_img_base64 = turnTOBase64($qrcode_img);
-$online_payment_base64 = turnTOBase64($qrcode_img);
-$path = 'img/trust-logo.png';
-$type = pathinfo($path, PATHINFO_EXTENSION);
-$data = file_get_contents($path);
-$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+$date_of_onset_symptoms = $row['date_first_at_hospital'];
+$date_of_admission = $row['date_of_admission'];
+$date_first_at_hospital = $row['date_first_at_hospital'];
+$name_of_hospital = $row['name_of_hospital'];
+$hospital_visit_number = $row['hospital_visit_number'];
+$date_of_isolation = $row['date_of_isolation'];
+$date_of_death = $row['date_of_death'];
+$other_symptoms = $row['other_underlying_conditions'];
+$asymptomatic = ($row['asymptomatic'] == 1) ?  "Yes" : "No";
+$admitted_to_hospital = ($row['admitted_to_hospital'] == 1) ?  "Yes" : "No";
+$ventilated = ($row['was_person_ventilated'] == 1) ?  "Yes" : "No";
+
+
+//  Base 64 images for pdf
+// $qrcode_img_base64 = turnTOBase64($qrcode_img);
+// $online_payment_base64 = turnTOBase64($qrcode_img);
+$logo_path = 'img/trust-logo.png';
+$logo = turnTOBase64($logo_path);
 
 
 
@@ -96,47 +101,47 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<img src="'.$base64.'" width="180" height="150" alt="hospitals logo"/>
+<img src="'.$logo_path.'" width="180" height="150" alt="hospitals logo"/>
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
 <h2>Patient Booking Form</h2>
 
-<h3>Registration Number: '.$_SESSION['registration_number'].'</h3>
+<h3>Registration Number: '.$row['registration_number'].'</h3>
 <table>
   <tr>
     <th>Full Name: </th>
-    <td>'. $_SESSION['name'].'</td>
+    <td>'. $row['full_name'].'</td>
   </tr>
   <tr>
     <th>Email Address: </th>
-    <td>'. $_SESSION['email'].'</td>
+    <td>'. $row['email'].'</td>
   </tr>
   <tr>
     <th>Phone Number: </th>
-    <td>'.$_SESSION["phone"].'</td>
+    <td>'.$row["phone_number"].'</td>
   </tr>
   <tr>
     <th>Gender: </th>
-    <td>'.$_SESSION["gender"].'</td>
+    <td>'.$row["sex"].'</td>
   </tr>
   <tr>
     <th>Passport ID: </th>
-    <td>'.$_SESSION["passport"].'</td>
+    <td>'.$row["passportID"].'</td>
   </tr>
   <tr>
     <th>Home Address: </th>
-    <td>'.$_SESSION["address"].'</td>
+    <td>'.$row["home_address"].'</td>
   </tr>
   <tr>
     <th>Date of Birth: </th>
-    <td>'.$_SESSION["DOB"].'</td>
+    <td>'.$row["date_of_birth"].'</td>
   </tr>
   <tr>
     <th>Receipt Number: </th>
-    <td>'.$_SESSION["receipt_number"].'</td>
+    <td>'.$row["receipt_number"].'</td>
   </tr>
   <tr>
     <th>Hospital Number: </th>
-    <td>'.$_SESSION["hospital_number"].'</td>
+    <td>'.$row["hospital_number"].'</td>
   </tr>
 </table>
 
@@ -291,38 +296,22 @@ tr:nth-child(even) {
     <td>'.$other_symptoms.'</td>
   </tr>
 </table>
-<br>
-<br>
-<br>
-<br>
-<table>
-<thead>
-<tr>
-<th>Scan to view your PDF online</th>
-<th>Scan to make payment online</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th><img src="'.$qrcode_img_base64.'" alt="hospitals logo"/></th>
-<th><img src="'.$online_payment_base64.'" alt="hospitals logo"/></th>
-</tr>
-</tbody>
-</table>
 
 </html>
 
 ');
 // $dompdf->def("DOMPDF_ENABLE_REMOTE", true);
+die();
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("BookingFormData",array("Attachment" => true));
+$dompdf->stream("BookingFormData",array("Attachment" => false));
+// def("DOMPDF_ENABLE_REMOTE", true);
 $options = new Options();
 $options->set('isRemoteEnabled',true);      
 $dompdf = new Dompdf( $options );
 exit(0);
 }else{
- echo 'qrcode not generated';
+ echo 'invalid data.';
 }
 }else{
     echo "wrong";
