@@ -138,6 +138,10 @@ tr:nth-child(even) {
     <th>Hospital Number: </th>
     <td>'.$_SESSION["hospital_number"].'</td>
   </tr>
+  <tr>
+  <th>Selected Package: </th>
+  <td>'.$_SESSION["packages"].'</td>
+</tr>
 </table>
 
 <h3>Symptoms Info</h3>

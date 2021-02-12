@@ -132,6 +132,28 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 	$receipt_number = $_POST["receipt_number"];
   $hospital_number = $_POST["hospital_number"];
 
+  $packages = $_POST["packages"];
+
+  switch ($packages) {
+    case 300:
+      $package_selected = "48 hours - GHS 300 (On-Premises)";
+      break;
+    case 500:
+      $package_selected = "12 hours - GHS 500 (On-Premises)";
+      break;
+    case 900:
+      $package_selected = "2-4 hours - GHS 900 (On-Premises)";
+      break;
+    case 700:
+      $package_selected = "12 hours - GHS 700 per test (Premium)";
+      break;
+    case 1000;
+      $package_selected = "4 hours - GHS 1000 per test (Premium)";
+      break;
+      default:
+      $package_selected = "Error - Unknown";
+  }
+
 	// Symptoms Information
 
 if(isset($_POST["fever_or_chills"]))
@@ -381,6 +403,10 @@ if(isset($_POST["headache"]))
     <th>Hospital Number: </th>
     <td><?php echo $hospital_number ?></td>
   </tr>
+  <tr>
+    <th>Selected Package: </th>
+    <td><?php echo $package_selected ?></td>
+  </tr>
 </table>
 
 
@@ -568,6 +594,7 @@ if(isset($_POST["headache"]))
   $_SESSION['receipt_number'] = $receipt_number;
   $_SESSION['hospital_number']  = $hospital_number;
   $_SESSION['gender'] = $gender;
+  $_SESSION['packages'] = $package_selected;
   $_SESSION['fever_or_chills']  = $fever_or_chills;
   $_SESSION['generalWeakness'] = $generalWeakness;
   $_SESSION['cough']  = $cough;

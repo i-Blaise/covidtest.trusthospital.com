@@ -101,7 +101,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<img src="'.$logo_path.'" width="180" height="150" alt="hospitals logo"/>
+<img src="'.$logo.'" width="180" height="150" alt="hospitals logo"/>
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
 <h2>Patient Booking Form</h2>
 
@@ -143,6 +143,10 @@ tr:nth-child(even) {
     <th>Hospital Number: </th>
     <td>'.$row["hospital_number"].'</td>
   </tr>
+  <tr>
+  <th>Selected Package: </th>
+  <td>'.$row["packages"].'</td>
+</tr>
 </table>
 
 <h3>Symptoms Info</h3>

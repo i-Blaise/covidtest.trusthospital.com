@@ -23,6 +23,7 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 		$dob = $_SESSION['DOB'];
 		$receipt_number = $_SESSION['receipt_number'];
 		$hospital_number = $_SESSION['hospital_number'];
+		$package_selected = $_SESSION["packages"];
 
 	}else{
 		// header("Location: https://covidtest.thetrusthospital.com/dev/index.php?status=errrror");
@@ -61,7 +62,7 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 	$abnormal_lung_ausculation = ($_SESSION['abnormal_lung_ausculation'] == 1) ?  1 : 0;
 	
 	
-	$date_of_onset_symptoms = $_SESSION['date_first_at_hospital'];
+	$date_of_onset_symptoms = $_SESSION['date_of_onset_symptoms'];
 	$date_of_admission = $_SESSION['date_of_admission'];
 	$date_first_at_hospital = $_SESSION['date_first_at_hospital'];
 	$name_of_hospital = $_SESSION['name_of_hospital'];
@@ -79,7 +80,7 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 $client = 'TTH101010';
 $password = 'Keep@123$';
 $check_code = substr($phone_unfiltered,0,3);
-$check_first_char = substr($phone_unfiltered,0,1);
+$check_first_num = substr($phone_unfiltered,0,1);
 $country_code = 233;
 if($check_code == $country_code)
 {
@@ -87,8 +88,10 @@ if($check_code == $country_code)
 }elseif($check_first_num == 0){
     $new_number = substr($phone_unfiltered, 1);
     $phone = $country_code.$new_number;
+}elseif($check_first_num == '+'){
+    $phone = substr($phone_unfiltered, 1);
 }else{
-    $phone = $country_code.$phone_unfiltered;
+	$phone = $phone_unfiltered;
 }
 $text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'
 The Trust Hospital';
@@ -111,7 +114,7 @@ if(isset($email_data) && $email_data == 'Loading...')
 	$email_status = 0;
 }
 print($email_data);
-die();
+// die();
 
 
 if(isset($fullName, $email, $phone, $gender, $address, $dob)){
@@ -127,6 +130,7 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		 receipt_number, 
 		 hospital_number, 
 		 sex, 
+		 packages,
 		 fever_or_chills, 
 		 general_weakness, 
 		 cough, 
@@ -173,6 +177,7 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		'$receipt_number', 
 		'$hospital_number', 
 		'$gender', 
+		'$package_selected',
 		'$fever_or_chills', 
 		'$generalWeakness', 
 		'$cough', 
@@ -212,7 +217,6 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		'$email_status')";
     $result=mysqli_query($database_con->dbh, $myQuery);
     if($result){
-		// echo "worked";
 		session_destroy();
 		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
 die();

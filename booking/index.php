@@ -71,8 +71,8 @@
 						<input type="text" name="address" class="input-text" required placeholder="Home Address*">
 					</div>
 					<div class="form-row">
-						<label style="color: black;">Date Of Birth*:</label>
-						<input type="date" name="DOB" class="input-text" required placeholder="Date Of Birth">
+						<label class="date-label" style="color: black;">Date Of Birth*:</label>
+						<input type="date" name="DOB" class="input-text" required placeholder="YYYY-MM-DD">
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
@@ -86,15 +86,15 @@
 					<h5 style="font-weight: bold; color: #EC8D62; ">Patient symptoms(check all reported informations)</h5>
 
 					<div class="form-row">
-			<select name="ventilated" required>
+			<select name="packages" required>
 				<option value=""disabled selected>Available Packages*:</option>
-				<option value=""disabled><b>On-Premises</b></option>
-				<option value="1">48 hours - GHS 300</option>
-				<option value="1">12 hours - GHS 500</option>
-				<option value="1">2-4 hours - GHS 900</option>
-				<option value=""disabled><b>Home Service (Premium)</b></option>
-				<option value="1">12 hours - GHS 700 per test</option>
-				<option value="1">4 hours - GHS 1000 per test</option>
+				<option value=""disabled style="font-weight: bold;"><b>On-Premises</b></option>
+				<option value="300">48 hours - GHS 300</option>
+				<option value="500">12 hours - GHS 500</option>
+				<option value="900">2-4 hours - GHS 900</option>
+				<option value=""disabled style="font-weight: bold;"><b>Home Service (Premium)</b></option>
+				<option value="700">12 hours - GHS 700 per test</option>
+				<option value="1000">4 hours - GHS 1000 per test</option>
 			</select>
 			<span class="select-btn">
 				  <i class="zmdi zmdi-chevron-down"></i>
@@ -268,8 +268,8 @@
 	<h2>Patient Clinical Course</h2>	
 	
 	<div class="form-row">
-	<label style="color: white;">Date of onset of symptoms*:</label>
-		<input type="date" name="date_of_onset_symptoms" class="input-text" required>
+	<label class="date-label" style="color: white;">Date of onset of symptoms*:</label>
+		<input type="date" name="date_of_onset_symptoms" class="input-text" placeholder="YYYY-MM-DD" required>
 	</div>
 			<div class="form-group">
 			<div class="form-row form-row-1">
@@ -286,8 +286,8 @@
 	</div>
 
 	<div class="form-row">
-		<label style="color: white;">Date first seen at hospital:</label>
-			<input type="date" name="date_first_at_hospital" class="input-text">
+		<label class="date-label" style="color: white;">Date first seen at hospital:</label>
+			<input type="date" name="date_first_at_hospital" class="input-text" placeholder="YYYY-MM-DD">
 	</div>
 
 	<div class="form-row">
@@ -310,12 +310,12 @@
 		</div>		
 		
 		<div class="form-row">
-			<label style="color: white;">Date of admission:</label>
-					<input type="date" name="date_of_admission" class="input-text">
+			<label class="date-label" style="color: white;">Date of admission:</label>
+					<input type="date" name="date_of_admission" class="input-text" placeholder="YYYY-MM-DD">
 		</div>
 		<div class="form-row">
-			<label style="color: white;">Date of isolation:</label>
-					<input type="date" name="date_of_isolation" class="input-text">
+			<label class="date-label" style="color: white;">Date of isolation:</label>
+					<input type="date" name="date_of_isolation" class="input-text" placeholder="YYYY-MM-DD">
 		</div>
 
 		<div class="form-row">
@@ -331,8 +331,8 @@
 		</div>
 
 		<div class="form-row">
-			<label style="color: white;">Date of death, if applicable:</label>
-					<input type="date" name="date_of_death" class="input-text">
+			<label class="date-label" style="color: white;">Date of death, if applicable:</label>
+					<input type="date" name="date_of_death" class="input-text" placeholder="YYYY-MM-DD">
 		</div>
 		<div class="form-row">
 			<input type="text" name="other_symptoms" placeholder="Other underlying conditions" class="input-text">
