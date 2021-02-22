@@ -67,12 +67,32 @@
 					<div class="form-row">
 						<input type="text" name="passport" class="input-text" placeholder="Passport ID (For Travellers)">
 					</div>
+					
+					<div class="form-row">
+					<select name="district" required>
+						<option value="" disabled selected>District*</option>
+						<option value="ada foah">Ada Foah</option>
+						<option value="sege">Sege</option>
+						<option value="prampram">Prampram</option>
+						<option value="dpdowa">Dodowa</option>
+					</select>
+					<span class="select-btn">
+			  		<i class="zmdi zmdi-chevron-down"></i>
+					</span>
+					</div>
+
 					<div class="form-row">
 						<input type="text" name="address" class="input-text" required placeholder="Home Address*">
 					</div>
 					<div class="form-row">
+						<input type="text" name="landmark" class="input-text" placeholder="Landmark">
+					</div>
+					<div class="form-row">
 						<label class="date-label" style="color: black;">Date Of Birth*:</label>
 						<input type="date" name="DOB" class="input-text" required placeholder="YYYY-MM-DD">
+					</div>
+					<div class="form-row">
+						<input type="text" name="age" class="input-text" placeholder="Age" value="24" readonly>
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
@@ -83,7 +103,7 @@
 							</div>
 						</div>
 
-					<h5 style="font-weight: bold; color: #EC8D62; ">Patient symptoms(check all reported informations)</h5>
+					<h5 style="font-weight: bold; color: #EC8D62; ">Please select a package</h5>
 
 					<div class="form-row">
 			<select name="packages" required>
@@ -268,8 +288,8 @@
 	<h2>Patient Clinical Course</h2>	
 	
 	<div class="form-row">
-	<label class="date-label" style="color: white;">Date of onset of symptoms*:</label>
-		<input type="date" name="date_of_onset_symptoms" class="input-text" placeholder="YYYY-MM-DD" required>
+	<label class="date-label" style="color: white;">Date of onset of symptoms:</label>
+		<input type="date" name="date_of_onset_symptoms" class="input-text" placeholder="YYYY-MM-DD">
 	</div>
 			<div class="form-group">
 			<div class="form-row form-row-1">

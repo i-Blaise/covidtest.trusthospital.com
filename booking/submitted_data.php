@@ -4,6 +4,11 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<title>Covid Test Portal - The Trust Hospital</title>
+	<link rel="icon" type="image/png" href="img/trust-logo.png">
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <style>
 table {
   font-family: arial, sans-serif;
@@ -23,10 +28,37 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-h2, h3{
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+/*h2, h3{*/
+/*  text-align: center;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*}*/
+
+h1 {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: .5rem!important;
+    font-weight: 700;
+    color: darkgray;
+}
+
+h2 {
+    font-family: Montserrat, sans-serif;
+    text-align: left!important;
+    margin: 2rem 0 .5rem !important;
+    width: 80%;
+    font-size: 27px;
+    font-weight: 500;
+}
+h3 {
+    font-family: Montserrat, sans-serif;
+    text-align: left!important;
+    margin: 1.5rem 0!important;
+    width: 80%;
+    font-size: 16px;
+    color: darkorange;
+}
+.h3-one {
+    margin: 0 0 1.5rem!important;
 }
 
 
@@ -48,19 +80,22 @@ h2, h3{
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
-  margin: 0 auto;
-  display: grid;
-  place-items: center;
-  padding: calc(var(--space) * 2);
-  max-width: 700px;
+img.logo {
+    width: 200px;
 }
-
+body {
+    height: 100%;
+    width: 100vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    padding: calc(var(--space) * 2);
+    max-width: 80vw;
+}
 .multi-button {
   display: flex;
-  width: 100%;
-  box-shadow: var(--shadow) 4px 4px;
+  width: 80%;
 }
 
 .multi-button button {
@@ -110,6 +145,36 @@ body {
 .multi-button button:active {
   transform: translateY(var(--border-size));
 }
+.multi-button button a {
+    text-decoration: none;
+    color: darkgray;
+}
+
+/*Mobile Style*/
+
+@media only screen and (max-width: 767px) {
+   body {
+    max-width: 100vw;
+}
+.multi-button {
+    display: flex;
+    width: 100%;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+h2 {
+    width: 100%;
+}
+h3 {
+    width: 100%;
+}
+}
+
 </style>
 </head>
 
@@ -127,8 +192,11 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 	$phone = $_POST["phone"];
 	$gender = $_POST["gender"];
 	$passport = $_POST["passport"];
+  $district = $_POST["district"];
   $address = $_POST["address"];
+  $landmark = $_POST["landmark"];
   $date_of_birth = $_POST["DOB"];
+  $age = $_POST["age"];
 	$receipt_number = $_POST["receipt_number"];
   $hospital_number = $_POST["hospital_number"];
 
@@ -156,178 +224,48 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 
 	// Symptoms Information
 
-if(isset($_POST["fever_or_chills"]))
-{
-	$fever_or_chills = $_POST["fever_or_chills"];
 
-}else
-{
-	$fever_or_chills = 0;
-}
-if(isset($_POST["generalWeakness"]))
-{
-	$generalWeakness = $_POST["generalWeakness"];
-}else
-{
-	$generalWeakness = 0;
-}
-if(isset($_POST["cough"]))
-{
-	$cough = $_POST["cough"];
-}else
-{
-	$cough = 0;
-}
-if(isset($_POST["soreThroat"]))
-{
-	$soreThroat = $_POST["soreThroat"];
-}else
-{
-	$soreThroat = 0;
-}
-if(isset($_POST["runnyNose"]))
-{
-	$runnyNose = $_POST["runnyNose"];
-}else
-{
-	$runnyNose = 0;
-}
-if(isset($_POST["loss_of_smell"]))
-{
-	$loss_of_smell = $_POST["loss_of_smell"];
-}else
-{
-	$loss_of_smell = 0;
-}
-if(isset($_POST["shortness_of_breath"]))
-{
-	$shortness_of_breath = $_POST["shortness_of_breath"];
-}else
-{
-	$shortness_of_breath = 0;
-}
-if(isset($_POST["diarrhoea"]))
-{
-	$diarrhoea = $_POST["diarrhoea"];
-}else
-{
-	$diarrhoea = 0;
-}
-if(isset($_POST["nausea_or_vomiting"]))
-{
-	$nausea_or_vomiting = $_POST["nausea_or_vomiting"];
-}else
-{
-	$nausea_or_vomiting = 0;
-}
-if(isset($_POST["irritability_or_confusion"]))
-{
-	$irritability_or_confusion = $_POST["irritability_or_confusion"];
-}else
-{
-	$irritability_or_confusion = 0;
-}
-if(isset($_POST["loss_of_taste"]))
-{
-	$loss_of_taste = $_POST["loss_of_taste"];
-}else
-{
-	$loss_of_taste = 0;
-}
-if(isset($_POST["muscular_pain"]))
-{
-	$muscular_pain = $_POST["muscular_pain"];
-}else
-{
-	$muscular_pain = 0;
-}
-if(isset($_POST["abdominal_pain"]))
-{
-	$abdominal_pain = $_POST["abdominal_pain"];
-}else
-{
-	$abdominal_pain = 0;
-}
-if(isset($_POST["chest_pain"]))
-{
-	$chest_pain = $_POST["chest_pain"];
-}else
-{
-	$chest_pain = 0;
-}
-if(isset($_POST["joint_pain"]))
-{
-	$joint_pain = $_POST["joint_pain"];
-}else
-{
-	$joint_pain = 0;
-}
-if(isset($_POST["headache"]))
-{
-	$headache = $_POST["headache"];
-}else
-{
-	$headache = 0;
-}
+$fever_or_chills = (!empty($_POST["fever_or_chills"])) ?  $_POST["fever_or_chills"] : 0;
+$generalWeakness = (!empty($_POST["generalWeakness"])) ?  $_POST["generalWeakness"] : 0;
+$cough = (!empty($_POST["cough"])) ?  $_POST["cough"] : 0;
+$soreThroat = (!empty($_POST["soreThroat"])) ?  $_POST["soreThroat"] : 0;
+$runnyNose = (!empty($_POST["runnyNose"])) ?  $_POST["runnyNose"] : 0;
+$loss_of_smell = (!empty($_POST["loss_of_smell"])) ?  $_POST["loss_of_smell"] : 0;
+$shortness_of_breath = (!empty($_POST["shortness_of_breath"])) ?  $_POST["shortness_of_breath"] : 0;
+$diarrhoea = (!empty($_POST["diarrhoea"])) ?  $_POST["diarrhoea"] : 0;
+$nausea_or_vomiting = (!empty($_POST["nausea_or_vomiting"])) ?  $_POST["nausea_or_vomiting"] : 0;
+$irritability_or_confusion = (!empty($_POST["irritability_or_confusion"])) ?  $_POST["irritability_or_confusion"] : 0;
+$loss_of_taste = (!empty($_POST["loss_of_taste"])) ?  $_POST["loss_of_taste"] : 0;
+$headache = (!empty($_POST["headache"])) ?  $_POST["headache"] : 0;
+
+
+$muscular_pain = (!empty($_POST["muscular_pain"])) ?  $_POST["muscular_pain"] : 0;
+$abdominal_pain = (!empty($_POST["abdominal_pain"])) ?  $_POST["abdominal_pain"] : 0;
+$chest_pain = (!empty($_POST["chest_pain"])) ?  $_POST["chest_pain"] : 0;
+$joint_pain = (!empty($_POST["joint_pain"])) ?  $_POST["joint_pain"] : 0;
 
 
 	// Patient Vital Signs
-	if(isset($_POST["seizure"]))
-	{
-		$seizure = $_POST["seizure"];
-	}else{
-		$seizure = 0;
-	}
-	if(isset($_POST["pharnygeal_exudate"]))
-	{
-		$pharnygeal_exudate = $_POST["pharnygeal_exudate"];
-	}else{
-		$pharnygeal_exudate = 0;
-	}
-	if(isset($_POST["abnormal_lung_xray"]))
-	{
-		$abnormal_lung_xray = $_POST["abnormal_lung_xray"];
-	}else{
-		$abnormal_lung_xray = 0;
-	}
-	if(isset($_POST["conjuctival_injection"]))
-	{
-		$conjuctival_injection = $_POST["conjuctival_injection"];
-	}else{
-		$conjuctival_injection = 0;
-	}
-	if(isset($_POST["dyspnea_or_tachpnea"]))
-	{
-		$dyspnea_or_tachpnea = $_POST["dyspnea_or_tachpnea"];
-	}else{
-		$dyspnea_or_tachpnea = 0;
-	}
-	if(isset($_POST["abnormal_lung_ausculation"]))
-	{
-		$abnormal_lung_ausculation = $_POST["abnormal_lung_ausculation"];
-	}else{
-		$abnormal_lung_ausculation = 0;
-	}
-
+$seizure = (!empty($_POST["seizure"])) ?  $_POST["seizure"] : 0;
+$pharnygeal_exudate = (!empty($_POST["pharnygeal_exudate"])) ?  $_POST["pharnygeal_exudate"] : 0;
+$abnormal_lung_xray = (!empty($_POST["abnormal_lung_xray"])) ?  $_POST["abnormal_lung_xray"] : 0;
+$conjuctival_injection = (!empty($_POST["conjuctival_injection"])) ?  $_POST["conjuctival_injection"] : 0;
+$dyspnea_or_tachpnea = (!empty($_POST["dyspnea_or_tachpnea"])) ?  $_POST["dyspnea_or_tachpnea"] : 0;
+$abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_POST["abnormal_lung_ausculation"] : 0;
 
 
     // Patient Clinical Course
 	$date_of_onset_symptoms = $_POST["date_of_onset_symptoms"];
   $date_first_at_hospital = $_POST["date_first_at_hospital"];
-  if(isset($_POST["asymptomatic"]))
-	{
-		$asymptomatic = $_POST["asymptomatic"];
-	}else{
-		$asymptomatic = 0;
-	}
-    $name_of_hospital = $_POST["name_of_hospital"];
-    $hospital_visit_number = $_POST["hospital_visit_number"];
-    $ventilated = $_POST["ventilated"];
-    $date_of_death = $_POST["date_of_death"];
-    $date_of_admission = $_POST["date_of_admission"];
-    $date_of_isolation = $_POST["date_of_isolation"];
-    $admitted_to_hospital = $_POST["admitted_to_hospital"];
-    $other_symptoms = $_POST["other_symptoms"];
+  $asymptomatic = (!empty($_POST["asymptomatic"])) ?  $_POST["asymptomatic"] : 0;
+  $name_of_hospital = $_POST["name_of_hospital"];
+  $hospital_visit_number = $_POST["hospital_visit_number"];
+  $ventilated = $_POST["ventilated"];
+  $date_of_death = $_POST["date_of_death"];
+  $date_of_admission = $_POST["date_of_admission"];
+  $date_of_isolation = $_POST["date_of_isolation"];
+  $admitted_to_hospital = $_POST["admitted_to_hospital"];
+  $other_symptoms = $_POST["other_symptoms"];
 }
 
 
@@ -336,36 +274,29 @@ if(isset($_POST["headache"]))
 <img class="logo" src="../assets/img/icons/Trust-hspital-logo.png">
 
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
-<h2 style="margin-bottom: -10px;">Patient Booking Form</h2>
-<h3>Please review the data you provided</h3>
+<h2 style="margin-bottom: -10px;">PATIENT BOOKING FORM</h2>
+<h3 class="h3-one">Please review the data you provided</h3>
 
-<!--<div class="multi-button">-->
-<!--  <button><a href="javascript:history.go(-1)">Go back</a></button>-->
-<!--   <button><a href="http://localhost/covid.trusthospital/generate_pdf.php?download=true">Download as PDF</a></button>-->
-<!--  <button>  <a href="http://localhost/covid.trusthospital/proceed_to_save.php?status=save">Proceed</a></button>-->
-<!--  </a>-->
-<!--</div>-->
 
- <div class="multi-button">
+<div class="multi-button">
+ <button><a href="javascript:history.go(-1)">Go back</a></button>
+  <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
+  <button><a href="http://localhost/covid.trusthospital/payment_api">Sumbmit and pay online</a></button>
+ <button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>
+ </a>
+</div>
+
+ <!-- <div class="multi-button">
   <button><a href="javascript:history.go(-1)">Go back</a></button>
-   <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Proceed</a></button>
+   <button><a href="https://covidtest.thetrusthospital.com/dev/booking/generate_pdf.php?download=true">Download as PDF</a></button>
+  <button><a href="https://covidtest.thetrusthospital.com/dev/payment_api">Sumbmit and pay online</a></button>
+  <button>  <a href="https://covidtest.thetrusthospital.com/dev/booking/proceed.php?status=save">Proceed</a></button>
   </a>
-</div>
+</div> -->
 
 </div>
 <br>
 <br>
-<!-- <form action="process_data.php">
-    <div class="form-row-last">
-        <input type="submit" name="proceed" class="register" value="Submit">
-    </div>
-</form>
-<form action="http://localhost/covid.trusthospital/generate_pdf.php" method="post">
-    <div class="form-row-last">
-        <input type="submit" name="download" value="Download PDF">
-    </div>
-</form> -->
 <table>
   <tr>
     <th>Full Name: </th>
@@ -388,12 +319,24 @@ if(isset($_POST["headache"]))
     <td><?php echo $passport ?></td>
   </tr>
   <tr>
+    <th>District: </th>
+    <td><?php echo $district ?></td>
+  </tr>
+  <tr>
     <th>Home Address: </th>
     <td><?php echo $address ?></td>
   </tr>
   <tr>
+    <th>Landmark: </th>
+    <td><?php echo $landmark ?></td>
+  </tr>
+  <tr>
     <th>Date of Birth: </th>
     <td><?php echo $date_of_birth ?></td>
+  </tr>
+  <tr>
+    <th>Age: </th>
+    <td><?php echo $age.' years' ?></td>
   </tr>
   <tr>
     <th>Receipt Number: </th>
@@ -589,8 +532,11 @@ if(isset($_POST["headache"]))
   $_SESSION['phone'] = $phone;                                                  
   $_SESSION['email'] = $email;
   $_SESSION['passport'] = $passport;
+  $_SESSION['district']  = $district;
   $_SESSION['address']  = $address;
+  $_SESSION['landmark']  = $landmark;
   $_SESSION['DOB']  = $date_of_birth;
+  $_SESSION['age']  = $age;
   $_SESSION['receipt_number'] = $receipt_number;
   $_SESSION['hospital_number']  = $hospital_number;
   $_SESSION['gender'] = $gender;

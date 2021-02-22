@@ -104,7 +104,7 @@ public function checkDataNum($reg_num){
   
 }
 
-  function callAPI($method, $url, $data){
+  function callSmsAPI($method, $url, $data){
     $curl = curl_init();
     switch ($method){
        case "POST":

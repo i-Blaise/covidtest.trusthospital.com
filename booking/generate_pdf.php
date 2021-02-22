@@ -1,6 +1,5 @@
 <?php
-// namespace Dompdf;
-use Dompdf\Dompdf;
+namespace Dompdf;
 require_once '../vendor/autoload.php';
 session_start();
 
@@ -15,7 +14,7 @@ if(isset($_GET['download']))
 {
 $url = 'https://covidtest.thetrusthospital.com/dev/booking/generate_pdf_for_qrcode.php?status='.$_SESSION['registration_number'];   
 $url_filter = htmlspecialchars($url); 
-$online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$url_filter.'&choe=UTF-8';
+$online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$url.'&choe=UTF-8';
 $qrcode_img = 'img/qrcodes/code'.$_SESSION['registration_number'];
 if(file_put_contents($qrcode_img, file_get_contents($online_pdf_url)))
 {
@@ -123,13 +122,25 @@ tr:nth-child(even) {
     <td>'.$_SESSION["passport"].'</td>
   </tr>
   <tr>
+  <th>District: </th>
+  <td>'.$_SESSION["district"].'</td>
+</tr>
+  <tr>
     <th>Home Address: </th>
     <td>'.$_SESSION["address"].'</td>
   </tr>
   <tr>
+  <th>Landmark: </th>
+  <td>'.$_SESSION["landmark"].'</td>
+</tr>
+  <tr>
     <th>Date of Birth: </th>
     <td>'.$_SESSION["DOB"].'</td>
   </tr>
+  <tr>
+  <th>Age: </th>
+  <td>'.$_SESSION["age"].'</td>
+</tr>
   <tr>
     <th>Receipt Number: </th>
     <td>'.$_SESSION["receipt_number"].'</td>
@@ -138,10 +149,6 @@ tr:nth-child(even) {
     <th>Hospital Number: </th>
     <td>'.$_SESSION["hospital_number"].'</td>
   </tr>
-  <tr>
-  <th>Selected Package: </th>
-  <td>'.$_SESSION["packages"].'</td>
-</tr>
 </table>
 
 <h3>Symptoms Info</h3>
@@ -321,6 +328,7 @@ tr:nth-child(even) {
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream("BookingFormData",array("Attachment" => true));
+// def("DOMPDF_ENABLE_REMOTE", true);
 $options = new Options();
 $options->set('isRemoteEnabled',true);      
 $dompdf = new Dompdf( $options );

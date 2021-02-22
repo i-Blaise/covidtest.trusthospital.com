@@ -128,13 +128,25 @@ tr:nth-child(even) {
     <td>'.$row["passportID"].'</td>
   </tr>
   <tr>
+  <th>District: </th>
+  <td>'.$row["district"].'</td>
+</tr>
+  <tr>
     <th>Home Address: </th>
     <td>'.$row["home_address"].'</td>
   </tr>
   <tr>
+  <th>Landmark: </th>
+  <td>'.$row["landmark"].'</td>
+</tr>
+  <tr>
     <th>Date of Birth: </th>
     <td>'.$row["date_of_birth"].'</td>
   </tr>
+  <tr>
+  <th>Age: </th>
+  <td>'.$row["age"].'</td>
+</tr>
   <tr>
     <th>Receipt Number: </th>
     <td>'.$row["receipt_number"].'</td>

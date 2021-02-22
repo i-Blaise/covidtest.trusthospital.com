@@ -1,14 +1,13 @@
-
 <?php
-
-
-if(isset($_GET['status']) && $_GET['status'] == "save")
-{
 	include('../class_libraries/class_lib.php');
 	$database_con = new DB_con();
 	$getData = new dbData();
 	// For php mailer
 	require_once '../vendor/autoload.php';
+
+
+if(isset($_GET['status']) && $_GET['status'] == "save")
+{
 
 	
 	if(isset($_SESSION['registration_number'], $_SESSION['name'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['gender'], $_SESSION['address']))
@@ -19,16 +18,18 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 		$phone_unfiltered = $_SESSION['phone'];
 		$gender = $_SESSION['gender'];
 		$passport = $_SESSION['passport'];
+		$district = $_SESSION['district'];
 		$address = $_SESSION['address'];
+		$landmark = $_SESSION['landmark'];
 		$dob = $_SESSION['DOB'];
+		$age = $_SESSION['age'];
 		$receipt_number = $_SESSION['receipt_number'];
 		$hospital_number = $_SESSION['hospital_number'];
 		$package_selected = $_SESSION["packages"];
 
 	}else{
-		// header("Location: https://covidtest.thetrusthospital.com/dev/index.php?status=errrror");
 		session_destroy();
-		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=errrror'</script>";
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=session_errrror'</script>";
 		die();
 	}
 
@@ -96,7 +97,7 @@ if($check_code == $country_code)
 $text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'
 The Trust Hospital';
 $msg = urlencode($text);
-$get_data = $getData->callAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
+$get_data = $getData->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
 $response = new SimpleXMLElement($get_data);
 // print_r($response);
 $sms_status = $response->sms[0]->status;
@@ -124,9 +125,12 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		 full_name, 
 		 phone_number,
 		 email, 
-		 passportID, 
+		 passportID,
+		 district,
 		 home_address, 
+		 landmark,
 		 date_of_birth,
+		 age,
 		 receipt_number, 
 		 hospital_number, 
 		 sex, 
@@ -172,8 +176,11 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
 		'$phone',
 		'$email',
 		'$passport',
-		'$address', 
+		'$district',
+		'$address',
+		'$landmark',
 		'$dob',
+		'$age',
 		'$receipt_number', 
 		'$hospital_number', 
 		'$gender', 
@@ -218,13 +225,16 @@ if(isset($fullName, $email, $phone, $gender, $address, $dob)){
     $result=mysqli_query($database_con->dbh, $myQuery);
     if($result){
 		session_destroy();
-		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
+		// echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
+		echo "<script>location='http://localhost/covid.trusthospital/index.php?status=save'</script>";
 die();
     }else{
 		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=error'</script>";
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
 		echo "Error" .mysqli_error($database_con->dbh);
 	}
 }else{
 	echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=notset'</script>";
+	echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
 }
 }
