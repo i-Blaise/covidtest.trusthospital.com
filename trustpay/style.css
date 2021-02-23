@@ -83,6 +83,7 @@ body{
 }
 .label-title {
     padding: 10px 0;
+    font-weight: 500;
 }
 #paymentBtn {
     font-family: 'Montserrat', sans-serif;
