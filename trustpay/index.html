@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous">
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <form class="signup-form ">
+
+        <!-- form header -->
+        <div class="header-wrapper">
+          <div class="logo-wrapper">
+            <a class="logo" href="#"><img src="/trustpay/images/trust-logo.png" alt="Logo" width="80"></a>
+          </div>
+          <div class="form-header">
+            <h3>TRUST HOSPITAL - COVID TEST PAYMENT DETAILS</h3>
+          </div>
+        </div>
+    
+        <!-- form body -->
+        <div class="form-body ld ld-ring ld-spin" >
+    
+    
+          <div class="horizontal-group">
+            <div class="form-group left">
+              <label for="name" class="label-title">Name *</label>
+              <input type="text" id="name" class="form-input" placeholder="enter your name" value=""
+                required="required" />
+            </div>
+            <div class="form-group right">
+              <label for="phone" class="label-title">Phone Number</label>
+              <input type="tel" id="phone" minlength="10" maxlength="13" class="form-input" value=""
+                placeholder="+233548343909" />
+            </div>
+          </div>
+    
+          <!-- Email -->
+          <div class="horizontal-group">
+            <div class="form-group">
+                <label for="email" class="label-title">Email*</label>
+                <input type="email" id="email" class="form-input" placeholder="enter your email"
+                  value="" required="required">
+            </div>
+          </div>
+    
+          <div class="horizontal-group">
+            <div class="form-group left">
+              <label for="language" class="label-title">Language *</label>
+              <input type="text" id="language" class="form-input" placeholder="enter your language" value=""
+                required="required">
+            </div>
+            <div class="form-group right">
+              <label for="currency" class="label-title">Currency *</label>
+              <input type="text" class="form-input" id="currency" placeholder="enter your currency" value=""
+                required="required">
+            </div>
+          </div>
+    
+          <div class="horizontal-group">
+            <div class="form-group left">
+              <label for="otherInfo" class="label-title">Other Info</label>
+              <input type="text" id="otherInfo" class="form-input" value="" placeholder="enter other info">
+            </div>
+            <div class="form-group right">
+              <label for="currency" class="label-title">Amount *</label>
+              <input type="number" id="amount" min="1" value="" placeholder="enter your amount" class="form-input" required="required">
+            </div>
+          </div>
+    
+          <div class="horizontal-group">
+            <div class="form-group">
+                <label for="choose-file" class="label-title">Description</label>
+                <textarea class="form-input" id="description" rows="3" cols="30"
+                  style="height:auto; resize: none;"></textarea>
+            </div>
+            <div class="form-footer">
+                <button class="buttonload" onclick="checkout()" class="btn" id="paymentBtn"><i class="loading"></i> Make Payment</button>
+              </div>
+          </div>
+    
+        </div>
+    
+      </form>
+      <script>
+          function checkout() {
+            $('#paymentBtn').prop('disabled',true)
+            $('.loading').toggleClass('fa fa-spinner fa-spin')
+            if($("#currency").val().toLowerCase() == "ghs"){
+                $.post("index.php",
+                  {
+                    request: "createPayLink",
+                    language: $('#language').val(),
+                    currency: $("#currency").val(),
+                    amount: $("#amount").val(),
+                    descr: $("#description").val(),
+                    phone: $("#phone").val(),
+                    email: $("#email").val(),
+                    callbackUrl: $("#callbackurl").val(),
+                    redirectUrl: $("#redirecturl").val(),
+                    otherInfo: $("#otherInfo").val(),
+                    name: $("#name").val()
+                  })
+                  .done(function (data) {
+                      result = JSON.parse(data);
+                      if (result.result_code === '00') {
+                        webURL = result.webURL;
+                        window.location = webURL;
+                      } else {
+                        alert("Error submit returned : " + data);
+                        $('#paymentBtn').prop('disabled',false);
+                        $('.loading').toggleClass('fa fa-spinner fa-spin')
+                      }
+                  }).fail(function() {
+                      alert( "An Error Occured." );
+                      $('#paymentBtn').prop('disabled',false)
+                      $('.loading').toggleClass('fa fa-spinner fa-spin')
+                  });
+            }else {
+                alert("Error: Invalid Currency. Please convert to GHS.")
+                $('#paymentBtn').prop('disabled',false)
+                $('.loading').toggleClass('fa fa-spinner fa-spin')
+            }
+          }  
+      </script>      
+</body>
+</html>

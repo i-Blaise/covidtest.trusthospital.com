@@ -1,0 +1,100 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    min-height: 100%;
+    background: url(/trustpay/images/covid-bg.jpg);
+    background-size: cover;
+}
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5rem auto;
+    color: #fff5ea;
+    width: 50vw;
+}
+.header-wrapper {
+    display: flex;
+    width: 100%;
+}
+.logo-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ff8c00;
+    border-radius: 15px;
+    color: #000;
+    padding: 10px 20px;
+}
+.form-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background: #fff5ea;
+    color: #000;
+    border-radius: 15px;
+    margin-left: auto;
+}
+.form-body.ld.ld-ring.ld-spin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0px 16px 30px;
+    background: #fff5ea;
+    border-radius: 15px;
+    height: 610px;
+    margin: 45px 0;
+    color: #000;
+}
+.horizontal-group {
+    display: flex;
+    height: 70px;
+    margin: 20px auto 20px 0;
+}
+.form-footer {
+    display: flex;
+    flex-direction: column;
+    width: 395px;
+    justify-content: flex-end;
+    height: 120px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 345px;
+    height: 120px;
+}
+.form-group.right {
+    margin-left: 50px;
+}
+.form-input {
+    height: 30px;
+    padding: 10px 15px;
+    background: #fffdfb;
+    border: 1px solid lightgray;
+}
+
+#description {
+    height: 200px!important;
+    padding: 15px;
+    font: 400 13.3333px Arial;
+}
+.label-title {
+    padding: 10px 0;
+    font-weight: 500;
+}
+#paymentBtn {
+    font-family: 'Montserrat', sans-serif;
+    height: 50px;
+    margin-left: auto;
+    width: 200px;
+    background: #ff8c00;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+}
+input::placeholder{
+    color: rgb(189, 189, 189)!important;
+}
