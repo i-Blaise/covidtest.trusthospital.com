@@ -10,6 +10,8 @@ include_once "payfluid_api_sdk.php";
 
 $result = \payfluid\MerchantAPI::verifyPayment($data,$token);
 $result = json_decode($result);
+print_r($result);
+die();
       
 ?>
 
@@ -416,7 +418,9 @@ $result = json_decode($result);
 						</tbody>
 					</table>
 				</div>
+                <a href="http://localhost/covid.trusthospital/">
 				<button type="button" class="redo btn">Ok</button>
+                </a>
 			</div>
 			
 		</div>

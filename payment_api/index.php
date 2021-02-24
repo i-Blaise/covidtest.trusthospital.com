@@ -3,7 +3,7 @@ include_once "payfluid_api_sdk.php";
 
 $token = isset($_REQUEST['token']) ? $_REQUEST['token'] : null;
 $cancel = isset($_REQUEST['cancel']) ? $_REQUEST['cancel'] : null;
-$redirect_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/redirect.php";
+$redirect_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/dev/payment_api/redirect.php";
 
 error_log(var_export($_REQUEST, true));
 
