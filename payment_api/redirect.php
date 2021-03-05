@@ -1,5 +1,9 @@
 <?php
+include('../class_libraries/class_lib.php');
+$getData = new dbData();
 include_once "payfluid_api_sdk.php";
+// For php mailer
+require_once '../vendor/autoload.php';
 
 //AUTO VERIFY SET TO TRUE
     $token = isset($_GET['token']) ? $_GET['token'] : '';
@@ -10,8 +14,11 @@ include_once "payfluid_api_sdk.php";
 
 $result = \payfluid\MerchantAPI::verifyPayment($data,$token);
 $result = json_decode($result);
-print_r($result);
-die();
+$registration_number = $_SESSION['registration_number'];
+$fullName = $_SESSION['post']['name'];
+$email = $_SESSION['post']['email'];
+// print_r($result);
+// die();
       
 ?>
 
@@ -64,7 +71,7 @@ die();
                  margin-top: 15%;
             }
             .modalbox.success{
-                 margin-top: -10%;
+                 margin-top: 10%;
             }
             .modalbox.success.animate .icon,
             .modalbox.error.animate .icon {
@@ -385,16 +392,54 @@ die();
 	</style>
 </head>
 
+<?php
+                            
+if(is_array($result) ||is_object($result)){
+    $payment = $getData->insertPaymentDetails($result, $registration_number);
+    if($payment == "good"){
+
+
+
+    // SMS
+$client = 'TTH101010';
+$password = 'Keep@123$';
+$phone = $getData->addCountryCode($_SESSION['post']['phone']);
+$text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'
+The Trust Hospital';
+$msg = urlencode($text);
+$get_sms_data = $getData->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
+$response = new SimpleXMLElement($get_sms_data);
+$sms_status = $response->sms[0]->status;
+$sms_msgid = $response->sms[0]->msgid;
+
+
+// Send Email 
+$email_data = $getData->sendEmail($email, $fullName, $text);
+if(isset($email_data) && $email_data == 'Loading...')
+{
+	$email_status = 1;
+}else{
+	$email_status = 0;
+}
+
+$booking_data = $getData->insertBookingData($_SESSION['post'], $registration_number, $sms_msgid, $sms_status, $email_status, true);
+
+if($booking_data == "good")
+{
+
+
+?>
+
 <body>
 	<div class="background"></div>
 	<div class="container">
 
-		<div class="row" <?php if (!(is_object($result) || is_array($result))) echo " style='display: none';"; ?>>
+		<div class="row" <?php if (!(is_object($result) || is_array($result)) && $pyment) echo " style='display: none';"; ?>>
 			<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">
 				<div class="icon">
 					<span class="glyphicon glyphicon-ok"></span>
 				</div>
-				<h1>Verification Successful!</h1>
+				<h1>Payment Successful!</h1>
 
 				<div>
 					<table>
@@ -402,23 +447,36 @@ die();
 
                             <?php
                             
-                            
-                                if(is_array($result) ||is_object($result)){
-                                    foreach ($result as $key => $value) {
+
                                         ?>
                                             <tr>
-                                                <td style="text-align:left"><h5><?php echo $key ?></h5></td>
-                                                <td style="word-break:break-all"><h6><?php echo $value?></h6></td>
+                                                <td style="text-align:left"><h5>Full Name:</h5></td>
+                                                <td style="word-break:break-all"><h6><?php echo $fullName ?></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left"><h5>Amount Paid:</h5></td>
+                                                <td style="word-break:break-all"><h6><?php echo $result->aapf_txn_amt?></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left"><h5>Reference:</h5></td>
+                                                <td style="word-break:break-all"><h6><?php echo $result->aapf_txn_ref?></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left"><h5>Package:</h5></td>
+                                                <td style="word-break:break-all"><h6><?php echo $_SESSION['packages']?></h6></td>
                                             </tr>
                                             <?php
+
                                             }
+                                            session_destroy();
                                 }
+                            }
                                 
                              ?>
 						</tbody>
 					</table>
 				</div>
-                <a href="http://localhost/covid.trusthospital/">
+                <a href="http://localhost/covid.trusthospital/index.php?status=save">
 				<button type="button" class="redo btn">Ok</button>
                 </a>
 			</div>

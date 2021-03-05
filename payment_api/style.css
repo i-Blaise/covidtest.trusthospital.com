@@ -3,7 +3,15 @@
 
 
 body {
-  background:linear-gradient(to right, #78a7ba 0%, #385D6C 50%, #78a7ba 99%);
+  /* background:linear-gradient(to right, #78a7ba 0%, #385D6C 50%, #78a7ba 99%); */
+  /* background-image: url("https://media.giphy.com/media/VX7yEoXAFf8as/source.gif"); */
+  /* background-repeat: no-repeat; */
+  background-color:#1B1B1B;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
 }
 
 .payment-form {

@@ -20,12 +20,6 @@ if (mysqli_connect_errno())
 echo "Failed to connect to MySQL: " . mysqli_connect_error();
  }
  }
- public function fetchdata($start_from, $limit)
- {
- $myQuery = "SELECT * FROM products ORDER BY created_at DESC LIMIT $start_from, $limit";
- $result=mysqli_query($this->dbh, $myQuery);
- return $result;
- }
  public function countdata()
  {
  $myQuery = "SELECT * FROM products";
@@ -172,7 +166,7 @@ public function checkDataNum($reg_num){
   //Send HTML or Plain Text email
   $mail->isHTML(true);
   
-  $mail->Subject = "Subject Text";
+  $mail->Subject = "The Trus Hospital || Covid Test Booking";
   $mail->Body = $msg;
   // $mail->AltBody = "This is the plain text version of the email content";
       if($mail->send())
@@ -182,4 +176,419 @@ public function checkDataNum($reg_num){
          echo "Mailer Error: " . $mail->ErrorInfo;
       }
  }
+
+
+ public function insertBookingData($data,$reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
+   //  print_r($$data['name']);
+   //  die();
+    if(isset($data['submit']) && $data['submit'] == "Submit"){
+
+      $payment_status = (isset($payment) && $payment === true) ? 1 : 0;
+
+		$fullName = $data['name'];
+		$email = $data['email'];
+		$phone = $data['phone'];
+		$gender = $data['gender'];
+		$passport = $data['passport'];
+		$district = $data['district'];
+		$address = $data['address'];
+		$landmark = $data['landmark'];
+		$dob = $data['DOB'];
+		$age = $data['age'];
+		$receipt_number = $data['receipt_number'];
+		$hospital_number = $data['hospital_number'];
+		$package_selected = $data["packages"];
+
+
+      $fever_or_chills = (!empty($data["fever_or_chills"])) ?  $data["fever_or_chills"] : 0;
+      $generalWeakness = (!empty($data["generalWeakness"])) ?  $data["generalWeakness"] : 0;
+      $cough = (!empty($data["cough"])) ?  $data["cough"] : 0;
+      $soreThroat = (!empty($data["soreThroat"])) ?  $data["soreThroat"] : 0;
+      $runnyNose = (!empty($data["runnyNose"])) ?  $data["runnyNose"] : 0;
+      $loss_of_smell = (!empty($data["loss_of_smell"])) ?  $data["loss_of_smell"] : 0;
+      $shortness_of_breath = (!empty($data["shortness_of_breath"])) ?  $data["shortness_of_breath"] : 0;
+      $diarrhoea = (!empty($data["diarrhoea"])) ?  $data["diarrhoea"] : 0;
+      $nausea_or_vomiting = (!empty($data["nausea_or_vomiting"])) ?  $data["nausea_or_vomiting"] : 0;
+      $irritability_or_confusion = (!empty($data["irritability_or_confusion"])) ?  $data["irritability_or_confusion"] : 0;
+      $loss_of_taste = (!empty($data["loss_of_taste"])) ?  $data["loss_of_taste"] : 0;
+      $headache = (!empty($data["headache"])) ?  $data["headache"] : 0;
+
+
+      $muscular_pain = (!empty($data["muscular_pain"])) ?  $data["muscular_pain"] : 0;
+      $abdominal_pain = (!empty($data["abdominal_pain"])) ?  $data["abdominal_pain"] : 0;
+      $chest_pain = (!empty($data["chest_pain"])) ?  $data["chest_pain"] : 0;
+      $joint_pain = (!empty($data["joint_pain"])) ?  $data["joint_pain"] : 0;
+
+
+	// Patient Vital Signs
+      $seizure = (!empty($data["seizure"])) ?  $data["seizure"] : 0;
+      $pharnygeal_exudate = (!empty($data["pharnygeal_exudate"])) ?  $data["pharnygeal_exudate"] : 0;
+      $abnormal_lung_xray = (!empty($data["abnormal_lung_xray"])) ?  $data["abnormal_lung_xray"] : 0;
+      $conjuctival_injection = (!empty($data["conjuctival_injection"])) ?  $data["conjuctival_injection"] : 0;
+      $dyspnea_or_tachpnea = (!empty($data["dyspnea_or_tachpnea"])) ?  $data["dyspnea_or_tachpnea"] : 0;
+      $abnormal_lung_ausculation = (!empty($data["abnormal_lung_ausculation"])) ?  $data["abnormal_lung_ausculation"] : 0;
+
+
+    // Patient Clinical Course
+	   $date_of_onset_symptoms = $data["date_of_onset_symptoms"];
+      $date_first_at_hospital = $data["date_first_at_hospital"];
+      $asymptomatic = (!empty($data["asymptomatic"])) ?  $data["asymptomatic"] : 0;
+      $name_of_hospital = $data["name_of_hospital"];
+      $hospital_visit_number = $data["hospital_visit_number"];
+      $ventilated = $data["ventilated"];
+      $date_of_death = $data["date_of_death"];
+      $date_of_admission = $data["date_of_admission"];
+      $date_of_isolation = $data["date_of_isolation"];
+      $admitted_to_hospital = $data["admitted_to_hospital"];
+      $other_symptoms = $data["other_symptoms"];
+      //  die();
+      if(isset($sms_status)){
+
+         $myQuery = "INSERT INTO patientbookingform (
+            full_name, 
+            phone_number,
+            email, 
+            passportID,
+            district,
+            home_address, 
+            landmark,
+            date_of_birth,
+            age,
+            receipt_number, 
+            hospital_number, 
+            sex, 
+            packages,
+            fever_or_chills, 
+            general_weakness, 
+            cough, 
+            sore_throat, 
+            runny_nose, 
+            shortness_of_breath, 
+            diarrhoea, 
+            nausea_or_vomiting, 
+            headache, 
+            irritability_or_confusion, 
+            loss_of_smell, 
+            loss_of_taste,
+            muscular_pain, 
+            chest_pain, 
+            abdominal_pain, 
+            joint_pain,
+            seizure,
+            pharnygeal_exudate, 
+            abnormal_lung_xray,
+            conjuctival_injection,
+            dyspnea_or_tachpnea,
+            abnormal_lung_ausculation,
+            date_of_onset_of_symptoms,
+            date_first_at_hospital,
+            asymptomatic, 
+            admitted_to_hospital, 
+            date_of_admission, 
+            name_of_hospital, 
+            hospital_visit_number, 
+            date_of_isolation, 
+            was_person_ventilated, 
+            date_of_death, 
+            other_underlying_conditions,
+            registration_number,
+            sms_msgid,
+            sms_status,
+            email_status,
+            payment_status) VALUES (
+           '$fullName',
+           '$phone',
+           '$email',
+           '$passport',
+           '$district',
+           '$address',
+           '$landmark',
+           '$dob',
+           '$age',
+           '$receipt_number', 
+           '$hospital_number', 
+           '$gender', 
+           '$package_selected',
+           '$fever_or_chills', 
+           '$generalWeakness', 
+           '$cough', 
+           '$soreThroat', 
+           '$runnyNose', 
+           '$shortness_of_breath', 
+           '$diarrhoea', 
+           '$nausea_or_vomiting', 
+           '$headache', 
+           '$irritability_or_confusion', 
+           '$loss_of_smell', 
+           '$loss_of_taste', 
+           '$muscular_pain', 
+           '$chest_pain', 
+           '$abdominal_pain', 
+           '$joint_pain', 
+           '$seizure', 
+           '$pharnygeal_exudate', 
+           '$abnormal_lung_xray', 
+           '$conjuctival_injection', 
+           '$dyspnea_or_tachpnea', 
+           '$abnormal_lung_ausculation', 
+           '$date_of_onset_symptoms',
+           '$date_first_at_hospital', 
+           '$asymptomatic', 
+           '$admitted_to_hospital', 
+           '$date_of_admission', 
+           '$name_of_hospital', 
+           '$hospital_visit_number', 
+           '$date_of_isolation', 
+           '$ventilated', 
+           '$date_of_death', 
+           '$other_symptoms',
+           '$reg_id',
+           '$sms_msgid',
+           '$sms_status',
+           '$email_status',
+           '$payment_status')";
+         $result=mysqli_query($this->dbh, $myQuery);
+         if(!$result){
+            return "Error: " .mysqli_error($this->dbh);
+         }else{
+            return "good";
+         }
+      }
+    }else{
+       return "no";
+    }
+
+  
+}
+
+public function insertPaymentDetails($data, $registration_number){
+   //  print_r($data->aapf_txn_amt);
+   //  die();
+    if(is_array($data) ||is_object($data)){
+
+      $aapf_txn_amt = $data->aapf_txn_amt;
+      $aapf_txn_clientRspRedirectURL = $data->aapf_txn_clientRspRedirectURL;
+      $aapf_txn_clientTxnWH = $data->aapf_txn_clientTxnWH;
+      $aapf_txn_cref = $data->aapf_txn_cref;
+      $aapf_txn_currency = $data->aapf_txn_currency;
+      $aapf_txn_datetime = $data->aapf_txn_datetime;
+      $aapf_txn_gw_ref = $data->aapf_txn_gw_ref;
+      $aapf_txn_gw_sc = $data->aapf_txn_gw_sc ;
+      $aapf_txn_maskedInstr = $data->aapf_txn_maskedInstr;
+      $aapf_txn_otherInfo = $data->aapf_txn_otherInfo;
+      $aapf_txn_payLink = $data->aapf_txn_payLink;
+      $aapf_txn_payScheme = $data->aapf_txn_payScheme;
+      $aapf_txn_ref = $data->aapf_txn_ref ;
+      $aapf_txn_sc = $data->aapf_txn_sc;
+      $aapf_txn_sc_msg = $data->aapf_txn_sc_msg;
+      $aapf_txn_signature = $data->aapf_txn_signature;
+
+
+      if(isset($aapf_txn_signature)){
+         $paymentQuery = "INSERT INTO online_payment (
+            registration_number,
+            aapf_txn_amt,
+            aapf_txn_clientRspRedirectURL, 
+            aapf_txn_clientTxnWH,
+            aapf_txn_cref,
+            aapf_txn_currency, 
+            aapf_txn_datetime, 
+            aapf_txn_gw_ref, 
+            aapf_txn_gw_sc, 
+            aapf_txn_maskedInstr, 
+            aapf_txn_otherInfo, 
+            aapf_txn_payLink, 
+            aapf_txn_payScheme, 
+            aapf_txn_ref, 
+            aapf_txn_sc, 
+            aapf_txn_sc_msg, 
+            aapf_txn_signature) VALUES (
+           '$registration_number',
+           '$aapf_txn_amt',
+           '$aapf_txn_clientRspRedirectURL',
+           '$aapf_txn_clientTxnWH',
+           '$aapf_txn_cref',
+           '$aapf_txn_currency',
+           '$aapf_txn_datetime',
+           '$aapf_txn_gw_ref',
+           '$aapf_txn_gw_sc',
+           '$aapf_txn_maskedInstr',
+           '$aapf_txn_otherInfo',
+           '$aapf_txn_payLink',
+           '$aapf_txn_payScheme',
+           '$aapf_txn_ref',
+           '$aapf_txn_sc',
+           '$aapf_txn_sc_msg',
+           '$aapf_txn_signature')";
+       $payment=mysqli_query($this->dbh, $paymentQuery);
+   if(!$payment){  
+       echo "Error: " .mysqli_error($database_con->dbh);
+       die();
+   }else{
+      return 'good';
+   die();
+   }
+      }
+   }
+
+  
+}
+
+
+function addCountryCode($raw_phone){
+   $check_phone_code = substr($raw_phone,0,3);
+ $check_first_num = substr($raw_phone,0,1);
+ $country_code = 233;
+ if($check_phone_code == $country_code)
+ {
+     $phone = $raw_phone;
+     return $phone;
+ }elseif($check_first_num == 0){
+     $new_number = substr($raw_phone, 1);
+     $phone = $country_code.$new_number;
+     return $phone;
+ }elseif($check_first_num == '+'){
+     $phone = substr($raw_phone, 1);
+     return $phone;
+ }else{
+    $phone = $raw_phone;
+   return $phone;
+ }
+ }
+
+
+ function verifyPayment($payRef){
+
+   $ref = 'payReference: ';
+   $ref .= $payRef;
+   $url = 'https://payfluid-api.herokuapp.com/payfluid/ext/api/status?msg';
+   $context = stream_context_create(array(
+       'http' => array(
+       'method' => 'GET',
+       'header' => $ref,
+       )
+       ));
+   $result = file_get_contents($url, false, $context);
+   $data = json_decode($result);
+    // print_r($see);
+   return $data;
+
+ }
+
+
+ function paymentStatus($registration_number, $payRef){
+   $result = $this->verifyPayment($payRef);
+   $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
+   // return $payment_status;
+   // die();
+
+   if(!isset($result->status_msg)){
+      for($i=0; $i < 5; $i++)
+   {
+   $result = $this->verifyPayment($payRef);
+   $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
+   if($payment_status == '0-SUCCESSFUL'){
+      $i = 6;
+   }else{
+   sleep(300);
+   }
+   }
+ }else{
+   return 'invalid pay ref';
+   die();
+ }
+
+ if ($payment_status == '0-SUCCESSFUL'){
+   $dbUpdate = $this->updateDBPayment($registration_number, $payRef, $result);
+   if($dbUpdate == 'good'){
+      return 'verified';
+
+      $patientDetails = $this->fetchPatientDetails($registration_number);
+      $fullName = $patientDetails['full_name'];
+      $raw_phone = $patientDetails['phone_number'];
+      $email = $patientDetails['email'];
+      $amount_paid = $patientDetails['packages'];
+
+      // Send Confirmation sms and email
+      $client = 'TTH101010';
+      $password = 'Keep@123$';
+      $phone = $this->addCountryCode($raw_phone);
+      $text = 'Hi '.$fullName.', Your Covid Test payment of GHS'.$amount_paid.' has been confirmed. Your registration number is '.$registration_number.'. Thank you, Stay safe.';
+      $msg = urlencode($text);
+      $get_data = $this->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
+      $response = new SimpleXMLElement($get_data);
+      $sms_status = $response->sms[0]->status;
+      $sms_msgid = $response->sms[0]->msgid;
+
+      $email_data = $this->sendEmail($email, $fullName, $text);
+
+
+      
+   }else{
+      return 'failed';
+   }
+ }elseif(isset($result->aapf_txn_gw_sc) && $result->aapf_txn_gw_sc != '0-SUCCESSFUL'){
+   $dbUpdate = $this->updateDBPayment($registration_number, $payRef, $result);
+   if($dbUpdate == 'good'){
+   return 'updated';
+   }
+   die();
+ }
+
+}
+
+ function updateDBPayment($registration_number, $payRef, $data){
+   if(is_array($data) ||is_object($data)){
+      $aapf_txn_gw_sc = $data->aapf_txn_gw_sc;
+      $aapf_txn_sc_msg = $data->aapf_txn_gw_sc;
+      $aapf_txn_sc = $data->aapf_txn_sc;
+
+      if(isset($aapf_txn_gw_sc) && $aapf_txn_gw_sc == '0-SUCCESSFUL'){
+         $paymentQuery = "UPDATE online_payment SET 
+         aapf_txn_gw_sc = '$aapf_txn_gw_sc', 
+         aapf_txn_sc_msg= '$aapf_txn_sc_msg',
+         aapf_txn_sc = '$aapf_txn_sc'
+         WHERE 
+         registration_number = '$registration_number'";
+
+$payment = mysqli_query($this->dbh, $paymentQuery);
+if(!$payment){  
+   echo "Error: " .mysqli_error($database_con->dbh);
+   die();
+}else{
+  $online_payment = true;
+}
+}
+
+if(isset($online_payment) && $online_payment == true){
+   $bookingFormQuery = "UPDATE patientbookingform SET 
+   payment_status = 'paid'
+   WHERE 
+   registration_number = '$registration_number'";
+
+$bookingQueryStatus = mysqli_query($this->dbh, $bookingFormQuery);
+if(!$bookingQueryStatus){  
+   echo "Error: " .mysqli_error($database_con->dbh);
+   die();
+}else{
+  return "good";
+}
+}
+
+}
+ }
+
+
+
+ public function fetchPatientDetails($registration_number)
+ {
+ $myQuery = "SELECT full_name, phone_number, email, packages FROM patientbookingform WHERE registration_number = '$registration_number'";
+ $result=mysqli_query($this->dbh, $myQuery);
+ $row = mysqli_fetch_assoc($result);
+ return $row;
+ }
+
+
+
+
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "payfluid_api_sdk.php";
 
 $token = isset($_REQUEST['token']) ? $_REQUEST['token'] : null;
@@ -72,7 +73,17 @@ if (isset($cancel) && "true" == $cancel) {
 </head>
 
 <body class="ld-over">
-<form class="signup-form ">
+<!-- <body class="ld-over" onload="checkout()"> -->
+
+
+<div class="loader">
+<img src="https://media.giphy.com/media/VX7yEoXAFf8as/source.gif" style="width: 200px;">
+</div>
+<h3 style="display: flex; justify-content: center; color: white;">Please wait...</h3>
+
+
+<form class="signup-form" style="display:none;">
+<!-- <form class="signup-form"> -->
 
     <!-- form header -->
     <div class="form-header">
@@ -86,12 +97,12 @@ if (isset($cancel) && "true" == $cancel) {
       <div class="horizontal-group">
         <div class="form-group left">
           <label for="name" class="label-title">Name *</label>
-          <input type="text" id="name" class="form-input" placeholder="enter your name" value="Eugene Sunkwa-Arthur"
+          <input type="text" id="name" class="form-input" placeholder="enter your name" value="<?php echo $_SESSION['name']; ?>"
             required="required" />
         </div>
         <div class="form-group right">
           <label for="phone" class="label-title">Phone Number</label>
-          <input type="tel" id="phone" minlength="10" maxlength="13" class="form-input" value="0548343909"
+          <input type="tel" id="phone" minlength="10" maxlength="13" class="form-input" value="<?php echo $_SESSION['phone']; ?>"
             placeholder="+233548343909" />
         </div>
       </div>
@@ -100,7 +111,7 @@ if (isset($cancel) && "true" == $cancel) {
       <div class="form-group">
         <label for="email" class="label-title">Email*</label>
         <input type="email" id="email" class="form-input" placeholder="enter your email"
-          value="eugenearthur53@gmail.com" required="required">
+          value="<?php echo $_SESSION['email']; ?>" required="required">
       </div>
 
       <div class="horizontal-group">
@@ -123,7 +134,7 @@ if (isset($cancel) && "true" == $cancel) {
         </div>
         <div class="form-group right">
           <label for="currency" class="label-title">Amount *</label>
-          <input type="number" id="amount" min="1" value="1" class="form-input" required="required">
+          <input type="number" id="amount" min="1" value="<?php echo $_SESSION['amount']; ?>" class="form-input" required="required">
         </div>
       </div>
 

@@ -74,7 +74,7 @@ $ventilated = ($row['was_person_ventilated'] == 1) ?  "Yes" : "No";
 // $qrcode_img_base64 = turnTOBase64($qrcode_img);
 // $online_payment_base64 = turnTOBase64($qrcode_img);
 $logo_path = 'img/trust-logo.png';
-$logo = turnTOBase64($logo_path);
+// $logo = turnTOBase64($logo_path);
 
 
 
@@ -101,7 +101,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<img src="'.$logo.'" width="180" height="150" alt="hospitals logo"/>
+<img src="'.$logo_path.'" width="180" height="150" alt="hospitals logo"/>
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
 <h2>Patient Booking Form</h2>
 
@@ -317,7 +317,7 @@ tr:nth-child(even) {
 
 ');
 // $dompdf->def("DOMPDF_ENABLE_REMOTE", true);
-die();
+// die();
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream("BookingFormData",array("Attachment" => false));

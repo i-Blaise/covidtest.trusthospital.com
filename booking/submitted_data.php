@@ -1,5 +1,6 @@
 <?php
-session_start();
+include('../class_libraries/class_lib.php');
+$getData = new dbData();
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,6 +10,8 @@ session_start();
 	<link rel="icon" type="image/png" href="img/trust-logo.png">
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 table {
   font-family: arial, sans-serif;
@@ -181,15 +184,20 @@ h3 {
 
 <?php
 
-
 if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 {
 
+  $_SESSION['post'] = $_POST;
+  // print_r($_SESSION['post']['loss_of_smell']);
+  // $fever_or_chills = (isset($_SESSION['post']['fever_or_chills']) && $_SESSION['post']['fever_or_chills'] == 1) ?  "Yes" : "No";
+  // echo $fever_or_chills;
+  // die();
 
     // Personal info
 	$fullName = $_POST["name"];
 	$email = $_POST["email"];
-	$phone = $_POST["phone"];
+	$raw_phone = $_POST["phone"];
+  $phone = $getData->addCountryCode($raw_phone);
 	$gender = $_POST["gender"];
 	$passport = $_POST["passport"];
   $district = $_POST["district"];
@@ -266,6 +274,9 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   $date_of_isolation = $_POST["date_of_isolation"];
   $admitted_to_hospital = $_POST["admitted_to_hospital"];
   $other_symptoms = $_POST["other_symptoms"];
+
+
+  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
 }
 
 
@@ -281,7 +292,8 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
 <div class="multi-button">
  <button><a href="javascript:history.go(-1)">Go back</a></button>
   <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button><a href="http://localhost/covid.trusthospital/payment_api">Sumbmit and pay online</a></button>
+  <button><a href="http://localhost/covid.trusthospital/payment_api/redirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb&qs=%7B%22aapf_txn_amt%22%3A%220.5%22,%22aapf_txn_clientRspRedirectURL%22%3A%22https%3A%2F%2Fcovidtest.thetrusthospital.com%2Fdev%2Fpayment_api%2Fredirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb%22,%22aapf_txn_clientTxnWH%22%3A%22http%3A%2F%2F4a767a17.ngrok.io%2Frest%2Fapi%2Fcallback%22,%22aapf_txn_cref%22%3A%2278babbd4d%22,%22aapf_txn_currency%22%3A%22GHS%22,%22aapf_txn_datetime%22%3A%222021%2F02%2F25%2018%3A19%3A14%22,%22aapf_txn_gw_ref%22%3A%2209FG02251817276146462%22,%22aapf_txn_gw_sc%22%3A%2299-PENDING%22,%22aapf_txn_maskedInstr%22%3A%2205452**150%22,%22aapf_txn_otherInfo%22%3A%22test%20payment%22,%22aapf_txn_payLink%22%3A%223P4Yu8At%22,%22aapf_txn_payScheme%22%3A%22MTNMM%22,%22aapf_txn_ref%22%3A%222991-451a-8d1e%22,%22aapf_txn_sc%22%3A%2206%22,%22aapf_txn_sc_msg%22%3A%2299-PENDING%22,%22aapf_txn_signature%22%3A%223B13B61DDB0B5087B7B7103914181E0C049F0B71C26C60353C2623DC03139B6A%22%7D">Sumbmit and pay online</a></button>
+  <!-- <button onclick="checkout()" >Sumbmit and pay online</button> -->
  <button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>
  </a>
 </div>
@@ -294,21 +306,29 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   </a>
 </div> -->
 
+
+<?php
+if(isset($_SESSION['registration_number'])){
+?>
+<h4 class="card-title">Patient Registration Number: <?php echo $_SESSION['registration_number']; ?></h4>
+<?php
+}
+?>
 </div>
 <br>
 <br>
 <table>
   <tr>
     <th>Full Name: </th>
-    <td><?php echo $fullName ?></td>
+    <td id="name"><?php echo $fullName ?></td>
   </tr>
   <tr>
     <th>Email Address: </th>
-    <td><?php echo $email ?></td>
+    <td id="email"><?php echo $email ?></td>
   </tr>
   <tr>
     <th>Phone Number: </th>
-    <td><?php echo $phone ?></td>
+    <td id="phone"><?php echo $phone ?></td>
   </tr>
   <tr>
     <th>Gender: </th>
@@ -349,6 +369,10 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   <tr>
     <th>Selected Package: </th>
     <td><?php echo $package_selected ?></td>
+  </tr>
+  <tr style="display:none;">
+    <th>Amount: </th>
+    <td id='amount'><?php echo $packages ?></td>
   </tr>
 </table>
 
@@ -528,57 +552,57 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   <button>Proceed</button>
 </div> -->
 <?php
-  $_SESSION['name'] = $fullName;                                 
-  $_SESSION['phone'] = $phone;                                                  
-  $_SESSION['email'] = $email;
-  $_SESSION['passport'] = $passport;
-  $_SESSION['district']  = $district;
-  $_SESSION['address']  = $address;
-  $_SESSION['landmark']  = $landmark;
-  $_SESSION['DOB']  = $date_of_birth;
-  $_SESSION['age']  = $age;
-  $_SESSION['receipt_number'] = $receipt_number;
-  $_SESSION['hospital_number']  = $hospital_number;
-  $_SESSION['gender'] = $gender;
-  $_SESSION['packages'] = $package_selected;
-  $_SESSION['fever_or_chills']  = $fever_or_chills;
-  $_SESSION['generalWeakness'] = $generalWeakness;
-  $_SESSION['cough']  = $cough;
-  $_SESSION['soreThroat']  = $soreThroat;
-  $_SESSION['runnyNose']  = $runnyNose;
-  $_SESSION['shortness_of_breath']  = $shortness_of_breath;
-  $_SESSION['diarrhoea']  = $diarrhoea;
-  $_SESSION['nausea_or_vomiting']  = $nausea_or_vomiting;
-  $_SESSION['headache']  = $headache;
-  $_SESSION['irritability_or_confusion']  =	$irritability_or_confusion;
-  $_SESSION['loss_of_smell']  = $loss_of_smell;
-  $_SESSION['loss_of_taste']  = $loss_of_taste;
-  $_SESSION['muscular_pain']  =	$muscular_pain;
-  $_SESSION['chest_pain']  = $chest_pain;
-  $_SESSION['abdominal_pain']  =	$abdominal_pain;
-  $_SESSION['joint_pain']  = $joint_pain;
-  $_SESSION['seizure']  =	$seizure;
-  $_SESSION['pharnygeal_exudate']  = $pharnygeal_exudate;
-  $_SESSION['abnormal_lung_xray']  =	$abnormal_lung_xray;
-  $_SESSION['conjuctival_injection']  =	$conjuctival_injection;
-  $_SESSION['dyspnea_or_tachpnea']  = $dyspnea_or_tachpnea;
-  $_SESSION['abnormal_lung_ausculation']  =	$abnormal_lung_ausculation;
-  $_SESSION['date_of_onset_symptoms']  =	$date_of_onset_symptoms;
-  $_SESSION['date_first_at_hospital']  = $date_first_at_hospital;
-  $_SESSION['asymptomatic']  = $asymptomatic;
-  $_SESSION['admitted_to_hospital']  = $admitted_to_hospital;
-  $_SESSION['date_of_admission']  = $date_of_admission;
-  $_SESSION['name_of_hospital']  =	$name_of_hospital;
-  $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
-  $_SESSION['date_of_isolation']  = $date_of_isolation;
-  $_SESSION['ventilated']  =	$ventilated;
-  $_SESSION['date_of_death']  =	$date_of_death;
-  $_SESSION['other_symptoms'] =	$other_symptoms;
+  // $_SESSION['name'] = $fullName;                                 
+  // $_SESSION['phone'] = $phone;                                                  
+  // $_SESSION['email'] = $email;
+  // $_SESSION['passport'] = $passport;
+  // $_SESSION['district']  = $district;
+  // $_SESSION['address']  = $address;
+  // $_SESSION['landmark']  = $landmark;
+  // $_SESSION['DOB']  = $date_of_birth;
+  // $_SESSION['age']  = $age;
+  // $_SESSION['receipt_number'] = $receipt_number;
+  // $_SESSION['hospital_number']  = $hospital_number;
+  // $_SESSION['gender'] = $gender;
+  // $_SESSION['fever_or_chills']  = $fever_or_chills;
+  // $_SESSION['generalWeakness'] = $generalWeakness;
+  // $_SESSION['cough']  = $cough;
+  // $_SESSION['soreThroat']  = $soreThroat;
+  // $_SESSION['runnyNose']  = $runnyNose;
+  // $_SESSION['shortness_of_breath']  = $shortness_of_breath;
+  // $_SESSION['diarrhoea']  = $diarrhoea;
+  // $_SESSION['nausea_or_vomiting']  = $nausea_or_vomiting;
+  // $_SESSION['headache']  = $headache;
+  // $_SESSION['irritability_or_confusion']  =	$irritability_or_confusion;
+  // $_SESSION['loss_of_smell']  = $loss_of_smell;
+  // $_SESSION['loss_of_taste']  = $loss_of_taste;
+  // $_SESSION['muscular_pain']  =	$muscular_pain;
+  // $_SESSION['chest_pain']  = $chest_pain;
+  // $_SESSION['abdominal_pain']  =	$abdominal_pain;
+  // $_SESSION['joint_pain']  = $joint_pain;
+  // $_SESSION['seizure']  =	$seizure;
+  // $_SESSION['pharnygeal_exudate']  = $pharnygeal_exudate;
+  // $_SESSION['abnormal_lung_xray']  =	$abnormal_lung_xray;
+  // $_SESSION['conjuctival_injection']  =	$conjuctival_injection;
+  // $_SESSION['dyspnea_or_tachpnea']  = $dyspnea_or_tachpnea;
+  // $_SESSION['abnormal_lung_ausculation']  =	$abnormal_lung_ausculation;
+  // $_SESSION['date_of_onset_symptoms']  =	$date_of_onset_symptoms;
+  // $_SESSION['date_first_at_hospital']  = $date_first_at_hospital;
+  // $_SESSION['asymptomatic']  = $asymptomatic;
+  // $_SESSION['admitted_to_hospital']  = $admitted_to_hospital;
+  // $_SESSION['date_of_admission']  = $date_of_admission;
+  // $_SESSION['name_of_hospital']  =	$name_of_hospital;
+  // $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
+  // $_SESSION['date_of_isolation']  = $date_of_isolation;
+  // $_SESSION['ventilated']  =	$ventilated;
+  // $_SESSION['date_of_death']  =	$date_of_death;
+  // $_SESSION['other_symptoms'] =	$other_symptoms;
 
   
-  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
+  $_SESSION['request'] = 'createPayLink';
+  $_SESSION['amount'] = $packages;
+  $_SESSION['packages'] = $package_selected;
   ?>
-
 </body>
 </html>
 

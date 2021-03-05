@@ -20,45 +20,45 @@ if(file_put_contents($qrcode_img, file_get_contents($online_pdf_url)))
 {
 
 
-$fever_or_chills = ($_SESSION['fever_or_chills'] == 1) ?  "Yes" : "No";
-$generalWeakness = ($_SESSION['generalWeakness'] == 1) ?  "Yes" : "No";
-$cough = ($_SESSION['cough'] == 1) ?  "Yes" : "No";
-$soreThroat = ($_SESSION['soreThroat'] == 1) ?  "Yes" : "No";
-$runnyNose = ($_SESSION['runnyNose'] == 1) ?  "Yes" : "No";
-$shortness_of_breath = ($_SESSION['shortness_of_breath'] == 1) ?  "Yes" : "No";
-$diarrhoea = ($_SESSION['diarrhoea'] == 1) ?  "Yes" : "No";
-$nausea_or_vomiting = ($_SESSION['nausea_or_vomiting'] == 1) ?  "Yes" : "No";
-$headache = ($_SESSION['headache'] == 1) ?  "Yes" : "No";
-$irritability_or_confusion = ($_SESSION['irritability_or_confusion'] == 1) ?  "Yes" : "No";
-$loss_of_smell = ($_SESSION['loss_of_smell'] == 1) ?  "Yes" : "No";
-$loss_of_taste = ($_SESSION['loss_of_taste'] == 1) ?  "Yes" : "No";
+$fever_or_chills = (isset($_SESSION['post']['fever_or_chills']) && $_SESSION['post']['fever_or_chills'] == 1) ?  "Yes" : "No";
+$generalWeakness = (isset($_SESSION['post']['generalWeakness']) && $_SESSION['post']['generalWeakness'] == 1) ?  "Yes" : "No";
+$cough = (isset($_SESSION['post']['cough']) && $_SESSION['post']['cough'] == 1) ?  "Yes" : "No";
+$soreThroat = (isset($_SESSION['post']['soreThroat']) && $_SESSION['post']['soreThroat'] == 1) ?  "Yes" : "No";
+$runnyNose = (isset($_SESSION['post']['runnyNose']) && $_SESSION['post']['runnyNose'] == 1) ?  "Yes" : "No";
+$shortness_of_breath = (isset($_SESSION['post']['shortness_of_breath']) && $_SESSION['post']['shortness_of_breath'] == 1) ?  "Yes" : "No";
+$diarrhoea = (isset($_SESSION['post']['diarrhoea']) && $_SESSION['post']['diarrhoea'] == 1) ?  "Yes" : "No";
+$nausea_or_vomiting = (isset($_SESSION['post']['nausea_or_vomiting']) && $_SESSION['post']['nausea_or_vomiting'] == 1) ?  "Yes" : "No";
+$headache = (isset($_SESSION['post']['headache']) && $_SESSION['post']['headache'] == 1) ?  "Yes" : "No";
+$irritability_or_confusion = (isset($_SESSION['post']['irritability_or_confusion']) && $_SESSION['post']['irritability_or_confusion'] == 1) ?  "Yes" : "No";
+$loss_of_smell = (isset($_SESSION['post']['loss_of_smell']) && $_SESSION['post']['loss_of_smell'] == 1) ?  "Yes" : "No";
+$loss_of_taste = (isset($_SESSION['post']['loss_of_taste']) && $_SESSION['post']['loss_of_taste'] == 1) ?  "Yes" : "No";
 
 
-$muscular_pain = ($_SESSION['muscular_pain'] == 1) ?  "Yes" : "No";
-$chest_pain = ($_SESSION['chest_pain'] == 1) ?  "Yes" : "No";
-$abdominal_pain = ($_SESSION['abdominal_pain'] == 1) ?  "Yes" : "No";
-$joint_pain = ($_SESSION['joint_pain'] == 1) ?  "Yes" : "No";
+$muscular_pain = (isset($_SESSION['post']['muscular_pain']) && $_SESSION['post']['muscular_pain'] == 1) ?  "Yes" : "No";
+$chest_pain = (isset($_SESSION['post']['chest_pain']) && $_SESSION['post']['chest_pain'] == 1) ?  "Yes" : "No";
+$abdominal_pain = (isset($_SESSION['post']['abdominal_pain']) && $_SESSION['post']['abdominal_pain'] == 1) ?  "Yes" : "No";
+$joint_pain = (isset($_SESSION['post']['joint_pain']) && $_SESSION['post']['joint_pain'] == 1) ?  "Yes" : "No";
 
 
-$seizure = ($_SESSION['seizure'] == 1) ?  "Yes" : "No";
-$pharnygeal_exudate = ($_SESSION['pharnygeal_exudate'] == 1) ?  "Yes" : "No";
-$abnormal_lung_xray = ($_SESSION['abnormal_lung_xray'] == 1) ?  "Yes" : "No";
-$conjuctival_injection = ($_SESSION['conjuctival_injection'] == 1) ?  "Yes" : "No";
-$dyspnea_or_tachpnea = ($_SESSION['dyspnea_or_tachpnea'] == 1) ?  "Yes" : "No";
-$abnormal_lung_ausculation = ($_SESSION['abnormal_lung_ausculation'] == 1) ?  "Yes" : "No";
+$seizure = (isset($_SESSION['post']['seizure']) && $_SESSION['post']['seizure'] == 1) ?  "Yes" : "No";
+$pharnygeal_exudate = (isset($_SESSION['post']['pharnygeal_exudate']) && $_SESSION['post']['pharnygeal_exudate'] == 1) ?  "Yes" : "No";
+$abnormal_lung_xray = (isset($_SESSION['post']['abnormal_lung_xray']) && $_SESSION['post']['abnormal_lung_xray'] == 1) ?  "Yes" : "No";
+$conjuctival_injection = (isset($_SESSION['post']['conjuctival_injection']) && $_SESSION['post']['conjuctival_injection'] == 1) ?  "Yes" : "No";
+$dyspnea_or_tachpnea = (isset($_SESSION['post']['dyspnea_or_tachpnea']) && $_SESSION['post']['dyspnea_or_tachpnea'] == 1) ?  "Yes" : "No";
+$abnormal_lung_ausculation = (isset($_SESSION['post']['abnormal_lung_ausculation']) && $_SESSION['post']['abnormal_lung_ausculation'] == 1) ?  "Yes" : "No";
 
 
-$date_of_onset_symptoms = $_SESSION['date_first_at_hospital'];
-$date_of_admission = $_SESSION['date_of_admission'];
-$date_first_at_hospital = $_SESSION['date_first_at_hospital'];
-$name_of_hospital = $_SESSION['name_of_hospital'];
-$hospital_visit_number = $_SESSION['hospital_visit_number'];
-$date_of_isolation = $_SESSION['date_of_isolation'];
-$date_of_death = $_SESSION['date_of_death'];
-$other_symptoms = $_SESSION['other_symptoms'];
-$asymptomatic = ($_SESSION['asymptomatic'] == 1) ?  "Yes" : "No";
-$admitted_to_hospital = ($_SESSION['admitted_to_hospital'] == 1) ?  "Yes" : "No";
-$ventilated = ($_SESSION['ventilated'] == 1) ?  "Yes" : "No";
+$date_of_onset_symptoms = $_SESSION['post']['date_first_at_hospital'];
+$date_of_admission = $_SESSION['post']['date_of_admission'];
+$date_first_at_hospital = $_SESSION['post']['date_first_at_hospital'];
+$name_of_hospital = $_SESSION['post']['name_of_hospital'];
+$hospital_visit_number = $_SESSION['post']['hospital_visit_number'];
+$date_of_isolation = $_SESSION['post']['date_of_isolation'];
+$date_of_death = $_SESSION['post']['date_of_death'];
+$other_symptoms = $_SESSION['post']['other_symptoms'];
+$asymptomatic = (isset($_SESSION['post']['asymptomatic']) && $_SESSION['post']['asymptomatic'] == 1) ?  "Yes" : "No";
+$admitted_to_hospital = (isset($_SESSION['post']['admitted_to_hospital']) && $_SESSION['post']['admitted_to_hospital'] == 1) ?  "Yes" : "No";
+$ventilated = (isset($_SESSION['post']['ventilated']) && $_SESSION['post']['ventilated'] == 1) ?  "Yes" : "No";
 
 
 // Logo Base 64 for pdf
@@ -103,51 +103,51 @@ tr:nth-child(even) {
 <table>
   <tr>
     <th>Full Name: </th>
-    <td>'. $_SESSION['name'].'</td>
+    <td>'. $_SESSION['post']['name'].'</td>
   </tr>
   <tr>
     <th>Email Address: </th>
-    <td>'. $_SESSION['email'].'</td>
+    <td>'. $_SESSION['post']['email'].'</td>
   </tr>
   <tr>
     <th>Phone Number: </th>
-    <td>'.$_SESSION["phone"].'</td>
+    <td>'.$_SESSION['post']["phone"].'</td>
   </tr>
   <tr>
     <th>Gender: </th>
-    <td>'.$_SESSION["gender"].'</td>
+    <td>'.$_SESSION['post']["gender"].'</td>
   </tr>
   <tr>
     <th>Passport ID: </th>
-    <td>'.$_SESSION["passport"].'</td>
+    <td>'.$_SESSION['post']["passport"].'</td>
   </tr>
   <tr>
   <th>District: </th>
-  <td>'.$_SESSION["district"].'</td>
+  <td>'.$_SESSION['post']["district"].'</td>
 </tr>
   <tr>
     <th>Home Address: </th>
-    <td>'.$_SESSION["address"].'</td>
+    <td>'.$_SESSION['post']["address"].'</td>
   </tr>
   <tr>
   <th>Landmark: </th>
-  <td>'.$_SESSION["landmark"].'</td>
+  <td>'.$_SESSION['post']["landmark"].'</td>
 </tr>
   <tr>
     <th>Date of Birth: </th>
-    <td>'.$_SESSION["DOB"].'</td>
+    <td>'.$_SESSION['post']["DOB"].'</td>
   </tr>
   <tr>
   <th>Age: </th>
-  <td>'.$_SESSION["age"].'</td>
+  <td>'.$_SESSION['post']["age"].'</td>
 </tr>
   <tr>
     <th>Receipt Number: </th>
-    <td>'.$_SESSION["receipt_number"].'</td>
+    <td>'.$_SESSION['post']["receipt_number"].'</td>
   </tr>
   <tr>
     <th>Hospital Number: </th>
-    <td>'.$_SESSION["hospital_number"].'</td>
+    <td>'.$_SESSION['post']["hospital_number"].'</td>
   </tr>
 </table>
 
@@ -327,7 +327,7 @@ tr:nth-child(even) {
 // $dompdf->def("DOMPDF_ENABLE_REMOTE", true);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("BookingFormData",array("Attachment" => true));
+$dompdf->stream("BookingFormData",array("Attachment" => false));
 // def("DOMPDF_ENABLE_REMOTE", true);
 $options = new Options();
 $options->set('isRemoteEnabled',true);      
