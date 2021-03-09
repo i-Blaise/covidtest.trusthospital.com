@@ -501,7 +501,7 @@ function addCountryCode($raw_phone){
  if ($payment_status == '0-SUCCESSFUL'){
    $dbUpdate = $this->updateDBPayment($registration_number, $result);
    if($dbUpdate == 'good'){
-      // return 'verified';
+      return 'verified';
 
       $patientDetails = $this->fetchPatientDetails($registration_number);
       $fullName = $patientDetails['full_name'];
@@ -521,7 +521,6 @@ function addCountryCode($raw_phone){
       $sms_msgid = $response->sms[0]->msgid;
 
       $email_data = $this->sendEmail($email, $fullName, $text);
-return $email_data;
 
 
       
