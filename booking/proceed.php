@@ -1,6 +1,5 @@
 <?php
 	include('../class_libraries/class_lib.php');
-	$database_con = new DB_con();
 	$getData = new dbData();
 	// For php mailer
 	require_once '../vendor/autoload.php';

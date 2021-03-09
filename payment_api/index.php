@@ -72,8 +72,8 @@ if (isset($cancel) && "true" == $cancel) {
       crossorigin="anonymous"></script>
 </head>
 
-<body class="ld-over">
-<!-- <body class="ld-over" onload="checkout()"> -->
+<!-- <body class="ld-over"> -->
+<body class="ld-over" onload="checkout()">
 
 
 <div class="loader">

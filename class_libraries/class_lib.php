@@ -183,7 +183,7 @@ public function checkDataNum($reg_num){
    //  die();
     if(isset($data['submit']) && $data['submit'] == "Submit"){
 
-      $payment_status = (isset($payment) && $payment === true) ? 1 : 0;
+      $payment_status = (isset($payment) && $payment === true) ? 'pending' : 'pay later';
 
 		$fullName = $data['name'];
 		$email = $data['email'];
@@ -479,7 +479,7 @@ function addCountryCode($raw_phone){
  function paymentStatus($registration_number, $payRef){
    $result = $this->verifyPayment($payRef);
    $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
-   // return $payment_status;
+   // return $result;
    // die();
 
    if(!isset($result->status_msg)){
@@ -490,7 +490,7 @@ function addCountryCode($raw_phone){
    if($payment_status == '0-SUCCESSFUL'){
       $i = 6;
    }else{
-   sleep(300);
+   sleep(10);
    }
    }
  }else{
@@ -499,9 +499,9 @@ function addCountryCode($raw_phone){
  }
 
  if ($payment_status == '0-SUCCESSFUL'){
-   $dbUpdate = $this->updateDBPayment($registration_number, $payRef, $result);
+   $dbUpdate = $this->updateDBPayment($registration_number, $result);
    if($dbUpdate == 'good'){
-      return 'verified';
+      // return 'verified';
 
       $patientDetails = $this->fetchPatientDetails($registration_number);
       $fullName = $patientDetails['full_name'];
@@ -521,23 +521,28 @@ function addCountryCode($raw_phone){
       $sms_msgid = $response->sms[0]->msgid;
 
       $email_data = $this->sendEmail($email, $fullName, $text);
+return $email_data;
 
 
       
    }else{
       return 'failed';
    }
- }elseif(isset($result->aapf_txn_gw_sc) && $result->aapf_txn_gw_sc != '0-SUCCESSFUL'){
-   $dbUpdate = $this->updateDBPayment($registration_number, $payRef, $result);
+ }else{
+   $dbUpdate = $this->updateDBPayment($registration_number, $result, false);
    if($dbUpdate == 'good'){
    return 'updated';
+   }else{
+   return 'errror';
    }
    die();
  }
 
 }
 
- function updateDBPayment($registration_number, $payRef, $data){
+ function updateDBPayment($registration_number, $data, $paymentSuccess = true){
+    if($paymentSuccess)
+    {
    if(is_array($data) ||is_object($data)){
       $aapf_txn_gw_sc = $data->aapf_txn_gw_sc;
       $aapf_txn_sc_msg = $data->aapf_txn_gw_sc;
@@ -576,13 +581,28 @@ if(!$bookingQueryStatus){
 }
 
 }
+
+    }else{
+         $bookingFormQuery = "UPDATE patientbookingform SET 
+         payment_status = 'unpaid'
+         WHERE 
+         registration_number = '$registration_number'";
+      
+      $bookingQueryStatus = mysqli_query($this->dbh, $bookingFormQuery);
+      if(!$bookingQueryStatus){  
+         echo "Error: " .mysqli_error($database_con->dbh);
+         die();
+      }else{
+        return "good";
+      }
+    }
  }
 
 
 
  public function fetchPatientDetails($registration_number)
  {
- $myQuery = "SELECT full_name, phone_number, email, packages FROM patientbookingform WHERE registration_number = '$registration_number'";
+ $myQuery = "SELECT full_name, phone_number, email, packages, payment_status FROM patientbookingform WHERE registration_number = '$registration_number'";
  $result=mysqli_query($this->dbh, $myQuery);
  $row = mysqli_fetch_assoc($result);
  return $row;

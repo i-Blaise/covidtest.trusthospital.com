@@ -2,8 +2,7 @@
 include('../class_libraries/class_lib.php');
 $getData = new dbData();
 include_once "payfluid_api_sdk.php";
-// For php mailer
-require_once '../vendor/autoload.php';
+
 
 //AUTO VERIFY SET TO TRUE
     $token = isset($_GET['token']) ? $_GET['token'] : '';
@@ -12,12 +11,12 @@ require_once '../vendor/autoload.php';
 
 
 
-$result = \payfluid\MerchantAPI::verifyPayment($data,$token);
-$result = json_decode($result);
-$registration_number = $_SESSION['registration_number'];
-$fullName = $_SESSION['post']['name'];
-$email = $_SESSION['post']['email'];
-// print_r($result);
+$results = \payfluid\MerchantAPI::verifyPayment($data,$token);
+$result = json_decode($results);
+$_SESSION['payRef'] = $result->aapf_txn_payLink;
+
+
+// print_r($data);
 // die();
       
 ?>
@@ -392,54 +391,27 @@ $email = $_SESSION['post']['email'];
 	</style>
 </head>
 
-<?php
-                            
-if(is_array($result) ||is_object($result)){
-    $payment = $getData->insertPaymentDetails($result, $registration_number);
-    if($payment == "good"){
 
-
-
-    // SMS
-$client = 'TTH101010';
-$password = 'Keep@123$';
-$phone = $getData->addCountryCode($_SESSION['post']['phone']);
-$text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'
-The Trust Hospital';
-$msg = urlencode($text);
-$get_sms_data = $getData->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
-$response = new SimpleXMLElement($get_sms_data);
-$sms_status = $response->sms[0]->status;
-$sms_msgid = $response->sms[0]->msgid;
-
-
-// Send Email 
-$email_data = $getData->sendEmail($email, $fullName, $text);
-if(isset($email_data) && $email_data == 'Loading...')
-{
-	$email_status = 1;
-}else{
-	$email_status = 0;
-}
-
-$booking_data = $getData->insertBookingData($_SESSION['post'], $registration_number, $sms_msgid, $sms_status, $email_status, true);
-
-if($booking_data == "good")
-{
-
-
-?>
 
 <body>
 	<div class="background"></div>
 	<div class="container">
 
-		<div class="row" <?php if (!(is_object($result) || is_array($result)) && $pyment) echo " style='display: none';"; ?>>
+    <?php
+$registration_number = $_SESSION['registration_number'];
+if(is_array($result) || is_object($result)){
+    $payment = $getData->insertPaymentDetails($result, $registration_number);
+    if($payment == "good"){
+
+
+?>
+
+		<div class="row" <?php if (!(is_object($result) || is_array($result))) echo " style='display: none';"; ?> >
 			<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">
 				<div class="icon">
 					<span class="glyphicon glyphicon-ok"></span>
 				</div>
-				<h1>Payment Successful!</h1>
+				<h1>Payment Notice!</h1>
 
 				<div>
 					<table>
@@ -451,7 +423,7 @@ if($booking_data == "good")
                                         ?>
                                             <tr>
                                                 <td style="text-align:left"><h5>Full Name:</h5></td>
-                                                <td style="word-break:break-all"><h6><?php echo $fullName ?></h6></td>
+                                                <td style="word-break:break-all"><h6><?php echo $_SESSION['post']['name'] ?></h6></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left"><h5>Amount Paid:</h5></td>
@@ -465,14 +437,6 @@ if($booking_data == "good")
                                                 <td style="text-align:left"><h5>Package:</h5></td>
                                                 <td style="word-break:break-all"><h6><?php echo $_SESSION['packages']?></h6></td>
                                             </tr>
-                                            <?php
-
-                                            }
-                                            session_destroy();
-                                }
-                            }
-                                
-                             ?>
 						</tbody>
 					</table>
 				</div>
@@ -483,6 +447,47 @@ if($booking_data == "good")
 			
 		</div>
 		
+
+
+        
+        <?php
+
+}else{
+?>
+<div class="row" >
+<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate">
+    <div class="icon">
+        <span class="glyphicon glyphicon-thumbs-down"></span>
+    </div>
+    <h1>Oh no!</h1>
+    <p>Oops! We couldn't save your info
+        <br> you should try again.
+    </p>
+    <button type="button" class="redo btn">Try again</button>				
+</div>
+</div>
+</div>
+<?php
+}
+?>
+<?php
+    // session_destroy();
+    // $_SESSION['registration_number'] = $registration_number;
+
+// if($result->aapf_txn_gw_sc != '0-SUCCESSFUL')
+// {
+//     session_destroy();
+//     $_SESSION['registration_number'] = $registration_number;
+//     $_SESSION['payRef'] = $payRef;
+//     $cmd = "php ". __DIR__ . DIRECTORY_SEPARATOR ."chekPayment_bg.php  > /dev/null &";
+//     exec($cmd); 
+// }
+
+}
+
+?>
+
+
 		<div class="row" <?php if ((is_object($result) || is_array($result))) echo " style='display: none';"; ?>>
 			<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate">
 				<div class="icon">

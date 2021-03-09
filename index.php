@@ -1,3 +1,7 @@
+<?php
+	include('class_libraries/class_lib.php');
+	$getData = new dbData();
+?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
@@ -13,6 +17,11 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/main.css" rel="stylesheet"/>
+    
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'> -->
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'> -->
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css'> -->
+    <!-- <link rel="stylesheet" href="./style.css"> -->
 
     <!--     Fonts and icons     -->
     <link href='https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600' rel='stylesheet' type='text/css'>
@@ -22,9 +31,11 @@
       rel="stylesheet">
 
       <!-- Notification -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-<link href="assets/notification/toastr.css" rel="stylesheet"/>
-<link href="assets/notification/toastr.min.css" rel="stylesheet"/>
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
 <?php
@@ -44,6 +55,66 @@
        <?php
     }
        ?>
+
+
+
+<?php
+if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
+{
+    if(!empty($_POST['reg_num']))
+    {
+        $patientDetails = $getData->fetchPatientDetails($_POST['reg_num']);
+        $payment_status = (isset($patientDetails['payment_status'])) ? $patientDetails['payment_status'] : 0;
+        if($payment_status == 'paid')
+        {
+            ?>
+            <!-- Notification -->
+         <script type='text/javascript'>   
+        $(document).ready(function() {      
+        toastr.options.positionClass = "toast-top-right";
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 500;
+        toastr.success('Payment has already been made', '');
+    });
+    </script>
+    <?php
+        }elseif($payment_status == 'pending')
+        {
+            ?>
+            <!-- Notification -->
+         <script type='text/javascript'>   
+        $(document).ready(function() {      
+        toastr.options.positionClass = "toast-top-right";
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 700;
+        toastr.info('Your payment is yet to be confirmed. Please check again later', '');
+    });
+    </script>
+    <?php
+        }else{
+        $patientDetails = $getData->fetchPatientDetails($_POST['reg_num']);
+        $_SESSION['post']['name'] = $patientDetails['full_name'];
+        $_SESSION['post']['phone'] = $patientDetails['phone_number'];
+        $_SESSION['post']['email'] = $patientDetails['email'];
+        $_SESSION['post']['packages'] = $patientDetails['packages'];
+
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/payment_api'</script>";
+        }
+    }else{
+        ?>
+        <!-- Notification -->
+     <script type='text/javascript'>   
+    $(document).ready(function() {      
+    toastr.options.positionClass = "toast-top-right";
+    toastr.options.closeButton = true;
+    toastr.options.closeDuration = 500;
+    toastr.warning('Please Enter Your Registration Number', 'Warning');
+});
+</script>
+<?php
+    }
+}
+?>
 </head>
 
 <body>
@@ -276,6 +347,34 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="card card-member">
+                                            <div class="content">
+                                                <div class="avatar avatar-danger">
+                                                    <img alt="..." class="img-rounded" src="assets/img/online-payment.png"/>
+                                                </div>
+                                                <div class="description">
+                                                    <h3 class="title">Make Payment</h3>
+                                                    <p class="small-text">Make payment on already booked tests.</p>
+                                                    <a href="#" class="btn btn-danger btn-fill btn-lg" data-toggle="modal" data-target="#modalLoginAvatarDemo">Make Payment</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card card-member">
+                                            <div class="content">
+                                                <div class="avatar avatar-danger">
+                                                    <img alt="..." class="img-rounded" src="assets/img/customer-service.png"/>
+                                                </div>
+                                                <div class="description">
+                                                    <h3 class="title">Questions?</h3>
+                                                    <p class="small-text">Be sure to reach out to use for any questions or enquiries.</p>
+                                                    <a href="#" class="btn btn-danger btn-fill btn-lg">Contact</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -372,6 +471,34 @@
                         </nav>
                     </div>
                 </div> -->
+      <!--Modal Form Login with Avatar Demo-->
+      <div class="modal fade" id="modalLoginAvatarDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                <!--Content-->
+                <div class="modal-content">
+
+                    <!--Header-->
+                    <!-- <div class="modal-header">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" class="rounded-circle img-responsive" alt="Avatar photo">
+                    </div> -->
+                    <!--Body-->
+                    <form class="modal-body text-center mb-1" name="checkPayment" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+
+                        <h5 class="mt-1 mb-2" style="color:black;">Enter your registration number</h5>
+
+                        <div class="md-form ml-0 mr-0">
+                            <input type="text" id="form1" class="form-control ml-0" name="reg_num">
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-cyan mt-1" name="submit" value="Submit" onclick="submitorm()">Enter</button>
+                        </div>
+                    </form>
+
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
                 <div class="col-lg-4 col-sm-4 footer-col">
                     <div class="info">
                         <h5 class="title">Follow us on</h5>
@@ -439,19 +566,11 @@
 
 
 <script type = "text/javascript">  
-function successNotif() {   
-    $(document).ready(function() {
-    toastr.options.positionClass = "toast-top-right";
-    toastr.options.closeButton = true;
-    toastr.success('Check your email', 'Success')
-    //    die();
-    // alert('hello');
-//     window.alert = null;
-// alert('test'); // fail
-// delete window.alert; // true
-// alert('test'); // win
-//     }
-});
 
+function submitForm() {
+   var frm = document.getElementsByName('checkPayment')[0];
+   frm.reset();  // Reset form data
+   return false; // Prevent page refresh
+}
 </script>  
 </html>
