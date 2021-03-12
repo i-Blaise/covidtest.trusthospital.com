@@ -15,6 +15,15 @@ $getData = new dbData();
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+          <!-- Notification -->
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <style>
 table {
   font-family: arial, sans-serif;
@@ -249,10 +258,52 @@ h3 {
 </style>
 </head>
 
+<?php
+
+if (isset($_POST['submit']) && $_POST['submit'] == "search")
+{
+  
+    $reg_num = $_POST['reg_num'];
+    $get_data = $getData->searchPatient($reg_num);
+    $check_data_num = $getData->checkDataNum($reg_num);
+  //   print_r($check_data_num);
+  // die();
+    if($check_data_num == 1)
+    {
+        $patientResult = $getData->fetchPatientResults($reg_num);
+        $result = mysqli_fetch_array($patientResult);
+        $patientDetails = mysqli_fetch_array($get_data);
+    }elseif($check_data_num < 1)
+    {
+        echo "     <script type='text/javascript'>   
+        $(document).ready(function() {
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 300;
+        toastr.warning('Registration Number Not Found', 'Warning');
+    });
+    </script>";
+    }elseif($check_data_num > 1)
+    {
+        echo "     <script type='text/javascript'>   
+        $(document).ready(function() {
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 300;
+        toastr.error('Currupted Data', 'Error');
+    });
+    </script>";
+    }
+}
+?>
+
+
 
 
 <body>
+  <a href="https://covidtest.thetrusthospital.com/dev/">
 <img class="logo" src="../assets/img/icons/Trust-hspital-logo.png">
+</a>
 
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
 <h2 style="margin-bottom: -10px;">Covid Test Result</h2>
@@ -263,31 +314,151 @@ h3 {
 
 
 
-<form class="wrap" method="post" action="">
+<form class="wrap" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
    <div class="search">
-      <input type="text" class="searchTerm" placeholder="Enter your registration number here">
-      <button type="submit" class="searchButton">
+      <input type="text" class="searchTerm" name="reg_num" placeholder="Enter your registration number here">
+      <button type="submit" name="submit" value="search" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
    </div>
 </form>
 
-<a href="#" >
+
+
+
+<?php if(isset($patientDetails))
+          {
+            $url = "http://localhost/covid.trusthospital/result/result_pdf.php?reg_num=$reg_num";
+?>
+<a href="<?php echo $url; ?>" >
 <button type="button" class="btn btn-default btn-sm">
   <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download as PDF
 </button>
 </a>
-
-
-
 <br>
 <br>
 <table class="first">
   <tr>
-    <th>Lab Number: </th>
+    <th>Lab Number: <?php echo $result['lab_number']; ?></th>
     <td></td>
 
-    <th>Patient Name: </th>
+    <th>Patient Name: <?php echo $patientDetails['full_name']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Age: <?php echo $patientDetails['age']; ?></th>
+    <td></td>
+
+    <th>Gender: <?php echo $patientDetails['sex']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Receipt Type: <?php echo $result['receipt_type']; ?> </th>
+    <td></td>
+
+    <th>Organisation: <?php echo $result['organisation']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Episode Number: <?php echo $result['episode_number']; ?></th>
+    <td></td>
+
+    <th>Patient Tel: <?php echo $patientDetails['phone_number']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Manual Path Number: <?php echo $result['manual_path_number']; ?></th>
+    <td></td>
+  </tr>
+</table>
+
+<hr style="width:80%;text-align:middle;">
+
+
+<table>
+  <tr>
+    <th>Requested By: <?php echo $result['requested_by']; ?></th>
+    <td></td>
+
+    <th>Sample Collection Date: <?php echo $result['sample_collection_date']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Requested From: <?php echo $result['requested_from']; ?></th>
+    <td></td>
+
+    <th>Receive Date: <?php echo $result['received_date']; ?></th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Diagnosis: <?php echo $result['diagnosis']; ?></th>
+    <td></td>
+
+    <th>Report Date: <?php echo $result['report_date']; ?></th>
+    <td></td>
+  </tr>
+</table>
+
+
+<hr style="width:80%;text-align:middle;">
+
+
+<table>
+  <tr>
+    <th>REQUESTED: <?php echo $result['requested']; ?></th>
+    <td></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>CoVID PCR TEST (B2B DR. AKWETEY) -> </th>
+    <td>[LABORATORY]</td>
+  </tr>
+</table>
+
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">PARAMETER</th>
+                <th scope="col">FLAG</th>
+                <th scope="col">RESULTS</th>
+                <th scope="col">UNITS</th>
+                <th scope="col">NORMAL RANGE</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><?php echo $result['parameter']; ?></td>
+                <td><?php echo $result['flag']; ?></td>
+                <td><?php echo $result['results']; ?></td>
+                <td><?php echo $result['unit']; ?></td>
+                <td><?php echo $result['normal_range']; ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<?php
+}else{
+?>
+<br>
+<br>
+<table class="first">
+  <tr>
+    <th>Lab Number:</th>
+    <td></td>
+
+    <th>Patient Name:</th>
     <td></td>
   </tr>
 
@@ -393,6 +564,9 @@ h3 {
     </table>
 </div>
 
+<?php
+}
+?>
 </body>
 </html>
 

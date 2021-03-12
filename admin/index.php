@@ -24,19 +24,25 @@ $getData = new dbData();
 
     <?php
     if(isset($_GET['status']) && $_GET['status'] == "saved")
+    { 
+        echo "     <script type='text/javascript'>   
+        $(document).ready(function() {
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 300;
+        toastr.success('Your Covid Test has been booked!', 'Success');
+    });
+    </script>";
+    }elseif(isset($_GET['status']) && $_GET['status'] == "expired")
     {
-        ?>
-        <!-- Notification -->
-     <script type='text/javascript'>   
-    $(document).ready(function() {
-    toastr.options.positionClass = "toast-top-right";
-    toastr.options.closeButton = true;
-    toastr.options.closeDuration = 300;
-    toastr.success('Your Covid Test has been booked!', 'Success');
-});
-</script>
-     
-       <?php
+        echo "     <script type='text/javascript'>   
+        $(document).ready(function() {
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.closeButton = true;
+        toastr.options.closeDuration = 300;
+        toastr.info('Please enter your credentials to log in', 'Session Expired');
+    });
+    </script>";
     }
        ?>
 </head>
@@ -53,7 +59,10 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
         $row=mysqli_fetch_array($get_admin);
         $_SESSION['user_name'] = $row['admin_username'];
         $_SESSION['user_email'] = $row['admin_email'];
-		echo "<script>location='http://localhost/covid.trusthospital/admin/dashboard.php'</script>";
+        $_SESSION['start'] = time(); // Taking now logged in time.
+            // Ending a session in 30 minutes from the starting time.
+        $_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
+		echo "<script>location='https://covidtest.thetrusthospital.com/dev/admin/dashboard.php'</script>";
         die();
     }else
     {

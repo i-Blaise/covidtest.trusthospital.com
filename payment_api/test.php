@@ -30,5 +30,5 @@ $getData = new dbData();
     // $_SESSION['data'] = $result;
     // print_r($result);
     // print_r($_SESSION['registration_number']);
-    // $dbUpdate = $getData->updateDBPayment($_SESSION['registration_number'], $_SESSION['data']);
-    // print_r($dbUpdate);
+    $dbUpdate = $getData->fetchOnlinePaymentDB('TTH132555361');
+    print_r($dbUpdate['callback']);

@@ -3,9 +3,16 @@ include('../class_libraries/class_lib.php');
 $database_con = new DB_con();
 $getData = new dbData();
 
-    if(!isset($_SESSION['user_name'], $_SESSION['user_email']))
+    if(!isset($_SESSION['user_name'], $_SESSION['user_email'], $_SESSION['expire']))
     {
         echo "<script>location='http://localhost/covid.trusthospital/admin/'</script>";
+    }else{
+        $now = time(); // Checking the time now when home page starts.
+
+        if ($now > $_SESSION['expire']) {
+            session_destroy();
+            echo "<script>location='http://localhost/covid.trusthospital/admin/index.php?status=expired'</script>";
+        }
     }
 
 ?>
@@ -221,8 +228,12 @@ if (isset($_POST['search_patient']) && $_POST['search_patient'] == "Submit")
                         </li> -->
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="active sidebar-link waves-effect waves-dark sidebar-link"
-                                href="#" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
-                                    class="hide-menu">Patient Information Table</span></a></li>
+                        href="#" aria-expanded="false"><i class="mdi mdi-border-all"></i><span
+                        class="hide-menu">Patient Information Table</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="result-input.php" aria-expanded="false"><i class="mdi mdi-account-network"></i><span
+                         class="hide-menu">Input Patient Result</span></a></li>
 
                     </ul>
 

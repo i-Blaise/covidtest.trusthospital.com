@@ -2,6 +2,8 @@
 include('../class_libraries/class_lib.php');
 $getData = new dbData();
 include_once "payfluid_api_sdk.php";
+// For php mailer
+require_once '../vendor/autoload.php';
 
 
 //AUTO VERIFY SET TO TRUE
@@ -13,10 +15,10 @@ include_once "payfluid_api_sdk.php";
 
 $results = \payfluid\MerchantAPI::verifyPayment($data,$token);
 $result = json_decode($results);
-$_SESSION['payRef'] = $result->aapf_txn_payLink;
+$_SESSION['payReference'] = $result->aapf_txn_payLink;
 
 
-// print_r($data);
+// print_r($_GET['qs']);
 // die();
       
 ?>
@@ -29,6 +31,7 @@ $_SESSION['payRef'] = $result->aapf_txn_payLink;
 	<title>PayFluid Demo</title>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 
 	<style>
 		body {
@@ -399,9 +402,34 @@ $_SESSION['payRef'] = $result->aapf_txn_payLink;
 
     <?php
 $registration_number = $_SESSION['registration_number'];
+$fullName = $_SESSION['post']['name'];
+$email = $_SESSION['post']['email'];
+
 if(is_array($result) || is_object($result)){
+    // SMS
+$text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'. The Trust Hospital';
+$msg = urlencode($text);
+$get_sms_data = $getData->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);
+$response = new SimpleXMLElement($get_sms_data);
+$sms_status = $response->sms[0]->status;
+$sms_msgid = $response->sms[0]->msgid;
+
+
+// Send Email 
+$email_data = $getData->sendEmail($email, $fullName, $text);
+if(isset($email_data) && $email_data == 'Loading...')
+{
+$email_status = 1;
+}else{
+$email_status = 0;
+}
+
+
+    $booking_data = $getData->insertBookingData($_SESSION['post'], $registration_number, $sms_msgid, $sms_status, $email_status, true);
     $payment = $getData->insertPaymentDetails($result, $registration_number);
     if($payment == "good"){
+        $cmd = "php ". __DIR__ . DIRECTORY_SEPARATOR ."check_payment_status.php  > /dev/null &";
+        exec($cmd); 
 
 
 ?>
@@ -422,6 +450,10 @@ if(is_array($result) || is_object($result)){
 
                                         ?>
                                             <tr>
+                                                <td style="text-align:left"><h5>Registration Number:</h5></td>
+                                                <td style="word-break:break-all"><h6 id="reg_num"><?php echo $registration_number ?></h6></td>
+                                            </tr>
+                                            <tr>
                                                 <td style="text-align:left"><h5>Full Name:</h5></td>
                                                 <td style="word-break:break-all"><h6><?php echo $_SESSION['post']['name'] ?></h6></td>
                                             </tr>
@@ -431,7 +463,7 @@ if(is_array($result) || is_object($result)){
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left"><h5>Reference:</h5></td>
-                                                <td style="word-break:break-all"><h6><?php echo $result->aapf_txn_ref?></h6></td>
+                                                <td style="word-break:break-all"><h6 id="pay_ref"><?php echo $_SESSION['payReference'] ?></h6></td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left"><h5>Package:</h5></td>
@@ -469,22 +501,7 @@ if(is_array($result) || is_object($result)){
 </div>
 <?php
 }
-?>
-<?php
-    // session_destroy();
-    // $_SESSION['registration_number'] = $registration_number;
-
-// if($result->aapf_txn_gw_sc != '0-SUCCESSFUL')
-// {
-//     session_destroy();
-//     $_SESSION['registration_number'] = $registration_number;
-//     $_SESSION['payRef'] = $payRef;
-//     $cmd = "php ". __DIR__ . DIRECTORY_SEPARATOR ."chekPayment_bg.php  > /dev/null &";
-//     exec($cmd); 
-// }
-
 }
-
 ?>
 
 

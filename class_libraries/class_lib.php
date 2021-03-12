@@ -65,22 +65,7 @@ public function getPatientInfoForQRCode($reg_num)
     
   }
 
-  public function searchPatient($reg_num){
-  $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
-  $result=mysqli_query($this->dbh, $myQuery);
-//   return $reg_num;
-//   die();
-  $num = mysqli_num_rows($result);
-  if($num == 1)
-  {
-    return $result;
-  }elseif($num < 1){
-     echo 'not found';
-  }else{
-   echo 'error';
-  }
-  
-}
+
 
 public function checkDataNum($reg_num){
    $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
@@ -361,7 +346,7 @@ public function checkDataNum($reg_num){
   
 }
 
-public function insertPaymentDetails($data, $registration_number){
+public function insertPaymentDetails($data, $registration_number, $callback = false){
    //  print_r($data->aapf_txn_amt);
    //  die();
     if(is_array($data) ||is_object($data)){
@@ -385,42 +370,88 @@ public function insertPaymentDetails($data, $registration_number){
 
 
       if(isset($aapf_txn_signature)){
-         $paymentQuery = "INSERT INTO online_payment (
-            registration_number,
-            aapf_txn_amt,
-            aapf_txn_clientRspRedirectURL, 
-            aapf_txn_clientTxnWH,
-            aapf_txn_cref,
-            aapf_txn_currency, 
-            aapf_txn_datetime, 
-            aapf_txn_gw_ref, 
-            aapf_txn_gw_sc, 
-            aapf_txn_maskedInstr, 
-            aapf_txn_otherInfo, 
-            aapf_txn_payLink, 
-            aapf_txn_payScheme, 
-            aapf_txn_ref, 
-            aapf_txn_sc, 
-            aapf_txn_sc_msg, 
-            aapf_txn_signature) VALUES (
-           '$registration_number',
-           '$aapf_txn_amt',
-           '$aapf_txn_clientRspRedirectURL',
-           '$aapf_txn_clientTxnWH',
-           '$aapf_txn_cref',
-           '$aapf_txn_currency',
-           '$aapf_txn_datetime',
-           '$aapf_txn_gw_ref',
-           '$aapf_txn_gw_sc',
-           '$aapf_txn_maskedInstr',
-           '$aapf_txn_otherInfo',
-           '$aapf_txn_payLink',
-           '$aapf_txn_payScheme',
-           '$aapf_txn_ref',
-           '$aapf_txn_sc',
-           '$aapf_txn_sc_msg',
-           '$aapf_txn_signature')";
-       $payment=mysqli_query($this->dbh, $paymentQuery);
+         if($callback === false){
+            $callback_status = 0;
+            $paymentQuery = "INSERT INTO online_payment (
+               registration_number,
+               aapf_txn_amt,
+               aapf_txn_clientRspRedirectURL, 
+               aapf_txn_clientTxnWH,
+               aapf_txn_cref,
+               aapf_txn_currency, 
+               aapf_txn_datetime, 
+               aapf_txn_gw_ref, 
+               aapf_txn_gw_sc, 
+               aapf_txn_maskedInstr, 
+               aapf_txn_otherInfo, 
+               aapf_txn_payLink, 
+               aapf_txn_payScheme, 
+               aapf_txn_ref, 
+               aapf_txn_sc, 
+               aapf_txn_sc_msg, 
+               aapf_txn_signature,
+               callback) VALUES (
+              '$registration_number',
+              '$aapf_txn_amt',
+              '$aapf_txn_clientRspRedirectURL',
+              '$aapf_txn_clientTxnWH',
+              '$aapf_txn_cref',
+              '$aapf_txn_currency',
+              '$aapf_txn_datetime',
+              '$aapf_txn_gw_ref',
+              '$aapf_txn_gw_sc',
+              '$aapf_txn_maskedInstr',
+              '$aapf_txn_otherInfo',
+              '$aapf_txn_payLink',
+              '$aapf_txn_payScheme',
+              '$aapf_txn_ref',
+              '$aapf_txn_sc',
+              '$aapf_txn_sc_msg',
+              '$aapf_txn_signature',
+              '$callback_status')";
+          $payment=mysqli_query($this->dbh, $paymentQuery);
+         }else{
+            $callback_status = 1;
+            $paymentQuery = "INSERT INTO online_payment (
+               registration_number,
+               aapf_txn_amt,
+               aapf_txn_clientRspRedirectURL, 
+               aapf_txn_clientTxnWH,
+               aapf_txn_cref,
+               aapf_txn_currency, 
+               aapf_txn_datetime, 
+               aapf_txn_gw_ref, 
+               aapf_txn_gw_sc, 
+               aapf_txn_maskedInstr, 
+               aapf_txn_otherInfo, 
+               aapf_txn_payLink, 
+               aapf_txn_payScheme, 
+               aapf_txn_ref, 
+               aapf_txn_sc, 
+               aapf_txn_sc_msg, 
+               aapf_txn_signature,
+               callback) VALUES (
+              '$registration_number',
+              '$aapf_txn_amt',
+              '$aapf_txn_clientRspRedirectURL',
+              '$aapf_txn_clientTxnWH',
+              '$aapf_txn_cref',
+              '$aapf_txn_currency',
+              '$aapf_txn_datetime',
+              '$aapf_txn_gw_ref',
+              '$aapf_txn_gw_sc',
+              '$aapf_txn_maskedInstr',
+              '$aapf_txn_otherInfo',
+              '$aapf_txn_payLink',
+              '$aapf_txn_payScheme',
+              '$aapf_txn_ref',
+              '$aapf_txn_sc',
+              '$aapf_txn_sc_msg',
+              '$aapf_txn_signature',
+              '$callback_status')";
+          $payment=mysqli_query($this->dbh, $paymentQuery);
+         }
+
    if(!$payment){  
        echo "Error: " .mysqli_error($database_con->dbh);
        die();
@@ -477,6 +508,7 @@ function addCountryCode($raw_phone){
 
 
  function paymentStatus($registration_number, $payRef){
+   sleep(500);
    $result = $this->verifyPayment($payRef);
    $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
    // return $result;
@@ -485,20 +517,25 @@ function addCountryCode($raw_phone){
    if(!isset($result->status_msg)){
       for($i=0; $i < 5; $i++)
    {
-   $result = $this->verifyPayment($payRef);
-   $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
    if($payment_status == '0-SUCCESSFUL'){
       $i = 6;
    }else{
-   sleep(10);
+   sleep(500);
+   $result = $this->verifyPayment($payRef);
+   $payment_status = (isset($result->aapf_txn_gw_sc)) ? $result->aapf_txn_gw_sc : 0;
    }
    }
+
  }else{
    return 'invalid pay ref';
    die();
  }
 
- if ($payment_status == '0-SUCCESSFUL'){
+
+ 
+ $callback_status = $this->fetchCallbackStatus($registration_number);
+ 
+ if ($payment_status == '0-SUCCESSFUL' && $callback_status == 0){
    $dbUpdate = $this->updateDBPayment($registration_number, $result);
    if($dbUpdate == 'good'){
       return 'verified';
@@ -530,7 +567,7 @@ function addCountryCode($raw_phone){
  }else{
    $dbUpdate = $this->updateDBPayment($registration_number, $result, false);
    if($dbUpdate == 'good'){
-   return 'updated';
+   return 'payment failed';
    }else{
    return 'errror';
    }
@@ -539,19 +576,23 @@ function addCountryCode($raw_phone){
 
 }
 
- function updateDBPayment($registration_number, $data, $paymentSuccess = true){
+ function updateDBPayment($registration_number, $data, $paymentSuccess = true, $callback = false){
     if($paymentSuccess)
     {
+
    if(is_array($data) ||is_object($data)){
       $aapf_txn_gw_sc = $data->aapf_txn_gw_sc;
       $aapf_txn_sc_msg = $data->aapf_txn_gw_sc;
       $aapf_txn_sc = $data->aapf_txn_sc;
 
-      if(isset($aapf_txn_gw_sc) && $aapf_txn_gw_sc == '0-SUCCESSFUL'){
+      if($aapf_txn_gw_sc == '0-SUCCESSFUL' && $callback == true)
+      {
+         $callback_status = 1;
          $paymentQuery = "UPDATE online_payment SET 
          aapf_txn_gw_sc = '$aapf_txn_gw_sc', 
          aapf_txn_sc_msg= '$aapf_txn_sc_msg',
-         aapf_txn_sc = '$aapf_txn_sc'
+         aapf_txn_sc = '$aapf_txn_sc',
+         callback = '$callback_status'
          WHERE 
          registration_number = '$registration_number'";
 
@@ -562,7 +603,29 @@ if(!$payment){
 }else{
   $online_payment = true;
 }
+
+
+   }elseif($aapf_txn_gw_sc == '0-SUCCESSFUL' && $callback == false)
+   {
+      
+      $callback_status = 0;
+      $paymentQuery = "UPDATE online_payment SET 
+      aapf_txn_gw_sc = '$aapf_txn_gw_sc', 
+      aapf_txn_sc_msg= '$aapf_txn_sc_msg',
+      aapf_txn_sc = '$aapf_txn_sc',
+      callback = '$callback_status'
+      WHERE 
+      registration_number = '$registration_number'";
+
+$payment = mysqli_query($this->dbh, $paymentQuery);
+if(!$payment){  
+echo "Error: " .mysqli_error($database_con->dbh);
+die();
+}else{
+$online_payment = true;
 }
+
+   }
 
 if(isset($online_payment) && $online_payment == true){
    $bookingFormQuery = "UPDATE patientbookingform SET 
@@ -592,7 +655,7 @@ if(!$bookingQueryStatus){
          echo "Error: " .mysqli_error($database_con->dbh);
          die();
       }else{
-        return "good";
+        return "unpaid";
       }
     }
  }
@@ -608,6 +671,145 @@ if(!$bookingQueryStatus){
  }
 
 
+
+
+ public function insertResults($data, $registration_number){
+   //  print_r($data->aapf_txn_amt);
+   //  die();
+    if(is_array($data) ||is_object($data)){
+
+
+
+		$registration_number = $data['reg_num'];
+		$lab_number = (empty($data['lab_number'])) ?  "N/A" : $data['lab_number'];
+		$receipt_type = (empty($data['receipt_type'])) ?  "N/A" : $data['receipt_type'];
+		$episode_number = (empty($data['episode_number'])) ?  "N/A" : $data['episode_number'];
+		$manual_path_number = (empty($data['manual_path_number'])) ?  "N/A" : $data['manual_path_number'];
+		$organisation = (empty($data['organisation'])) ?  "N/A" : $data['organisation'];
+		$requested_by = (empty($data['requested_by'])) ?  "N/A" : $data['requested_by'];
+		$requested_from = (empty($data['requested_from'])) ?  "N/A" : $data['requested_from'];
+		$diagnosis = (empty($data['diagnosis'])) ?  "N/A" : $data['diagnosis'];
+		$sample_collection_date = (empty($data['sample_collection_date'])) ?  "N/A" : $data['sample_collection_date'];
+		$received_date = (empty($data['received_date'])) ?  "N/A" : $data['received_date'];
+		$report_date = (empty($data['report_date'])) ?  "N/A" : $data['report_date'];
+		$requested = (empty($data['requested'])) ?  "N/A" : $data['requested'];
+		$name_of_doctor = (empty($data['name_of_doctor'])) ?  "N/A" : $data['name_of_doctor'];
+		$parameter = (empty($data['parameter'])) ?  "N/A" : $data['parameter'];
+		$flag = (empty($data['flag'])) ?  "N/A" : $data['flag'];
+		$results = (empty($data['results'])) ?  "N/A" : $data['results'];
+		$unit = (empty($data['unit'])) ?  "N/A" : $data['unit'];
+		$normal_range = (empty($data['normal_range'])) ?  "N/A" : $data['normal_range'];
+
+      $checkDuplicate = $this->checkResultNum($registration_number);
+
+
+      if($checkDuplicate > 1)
+      {
+
+      if(isset($registration_number)){
+         $resultQuery = "INSERT INTO test_result (
+            registration_number,
+            lab_number,
+            receipt_type, 
+            episode_number,
+            manual_path_number,
+            organisation, 
+            requested_by, 
+            requested_from, 
+            diagnosis, 
+            sample_collection_date, 
+            received_date, 
+            report_date, 
+            requested, 
+            name_of_doctor, 
+            parameter, 
+            results, 
+            unit,
+            normal_range) VALUES (
+           '$registration_number',
+           '$lab_number',
+           '$receipt_type',
+           '$episode_number',
+           '$manual_path_number',
+           '$organisation',
+           '$requested_by',
+           '$requested_from',
+           '$diagnosis',
+           '$sample_collection_date',
+           '$received_date',
+           '$report_date',
+           '$requested',
+           '$name_of_doctor',
+           '$parameter',
+           '$results',
+           '$unit',
+           '$normal_range')";
+       $resultStatus=mysqli_query($this->dbh, $resultQuery);
+   if(!$resultStatus){  
+       echo "Error: " .mysqli_error($this->dbh);
+       die();
+   }else{
+      return 'good';
+   die();
+   }
+      }
+   }else{
+      return 'duplicate';
+   }
+   }
+
+  
+}
+
+
+public function searchPatient($reg_num){
+   $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
+   $result=mysqli_query($this->dbh, $myQuery);
+ //   return $reg_num;
+ //   die();
+   $num = mysqli_num_rows($result);
+   if($num == 1)
+   {
+     return $result;
+   }elseif($num < 1){
+      return 'not found';
+   }else{
+    return 'error';
+   }
+   
+ }
+
+public function fetchPatientResults($registration_number)
+{
+$myQuery = "SELECT * FROM test_result WHERE registration_number = '$registration_number'";
+$result=mysqli_query($this->dbh, $myQuery);
+return $result;
+}
+
+public function fetchCallbackStatus($registration_number)
+{
+$myQuery = "SELECT callback FROM online_payment WHERE registration_number = '$registration_number'";
+$result=mysqli_query($this->dbh, $myQuery);
+// return $result;
+
+$num = mysqli_num_rows($result);
+if($num == 1)
+{
+   $row = mysqli_fetch_assoc($result);
+  return $row;
+}elseif($num < 1){
+   echo 'not found';
+}else{
+ echo 'error';
+}
+}
+
+public function checkResultNum($reg_num){
+   $myQuery = "SELECT * FROM test_result WHERE registration_number = '$reg_num'";
+   $result=mysqli_query($this->dbh, $myQuery);
+   $num = mysqli_num_rows($result);
+    return $num;
+ }
 
 
 }

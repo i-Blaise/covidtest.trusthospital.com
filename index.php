@@ -144,13 +144,12 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                         </a>
                         <ul class="dropdown-menu dropdown-danger">
                             <li>
-                                <a href="#"><i class="fa fa-facebook-square"></i> Facebook</a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcovidtest.thetrusthospital.com/dev" target="_blank">
+                                <i class="fa fa-facebook-square"></i> Facebook
+                                </a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i> Instagram</a>
+                                <a href="https://twitter.com/intent/tweet?text=Check out The Trust Hospital Covid Testing Portal. Book Your Covid Test and pay online with no hustle - https://covidtest.thetrusthospital.com/dev/. Stay Safe." target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
                             </li>
                         </ul>
                     </li>
@@ -342,7 +341,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                                                 <div class="description">
                                                     <h3 class="title">Check Test Status</h3>
                                                     <p class="small-text">Already Tested with Us? Check the status of your test here</p>
-                                                    <a href="#" class="btn btn-danger btn-fill btn-lg">Check Test Status</a>
+                                                    <a href="result" class="btn btn-danger btn-fill btn-lg">Check Test Status</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,7 +355,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                                                 <div class="description">
                                                     <h3 class="title">Make Payment</h3>
                                                     <p class="small-text">Make payment on already booked tests.</p>
-                                                    <a href="#" class="btn btn-danger btn-fill btn-lg" data-toggle="modal" data-target="#modalLoginAvatarDemo">Make Payment</a>
+                                                    <a href="#" class="btn btn-danger btn-fill btn-lg" data-toggle="modal" data-target="#makePayment">Make Payment</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -370,7 +369,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                                                 <div class="description">
                                                     <h3 class="title">Questions?</h3>
                                                     <p class="small-text">Be sure to reach out to use for any questions or enquiries.</p>
-                                                    <a href="#" class="btn btn-danger btn-fill btn-lg">Contact</a>
+                                                    <a href="#" class="btn btn-danger btn-fill btn-lg" data-toggle="modal" data-target="#contacts">Contact</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -395,7 +394,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                 </div>
 
                 <div class="button-get-started">
-                    <a href="#" class="btn btn-danger btn-fill btn-lg">Contact Us</a>
+                    <a href="#" class="btn btn-danger btn-fill btn-lg" data-toggle="modal" data-target="#contacts">Contact Us</a>
                 </div>
             </div>
     </div>
@@ -433,7 +432,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                          <nav>
                             <ul>
                                 <li>
-                                    <a href="#">Contact Us</a>
+                                    <a href="#" data-toggle="modal" data-target="#contacts">Contact Us</a>
                                 </li>
                                 <li>
                                     <a href="#">How it works</a>
@@ -471,8 +470,8 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                         </nav>
                     </div>
                 </div> -->
-      <!--Modal Form Login with Avatar Demo-->
-      <div class="modal fade" id="modalLoginAvatarDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!--Enter Reg Number Modal-->
+      <div class="modal fade" id="makePayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
                 <!--Content-->
                 <div class="modal-content">
@@ -494,6 +493,28 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                             <button class="btn btn-cyan mt-1" name="submit" value="Submit" onclick="submitorm()">Enter</button>
                         </div>
                     </form>
+
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+
+        <!-- Contacts Modal  -->
+        <div class="modal fade" id="contacts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                <!--Content-->
+                <div class="modal-content">
+
+                    <!--Header-->
+                    <!-- <div class="modal-header">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" class="rounded-circle img-responsive" alt="Avatar photo">
+                    </div> -->
+                    <!--Body-->
+                    <div class="modal-body text-center mb-1" name="checkPayment" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+
+                        <h5 class="mt-1 mb-2" style="color:black;">0302761974 / 0302761975</h5>
+                        <h5 class="mt-1 mb-2" style="color:black;">info@thetrusthospital.com</h5>
+                    </div>
 
                 </div>
                 <!--/.Content-->
@@ -564,6 +585,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 
+<script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 
 <script type = "text/javascript">  
 

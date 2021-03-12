@@ -1,12 +1,26 @@
 <?php
 use Dompdf\Dompdf;
 require_once '../vendor/autoload.php';
+include('../class_libraries/class_lib.php');
+$getData = new dbData();
 
 function turnTOBase64($path){
   $type = pathinfo($path, PATHINFO_EXTENSION);
   $data = file_get_contents($path);
   $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
   return $base64;
+}
+
+if (isset($_GET['reg_num']))
+{
+  
+        $reg_num = $_GET['reg_num'];
+        $get_data = $getData->searchPatient($reg_num);
+        $patientResult = $getData->fetchPatientResults($reg_num);
+        $result = mysqli_fetch_array($patientResult);
+        $patientDetails = mysqli_fetch_array($get_data);
+
+
 }
 
 
@@ -56,43 +70,43 @@ tr:nth-child(even) {
 <body>
 <img src="'.$path.'" width="180" height="150" alt="hospitals logo"/>
 <h1 style="margin-bottom: -10px;">The Trust Hospital - Covid Test Portal</h1>
-<h2>Patient Booking Form</h2>
+<h2>Patient Test Results</h2>
 
 <table class="first">
   <tr>
-    <th>Lab Number: </th>
+    <th>Lab Number: '.$result['lab_number'].' </th>
     <td></td>
 
-    <th>Patient Name: </th>
-    <td></td>
-  </tr>
-
-  <tr>
-    <th>Age: </th>
-    <td></td>
-
-    <th>Gender: </th>
+    <th>Patient Name: '.$patientDetails['full_name'].'</th>
     <td></td>
   </tr>
 
   <tr>
-    <th>Reciept Type: </th>
+    <th>Age: '.$patientDetails['age'].'</th>
     <td></td>
 
-    <th>Organization: </th>
-    <td></td>
-  </tr>
-
-  <tr>
-    <th>Episode Number: </th>
-    <td></td>
-
-    <th>Patient Tel: </th>
+    <th>Gender: '.$patientDetails['sex'].'</th>
     <td></td>
   </tr>
 
   <tr>
-    <th>Manual Path Number: </th>
+    <th>Reciept Type: '.$result['receipt_type'].'</th>
+    <td></td>
+
+    <th>Organization: '.$result['organisation'].'</th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Episode Number: '.$result['episode_number'].'</th>
+    <td></td>
+
+    <th>Patient Tel: '.$patientDetails['phone_number'].'</th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Manual Path Number: '.$result['manual_path_number'].'</th>
     <td></td>
   </tr>
 </table>
@@ -102,26 +116,26 @@ tr:nth-child(even) {
 
 <table>
   <tr>
-    <th>Requested By: </th>
+    <th>Requested By: '.$result['requested_by'].'</th>
     <td></td>
 
-    <th>Sample Collection Date: </th>
-    <td></td>
-  </tr>
-
-  <tr>
-    <th>Requested From: </th>
-    <td></td>
-
-    <th>Receive Date: </th>
+    <th>Sample Collection Date: '.$result['sample_collection_date'].'</th>
     <td></td>
   </tr>
 
   <tr>
-    <th>Diagnosis: </th>
+    <th>Requested From: '.$result['requested_from'].'</th>
     <td></td>
 
-    <th>Report Date: </th>
+    <th>Receive Date: '.$result['received_date'].'</th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th>Diagnosis: '.$result['diagnosis'].'</th>
+    <td></td>
+
+    <th>Report Date: '.$result['report_date'].'</th>
     <td></td>
   </tr>
 </table>
@@ -132,14 +146,14 @@ tr:nth-child(even) {
 
 <table>
   <tr>
-    <th>REQUESTED: </th>
+    <th>REQUESTED: '.$result['requested'].'</th>
     <td></td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <th>CoVID PCR TEST (B2B DR. AKWETEY) -> </th>
+    <th>CoVID PCR TEST ('.$result['name_of_doctor'].') -> </th>
     <td>[LABORATORY]</td>
   </tr>
 </table>
@@ -159,11 +173,11 @@ tr:nth-child(even) {
         </thead>
         <tbody>
             <tr>
-                <td>Specimen Type <BR> SARS-COV-2, RT-PCR</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>'.$result['parameter'].'</td>
+                <td>'.$result['flag'].'</td>
+                <td>'.$result['results'].'</td>
+                <td>'.$result['unit'].'</td>
+                <td>'.$result['normal_range'].'</td>
             </tr>
         </tbody>
     </table>
@@ -175,7 +189,7 @@ tr:nth-child(even) {
 ');
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("BookingFormData",array("Attachment" => false));
+$dompdf->stream("Covid Test Result",array("Attachment" => true));
 $options = new Options();
 $options->set('isRemoteEnabled',true);      
 $dompdf = new Dompdf( $options );

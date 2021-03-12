@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 	<!-- Main Style Css -->
     <link rel="stylesheet" href="css/style.css"/>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 </head>
 <!-- @if (session('status') === 'email exists')
 <body class="form-v10" onload="email_exixts()">
@@ -71,10 +72,36 @@
 					<div class="form-row">
 					<select name="district" required>
 						<option value="" disabled selected>District*</option>
-						<option value="ada foah">Ada Foah</option>
-						<option value="sege">Sege</option>
-						<option value="prampram">Prampram</option>
-						<option value="dpdowa">Dodowa</option>
+						<option value=""disabled style="font-weight: bold;"><b>Greater Accra Region</b></option>
+						<option value="Ablekuma Central">Ablekuma Central</option>
+						<option value="Ablekuma North">Ablekuma North</option>
+						<option value="Ablekuma West">Ablekuma West</option>
+						<option value="Accra Metropolitan">Accra Metropolitan</option>
+						<option value="Ada East">Ada East</option>
+						<option value="Ada West">Ada West</option>
+						<option value="Adenta">Adenta</option>
+						<option value="Ashaiman">Ashaiman</option>
+						<option value="Ayawaso East">Ayawaso East</option>
+						<option value="Ayawaso Central">Ayawaso Central</option>
+						<option value="Ayawaso North">Ayawaso North</option>
+						<option value="Ayawaso West">Ayawaso West</option>
+						<option value="Ga Central">Ga Central</option>
+						<option value="Ga East">Ga East</option>
+						<option value="Ga North">Ga North</option>
+						<option value="Ga South">Ga South</option>
+						<option value="Ga West">Ga West</option>
+						<option value="Korle Klottey">Korle Klottey</option>
+						<option value="Kpone Katamanso">Kpone Katamanso</option>
+						<option value="Krowor">Krowor</option>
+						<option value="La Dade Kotopon">La Dade Kotopon</option>
+						<option value="La Nkwantanang Madina">La Nkwantanang Madina</option>
+						<option value="Ledzokuku">Ledzokuku</option>
+						<option value="Ningo Prampram">Ningo Prampram</option>
+						<option value="Okaikwei North">Okaikwei North</option>
+						<option value="Shai Osudoku">Shai Osudoku</option>
+						<option value="Tema Metropolitan">Tema Metropolitan</option>
+						<option value="Tema West">Tema West</option>
+						<option value="Weija Gbawe">Weija Gbawe</option>
 					</select>
 					<span class="select-btn">
 			  		<i class="zmdi zmdi-chevron-down"></i>
@@ -89,10 +116,10 @@
 					</div>
 					<div class="form-row">
 						<label class="date-label" style="color: black;">Date Of Birth*:</label>
-						<input type="date" name="DOB" class="input-text" required placeholder="YYYY-MM-DD">
+						<input type="date" name="DOB" id="DOB" class="input-text" required placeholder="YYYY-MM-DD" onchange="ageCalculator()" value="">
 					</div>
 					<div class="form-row">
-						<input type="text" name="age" class="input-text" placeholder="Age" value="24" readonly>
+						<input type="text" name="age" id="age" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
@@ -372,6 +399,31 @@
 function tmc() {
   alert("accept terms and conditions");
 }
+
+function ageCalculator() {  
+    var userinput = document.getElementById("DOB").value;  
+    var dob = new Date(userinput);  
+    if(userinput==null || userinput=='') {  
+      document.getElementById("age").innerHTML = "**Choose a date please!";    
+      return false;   
+    } else {  
+      
+    //calculate month difference from current date in time  
+    var month_diff = Date.now() - dob.getTime();  
+      
+    //convert the calculated difference in date format  
+    var age_dt = new Date(month_diff);   
+      
+    //extract year from date      
+    var year = age_dt.getUTCFullYear()
+      
+    //now calculate the age of the user  
+    var age = Math.abs(year - 1970);
+      
+    //display the calculated age  
+    return document.getElementById("age").value = age;  
+    }  
+}  
 </script>
 </body>
 </html>
