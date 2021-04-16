@@ -5,12 +5,17 @@
 	<title>Covid Test Portal - The Trust Hospital</title>
 	<link rel="icon" type="image/png" href="img/trust-logo.png">
 	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 	<!-- Font-->
 	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
 	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 	<!-- Main Style Css -->
     <link rel="stylesheet" href="css/style.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 </head>
 <!-- @if (session('status') === 'email exists')
@@ -18,7 +23,26 @@
 @elseif (session('status') === 'tmc')
 <body class="form-v10" onload="tmc()">
 @else -->
-
+<style>
+	/* .container {
+    width:100%;
+    border:1px solid #d3d3d3;
+} */
+/* .container div {
+    width:100%;
+} */
+.container .header {
+    background-color: transparent;
+	text-align: center;
+    /* padding: 2px; */
+    cursor: pointer;
+    font-weight: bold;
+}
+.container .content {
+    display: none;
+    /* padding : 5px; */
+}
+</style>
 
 
 
@@ -119,7 +143,10 @@
 						<input type="date" name="DOB" id="DOB" class="input-text" required placeholder="YYYY-MM-DD" onchange="ageCalculator()" value="">
 					</div>
 					<div class="form-row">
-						<input type="text" name="age" id="age" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
+						<input type="hidden" name="age" id="age" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
+					</div>
+					<div class="form-row">
+						<input type="text" name="age1" id="age1" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
@@ -150,9 +177,15 @@
 				</div>
 
 
+
+
 				<div class="form-right">
 					<h2>Symptoms Information</h2>
 					<h5 style="font-weight: bold; ">Patient symptoms(check all reported informations)</h5>
+			<div class="container">
+   			<div class="header"><span>Expand</span>
+			</div>
+			<div class="content">
 					<div class="form-group">
 						<div class="form-row form-row-1">
 					<div class="form-checkbox">
@@ -232,8 +265,17 @@
 					</div>
 				</div>
 			</div>
+			</div>
+			</div>
+
+
+
 
 			<h5 style="font-weight: bold; ">Pain (Check all that apply)</h5>
+			<div class="container">
+   			<div class="header"><span>Expand</span>
+			</div>
+			<div class="content">
 					<div class="form-group">
 						<div class="form-row form-row-1">
 					<div class="form-checkbox">
@@ -265,8 +307,22 @@
 					</div>
 				</div>
 			</div>
-			<h2>Patient Vital Signs</h2>
+			</div>
+			</div>
+
+
+
+			<!-- <h2>Patient Vital Signs</h2>
 			<h5 style="font-weight: bold; ">Check all observed signs:</h5>
+			
+			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+			<div id="demo" class="collapse">
+			<div class="container">
+    <div class="header"><span>Expand</span>
+
+    </div>
+
+	<div class="content">
 			<div class="form-group">
 			<div class="form-row form-row-1">
 			<div class="form-checkbox">
@@ -310,9 +366,11 @@
 			</div>
 		</div>
 	</div>
+    </div>
+</div> -->
 
 
-	<h2>Patient Clinical Course</h2>	
+	<!-- <h2>Patient Clinical Course</h2>	
 	
 	<div class="form-row">
 	<label class="date-label" style="color: white;">Date of onset of symptoms:</label>
@@ -383,7 +441,7 @@
 		</div>
 		<div class="form-row">
 			<input type="text" name="other_symptoms" placeholder="Other underlying conditions" class="input-text">
-		</div>
+		</div> -->
 					<div class="form-row-last">
 						<input type="submit" name="submit" class="register" value="Submit">
 					</div>
@@ -421,9 +479,28 @@ function ageCalculator() {
     var age = Math.abs(year - 1970);
       
     //display the calculated age  
-    return document.getElementById("age").value = age;  
+    document.getElementById("age1").value = age + ' years'; 
+    document.getElementById("age").value = age; 
     }  
 }  
+</script>
+<script>
+	$(".header").click(function () {
+
+$header = $(this);
+//getting the next element
+$content = $header.next();
+//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+$content.slideToggle(500, function () {
+	//execute this after slideToggle is done
+	//change text of header based on visibility of content div
+	$header.text(function () {
+		//change text based on condition
+		return $content.is(":visible") ? "Collapse" : "Expand";
+	});
+});
+
+});
 </script>
 </body>
 </html>

@@ -142,7 +142,7 @@ body {
 }
 .form-v10-content .form-detail .form-right .form-group .form-row.form-row-2 {
 	width: 100%;
-	padding: 0 50px 0 12px;
+	padding: 0 0 0 12px;
 }
 .form-v10-content .form-detail select,
 .form-v10-content .form-detail input {
@@ -276,8 +276,8 @@ body {
 	text-decoration: underline;
 }
 .form-v10-content .form-detail .form-right .form-row-last {
-    padding-left: 60px;
-    margin: 44px 0 10px;
+    padding: 70px 0 0 180px;
+    margin: 150px 0 10px;
 }
 .form-v10-content .form-detail .form-right .register {
 	background: #fff;
@@ -293,7 +293,7 @@ body {
 	-webkit-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
 	width: 180px;
 	border: none;
-	margin: 6px 0 50px 0px;
+	margin: 6px 0 50px 0;
 	cursor: pointer;
 	color: #333;
 	font-weight: 700;

@@ -5,8 +5,14 @@ $getData = new dbData();
 $sms_msgid = 1;
 $sms_status = "done";
 $email_status = 1;
-$reg_id = "TTH67899876";
-$r = $getData->insertBookingData($_SESSION['post'], $reg_id, $sms_msgid, $sms_status, $email_status);
+$reg_id = "TTH65206159";
+// $r = $getData->insertBookingData($_SESSION['post'], $reg_id, $sms_msgid, $sms_status, $email_status);
 
-echo $r;
+$r = $getData->fetchPatientDetails($reg_id);
+
+if(isset($r)){
+    echo 'hi';
+}
+
+// echo $r['full_name'];
 // print_r($_SESSION['post']);

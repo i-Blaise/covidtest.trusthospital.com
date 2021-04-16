@@ -163,13 +163,14 @@ public function checkDataNum($reg_num){
  }
 
 
- public function insertBookingData($data,$reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
+ public function insertBookingData($data,$reg_id, $sms_msgid, $sms_data, $email_status, $payment = false){
    //  print_r($$data['name']);
    //  die();
     if(isset($data['submit']) && $data['submit'] == "Submit"){
 
+      $sms_status = (isset($payment) && $payment === true) ? 'pending' : 'pay later';
+
       $payment_status = (isset($payment) && $payment === true) ? 'paid' : 'pay later';
-      $result_status = 0;
 
 		$fullName = $data['name'];
 		$email = $data['email'];
@@ -228,6 +229,9 @@ public function checkDataNum($reg_num){
       $admitted_to_hospital = $data["admitted_to_hospital"];
       $other_symptoms = $data["other_symptoms"];
       //  die();
+
+      $result_status = 0;
+      
       if(isset($sms_status)){
 
          $myQuery = "INSERT INTO patientbookingform (
@@ -511,11 +515,12 @@ function addCountryCode($raw_phone){
 
 
  function paymentStatus($registration_number, $payRef){
-   sleep(500);
+   // sleep(500);
    $result = $this->verifyPayment($payRef);
    $payment_status = (isset($result->aapf_txn_sc)) ? $result->aapf_txn_sc : 'pending';
-   // return $result;
+   // return 'yoooo';
    // die();
+
 
    if(!isset($result->status_msg)){
       for($i=0; $i < 5; $i++)
@@ -702,6 +707,7 @@ if(!$bookingQueryStatus){
 		$results = (empty($data['results'])) ?  "N/A" : $data['results'];
 		$unit = (empty($data['unit'])) ?  "N/A" : $data['unit'];
 		$normal_range = (empty($data['normal_range'])) ?  "N/A" : $data['normal_range'];
+      $result_status = 1;
 
       $checkDuplicate = $this->checkResultNum($registration_number);
 
@@ -748,7 +754,12 @@ if(!$bookingQueryStatus){
            '$unit',
            '$normal_range')";
        $resultStatus=mysqli_query($this->dbh, $resultQuery);
-   if(!$resultStatus){  
+
+       $resultquery = "UPDATE patientbookingform SET 
+       result_status = '$result_status'
+       WHERE 
+       registration_number = '$registration_number'";
+   if(!$resultStatus && !$resultquery){  
        echo "Error: " .mysqli_error($this->dbh);
        die();
    }else{
@@ -763,6 +774,14 @@ if(!$bookingQueryStatus){
 
   
 }
+
+
+// public function updatePatientResultStatus($registration_number){
+//    $updateQuery = "UPDATE patientbookingform SET 
+//    result_status = 'paid'
+//    WHERE 
+//    registration_number = '$registration_number'";
+// }
 
 
 public function searchPatient($reg_num){

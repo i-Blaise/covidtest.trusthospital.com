@@ -188,10 +188,10 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 {
 
   $_SESSION['post'] = $_POST;
-//   print_r($_SESSION['post']);
+  // print_r($_SESSION['post']['loss_of_smell']);
   // $fever_or_chills = (isset($_SESSION['post']['fever_or_chills']) && $_SESSION['post']['fever_or_chills'] == 1) ?  "Yes" : "No";
   // echo $fever_or_chills;
-//   die();
+  // die();
 
     // Personal info
 	$fullName = $_POST["name"];
@@ -263,17 +263,20 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
 
 
     // Patient Clinical Course
-	$date_of_onset_symptoms = (!empty($_POST["date_of_onset_symptoms"])) ? $_POST["date_of_onset_symptoms"] : "N/A";
-  $date_first_at_hospital = (!empty($_POST["date_first_at_hospital"])) ? $_POST["date_first_at_hospital"] : "N/A";
-  $asymptomatic = (!empty($_POST["asymptomatic"])) ?  $_POST["asymptomatic"] : "N/A";
-  $name_of_hospital = (!empty($_POST["name_of_hospital"])) ? $_POST["name_of_hospital"] : "N/A";
-  $hospital_visit_number = (!empty($_POST["hospital_visit_number"])) ? $_POST["hospital_visit_number"] : "N/A";
-  $ventilated = (!empty($_POST["ventilated"])) ? $_POST["ventilated"] : "N/A";
-  $date_of_death = (!empty($_POST["date_of_death"])) ? $_POST["date_of_death"] : "N/A";
-  $date_of_admission = (!empty($_POST["date_of_admission"])) ? $_POST["date_of_admission"] : "N/A";
-  $date_of_isolation = (!empty($_POST["date_of_isolation"])) ? $_POST["date_of_isolation"] : "N/A";
-  $admitted_to_hospital = (!empty($_POST["admitted_to_hospital"])) ? $_POST["admitted_to_hospital"] : "N/A";
-  $other_symptoms = (!empty($_POST["other_symptoms"])) ? $_POST["other_symptoms"] : "N/A";
+	$date_of_onset_symptoms = $_POST["date_of_onset_symptoms"];
+  $date_first_at_hospital = $_POST["date_first_at_hospital"];
+  $asymptomatic = (!empty($_POST["asymptomatic"])) ?  $_POST["asymptomatic"] : 0;
+  $name_of_hospital = $_POST["name_of_hospital"];
+  $hospital_visit_number = $_POST["hospital_visit_number"];
+  $ventilated = $_POST["ventilated"];
+  $date_of_death = $_POST["date_of_death"];
+  $date_of_admission = $_POST["date_of_admission"];
+  $date_of_isolation = $_POST["date_of_isolation"];
+  $admitted_to_hospital = $_POST["admitted_to_hospital"];
+  $other_symptoms = $_POST["other_symptoms"];
+
+
+  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
 }
 
 
@@ -286,23 +289,31 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
 <h3 class="h3-one">Please review the data you provided</h3>
 
 
-<!--<div class="multi-button">-->
-<!-- <button><a href="javascript:history.go(-1)">Go back</a></button>-->
-<!--  <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>-->
-<!--  <button><a href="http://localhost/covid.trusthospital/payment_api/redirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb&qs=%7B%22aapf_txn_amt%22%3A%220.5%22,%22aapf_txn_clientRspRedirectURL%22%3A%22https%3A%2F%2Fcovidtest.thetrusthospital.com%2Fdev%2Fpayment_api%2Fredirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb%22,%22aapf_txn_clientTxnWH%22%3A%22http%3A%2F%2F4a767a17.ngrok.io%2Frest%2Fapi%2Fcallback%22,%22aapf_txn_cref%22%3A%2278babbd4d%22,%22aapf_txn_currency%22%3A%22GHS%22,%22aapf_txn_datetime%22%3A%222021%2F02%2F25%2018%3A19%3A14%22,%22aapf_txn_gw_ref%22%3A%2209FG02251817276146462%22,%22aapf_txn_gw_sc%22%3A%2299-PENDING%22,%22aapf_txn_maskedInstr%22%3A%2205452**150%22,%22aapf_txn_otherInfo%22%3A%22test%20payment%22,%22aapf_txn_payLink%22%3A%223P4Yu8At%22,%22aapf_txn_payScheme%22%3A%22MTNMM%22,%22aapf_txn_ref%22%3A%222991-451a-8d1e%22,%22aapf_txn_sc%22%3A%2206%22,%22aapf_txn_sc_msg%22%3A%2299-PENDING%22,%22aapf_txn_signature%22%3A%223B13B61DDB0B5087B7B7103914181E0C049F0B71C26C60353C2623DC03139B6A%22%7D">Sumbmit and pay online</a></button>-->
+<div class="multi-button">
+ <button><a href="javascript:history.go(-1)">Go back</a></button>
+  <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
+  <button><a href="http://localhost/covid.trusthospital/payment_api/redirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb&qs=%7B%22aapf_txn_amt%22%3A%220.5%22,%22aapf_txn_clientRspRedirectURL%22%3A%22https%3A%2F%2Fcovidtest.thetrusthospital.com%2Fdev%2Fpayment_api%2Fredirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb%22,%22aapf_txn_clientTxnWH%22%3A%22http%3A%2F%2F4a767a17.ngrok.io%2Frest%2Fapi%2Fcallback%22,%22aapf_txn_cref%22%3A%2278babbd4d%22,%22aapf_txn_currency%22%3A%22GHS%22,%22aapf_txn_datetime%22%3A%222021%2F02%2F25%2018%3A19%3A14%22,%22aapf_txn_gw_ref%22%3A%2209FG02251817276146462%22,%22aapf_txn_gw_sc%22%3A%2299-PENDING%22,%22aapf_txn_maskedInstr%22%3A%2205452**150%22,%22aapf_txn_otherInfo%22%3A%22test%20payment%22,%22aapf_txn_payLink%22%3A%223P4Yu8At%22,%22aapf_txn_payScheme%22%3A%22MTNMM%22,%22aapf_txn_ref%22%3A%222991-451a-8d1e%22,%22aapf_txn_sc%22%3A%2206%22,%22aapf_txn_sc_msg%22%3A%2299-PENDING%22,%22aapf_txn_signature%22%3A%223B13B61DDB0B5087B7B7103914181E0C049F0B71C26C60353C2623DC03139B6A%22%7D">Sumbmit and pay online</a></button>
   <!-- <button onclick="checkout()" >Sumbmit and pay online</button> -->
-<!-- <button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>-->
-<!-- </a>-->
-<!--</div>-->
-
-  <div class="multi-button">
-  <button><a href="javascript:history.go(-1)">Go back</a></button>
-   <button><a href="https://covidtest.thetrusthospital.com/dev/booking/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button><a href="https://covidtest.thetrusthospital.com/dev/payment_api">Save and pay online</a></button>
-  <button>  <a href="https://covidtest.thetrusthospital.com/dev/booking/proceed.php?status=save">Save and pay later</a></button>
-  </a>
+ <button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>
+ </a>
 </div>
 
+ <!-- <div class="multi-button">
+  <button><a href="javascript:history.go(-1)">Go back</a></button>
+   <button><a href="https://covidtest.thetrusthospital.com/dev/booking/generate_pdf.php?download=true">Download as PDF</a></button>
+  <button><a href="https://covidtest.thetrusthospital.com/dev/payment_api">Sumbmit and pay online</a></button>
+  <button>  <a href="https://covidtest.thetrusthospital.com/dev/booking/proceed.php?status=save">Proceed</a></button>
+  </a>
+</div> -->
+
+
+<?php
+if(isset($_SESSION['registration_number'])){
+?>
+<h4 class="card-title">Patient Registration Number: <?php echo $_SESSION['registration_number']; ?></h4>
+<?php
+}
+?>
 </div>
 <br>
 <br>
@@ -447,27 +458,27 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   <h3>Vital Signs</h3>
   <tr>
     <th>Seizure: </th>
-    <td><?php echo ($seizure == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($seizure == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Conjuctival Injection: </th>
-    <td><?php echo ($conjuctival_injection == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($conjuctival_injection == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Pharnygeal Exudate: </th>
-    <td><?php echo ($pharnygeal_exudate == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($pharnygeal_exudate == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Dyspnea / Tachpnea: </th>
-    <td><?php echo ($dyspnea_or_tachpnea == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($dyspnea_or_tachpnea == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Abnormal Lung X-ray: </th>
-    <td><?php echo ($abnormal_lung_xray == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($abnormal_lung_xray == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Abnormal Lung Auscultation: </th>
-    <td><?php echo ($abnormal_lung_ausculation == '1') ? "Yes" : "N/A"; ?></td>
+    <td><?php echo ($abnormal_lung_ausculation == '1') ? "Yes" : "No"; ?></td>
   </tr>
 </table>
 
@@ -479,7 +490,7 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   </tr>
   <tr>
     <th>Asymptomatic: </th>
-    <td><?php echo ($asymptomatic == '1') ? "Yes" : $asymptomatic; ?></td>
+    <td><?php echo ($asymptomatic == '1') ? "Yes" : "No"; ?></td>
   </tr>
   <tr>
     <th>Date first seen at hospital </th>
@@ -494,7 +505,7 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
     {
       echo "No";
     }else{
-      echo $admitted_to_hospital;
+      echo "Unknown";
     } ?></td>
   </tr>
   <tr>
@@ -522,7 +533,7 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
     {
       echo "No";
     }else{
-      echo $ventilated;
+      echo "Unknown";
     } ?></td>
   </tr>
   <tr>
@@ -588,7 +599,6 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   // $_SESSION['other_symptoms'] =	$other_symptoms;
 
   
-  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
   $_SESSION['request'] = 'createPayLink';
   $_SESSION['amount'] = $packages;
   $_SESSION['packages'] = $package_selected;

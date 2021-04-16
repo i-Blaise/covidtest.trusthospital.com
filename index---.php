@@ -7,13 +7,10 @@
 
 <head runat="server">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-     <!--<script src="JavaScript/jquery-1.6.1.min.js" type="text/javascript"></script> -->
+    <!-- <script src="JavaScript/jquery-1.6.1.min.js" type="text/javascript"></script> -->
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/icons/Trust-hspital-logo.png">
-	
-	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>The Trust Hospital || Covid Testing Portal</title>
@@ -36,18 +33,18 @@
       <!-- Notification -->
 	<!-- jQuery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>-->
 	<!-- Toastr -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
-	<!--<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
 <?php
-    if(isset($_GET['status']) && $_GET['status'] == "saved" || $_GET['status'] == "save")
+    if(isset($_GET['status']) && $_GET['status'] == "saved")
     {
         ?>
         <!-- Notification -->
+        
+<script src="redirect_history.js"></script>
 
      <script type='text/javascript'>   
     $(document).ready(function() {      
@@ -57,9 +54,6 @@
     toastr.success('Your Covid Test has been booked!', 'Success');
 });
 </script>
-        
-<script src="redirect_history.js"></script>
-
      
        <?php
     }
@@ -237,7 +231,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                         <img alt="..." class="img-rounded" src="assets/img/appointment.png"/>
                     </div>
                     <p class="description">
-                        <!-- And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! -->
+                        And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all!
                     </p>
                 </div>
                 <div class="tab-pane" id="process2">
@@ -245,8 +239,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                     <div class="image-clients process-img">
                         <img alt="..." class="img-rounded" src="assets/img/payment-method.png"/>
                     </div>
-                    <p class="description">
-                        <!-- Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... -->
+                    <p class="description">Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color...
                     </p>
                 </div>
                 <div class="tab-pane" id="process3">
@@ -254,15 +247,14 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                     <div class="image-clients process-img">
                         <img alt="..." class="img-rounded" src="assets/img/covid-test.png"/>
                     </div>
-                    <p class="description"> 
-                        <!-- I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. The 'Gaia' team did a great work while we were collaborating. They provided a vision that was in deep connection with our needs and helped us achieve our goals. -->
+                    <p class="description"> I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. The 'Gaia' team did a great work while we were collaborating. They provided a vision that was in deep connection with our needs and helped us achieve our goals.
                     </p>
                 </div>
 
             </div>
 
            <div class="process-get-started-btn">
-                <a href="https://covidtest.thetrusthospital.com/dev/booking" class="btn btn-danger btn-fill">Get Started</a>
+                <a href="#" class="btn btn-danger btn-fill">Get Started</a>
             </div>
 
         </div>
@@ -319,11 +311,9 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                 <div class="content">
                     <div class="row">
                         <div class="title-area">
-                            <h2>Your Options</h2>
+                            <h2>Lorem Ipsum</h2>
                             <div class="separator separator-danger">✻</div>
-                            <p class="description">
-                                <!-- We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes. -->
-                        </p>
+                            <p class="description">We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes.</p>
                         </div>
                     </div>
 
@@ -340,7 +330,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                                                 <div class="description">
                                                     <h3 class="title">Book Test Now</h3>
                                                     <p class="small-text">Fill In your info to book now!</p>
-                                                    <a href="https://covidtest.thetrusthospital.com/dev/booking" class="btn btn-danger btn-fill btn-lg">Book Test</a>
+                                                    <a href="#" class="btn btn-danger btn-fill btn-lg">Book Test</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -351,11 +341,11 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                                                 <div class="avatar avatar-danger">
                                                     <img alt="..." class="img-rounded" src="assets/img/covid-test.png"/>
                                                 </div>
-                                                <div class="description">
+                                                <di class="description">
                                                     <h3 class="title">Check Test Status</h3>
                                                     <p class="small-text">Already Tested with Us? Check the status of your test here</p>
-                                                    <a href="https://covidtest.thetrusthospital.com/dev/result" class="btn btn-danger btn-fill btn-lg">Check Test Status</a>
-                                                </div>
+                                                    <a href="result" class="btn btn-danger btn-fill btn-lg">Check Test Status</a>
+                                                </di>
                                             </div>
                                         </div>
                                     </div>
@@ -403,9 +393,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                 <div class="title-area">
                     <h2>Have any questions for us?</h2>
                     <div class="separator line-separator">♦</div>
-                    <p class="description"> 
-                        <!-- We are keen on creating a second skin for anyone with a sense of style! We design our clothes having our customers in mind and we never disappoint! -->
-                    </p>
+                    <p class="description"> We are keen on creating a second skin for anyone with a sense of style! We design our clothes having our customers in mind and we never disappoint!</p>
                 </div>
 
                 <div class="button-get-started">
@@ -603,6 +591,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
 <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
 
 <script type = "text/javascript">  
+
 
 function submitForm() {
    var frm = document.getElementsByName('checkPayment')[0];

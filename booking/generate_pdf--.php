@@ -17,7 +17,6 @@ $url = 'https://covidtest.thetrusthospital.com/dev/booking/generate_pdf_for_qrco
 $online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$url.'&choe=UTF-8';
 
 
-
 $payment_url = 'https://covidtest.thetrusthospital.com/dev/booking/qrcode_payment.php?status='.$_SESSION['registration_number'];   
 // $url_filter = htmlspecialchars($url); 
 $payment_online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$payment_url.'&choe=UTF-8';
@@ -25,8 +24,7 @@ $payment_online_pdf_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr
 
 $qrcode_img = 'img/qrcodes/code'.$_SESSION['registration_number'];
 $payment_qrcode_img = 'img/qrcodes/payment_qrcode'.$_SESSION['registration_number'];
-file_put_contents($qrcode_img, file_get_contents($online_pdf_url));
-if(file_put_contents($payment_qrcode_img, file_get_contents($payment_online_pdf_url)))
+if(file_put_contents($qrcode_img, file_get_contents($online_pdf_url)))
 {
 
 
@@ -320,7 +318,7 @@ tr:nth-child(even) {
 <thead>
 <tr>
 <th>Scan to view your PDF online</th>
-<th>Scan to make payment online / View payment status</th>
+<th>Scan to make payment online</th>
 </tr>
 </thead>
 <tbody>
@@ -337,7 +335,7 @@ tr:nth-child(even) {
 // $dompdf->def("DOMPDF_ENABLE_REMOTE", true);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("BookingFormData",array("Attachment" => true));
+$dompdf->stream("BookingFormData",array("Attachment" => false));
 // def("DOMPDF_ENABLE_REMOTE", true);
 $options = new Options();
 $options->set('isRemoteEnabled',true);      

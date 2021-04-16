@@ -294,6 +294,17 @@ if (isset($_POST['submit']) && $_POST['submit'] == "search")
     });
     </script>";
     }
+
+    if(isset($patientDetails['result_status']) && $patientDetails['result_status'] == 0 ){
+      echo "     <script type='text/javascript'>   
+      $(document).ready(function() {
+      toastr.options.positionClass = 'toast-top-right';
+      toastr.options.closeButton = true;
+      toastr.options.closeDuration = 300;
+      toastr.info('Please try again later', 'Results Not Ready');
+  });
+  </script>";
+  }
 }
 ?>
 
@@ -329,12 +340,18 @@ if (isset($_POST['submit']) && $_POST['submit'] == "search")
 <?php if(isset($patientDetails))
           {
             $url = "http://localhost/covid.trusthospital/result/result_pdf.php?reg_num=$reg_num";
+                       
+            
+            if(isset($patientDetails['result_status']) && $patientDetails['result_status'] == 1 ){
 ?>
 <a href="<?php echo $url; ?>" >
 <button type="button" class="btn btn-default btn-sm">
   <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download as PDF
 </button>
 </a>
+<?php
+}
+?>
 <br>
 <br>
 <table class="first">
@@ -342,7 +359,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == "search")
     <th>Lab Number: <?php echo $result['lab_number']; ?></th>
     <td></td>
 
-    <th>Patient Name: <?php echo $patientDetails['full_name']; ?></th>
+    <th>Patient Name: <?php echo $patientDetails['full_name']; ?> years</th>
     <td></td>
   </tr>
 

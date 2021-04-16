@@ -18,8 +18,8 @@ $result = json_decode($results);
 $_SESSION['payReference'] = $result->aapf_txn_payLink;
 
 
-// print_r($_GET['qs']);
-// die();
+print_r($_SESSION['payReference']);
+die();
       
 ?>
 
@@ -404,9 +404,13 @@ $_SESSION['payReference'] = $result->aapf_txn_payLink;
 $registration_number = $_SESSION['registration_number'];
 $fullName = $_SESSION['post']['name'];
 $email = $_SESSION['post']['email'];
+$raw_phone = $_SESSION['post']['phone'];
 
 if(is_array($result) || is_object($result)){
     // SMS
+$client = 'TTH101010';
+$password = 'Keep@123$';
+$phone = $getData->addCountryCode($raw_phone);
 $text = 'Hi '.$fullName.', Your Covid Test registration number is '.$registration_number.'. The Trust Hospital';
 $msg = urlencode($text);
 $get_sms_data = $getData->callSmsAPI('GET', 'https://api.wirepick.com/httpsms/send?client='.$client.'&password='.$password.'&phone='.$phone.'&text='.$msg, false);

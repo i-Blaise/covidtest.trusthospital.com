@@ -25,10 +25,10 @@ $getData = new dbData();
     //     echo $see->aapf_txn_gw_sc;
     // }
 
-    // $result = $getData->paymentStatus('TTH34873881', '3H3Ww9ar');
-    // $result = $getData->paymentStatus($_SESSION['registration_number'] , $_SESSION['payRef'], false);
+    $result = $getData->paymentStatus('TTH65206153', '3P4Yu8At');
+    // $result = $getData->verifyPayment('3P4Yu8At');
     // $_SESSION['data'] = $result;
-    // print_r($result);
+    print_r($result);
     // print_r($_SESSION['registration_number']);
-    $dbUpdate = $getData->fetchOnlinePaymentDB('TTH132555361');
-    print_r($dbUpdate['callback']);
+    // $dbUpdate = $getData->fetchOnlinePaymentDB('TTH132555361');
+    // print_r($dbUpdate['callback']);

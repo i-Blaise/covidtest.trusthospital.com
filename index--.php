@@ -44,7 +44,7 @@
 
 
 <?php
-    if(isset($_GET['status']) && $_GET['status'] == "saved" || $_GET['status'] == "save")
+    if(isset($_GET['status']) == "saved" || isset($_GET['status']) == "save")
     {
         ?>
         <!-- Notification -->
@@ -237,7 +237,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                         <img alt="..." class="img-rounded" src="assets/img/appointment.png"/>
                     </div>
                     <p class="description">
-                        <!-- And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! -->
+                        And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all!
                     </p>
                 </div>
                 <div class="tab-pane" id="process2">
@@ -245,8 +245,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                     <div class="image-clients process-img">
                         <img alt="..." class="img-rounded" src="assets/img/payment-method.png"/>
                     </div>
-                    <p class="description">
-                        <!-- Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color... -->
+                    <p class="description">Green I even had the pink polo I thought I was Kanye I promise I will never let the people down. I want a better life for all! And I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. Now there is only one important color...
                     </p>
                 </div>
                 <div class="tab-pane" id="process3">
@@ -254,8 +253,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                     <div class="image-clients process-img">
                         <img alt="..." class="img-rounded" src="assets/img/covid-test.png"/>
                     </div>
-                    <p class="description"> 
-                        <!-- I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. The 'Gaia' team did a great work while we were collaborating. They provided a vision that was in deep connection with our needs and helped us achieve our goals. -->
+                    <p class="description"> I used a period because contrary to popular belief I strongly dislike exclamation points! We no longer have to be scared of the truth feels good to be home In Roman times the artist would contemplate proportions and colors. The 'Gaia' team did a great work while we were collaborating. They provided a vision that was in deep connection with our needs and helped us achieve our goals.
                     </p>
                 </div>
 
@@ -319,11 +317,9 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                 <div class="content">
                     <div class="row">
                         <div class="title-area">
-                            <h2>Your Options</h2>
+                            <h2>Lorem Ipsum</h2>
                             <div class="separator separator-danger">✻</div>
-                            <p class="description">
-                                <!-- We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes. -->
-                        </p>
+                            <p class="description">We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes.</p>
                         </div>
                     </div>
 
@@ -403,9 +399,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
                 <div class="title-area">
                     <h2>Have any questions for us?</h2>
                     <div class="separator line-separator">♦</div>
-                    <p class="description"> 
-                        <!-- We are keen on creating a second skin for anyone with a sense of style! We design our clothes having our customers in mind and we never disappoint! -->
-                    </p>
+                    <p class="description"> We are keen on creating a second skin for anyone with a sense of style! We design our clothes having our customers in mind and we never disappoint!</p>
                 </div>
 
                 <div class="button-get-started">
