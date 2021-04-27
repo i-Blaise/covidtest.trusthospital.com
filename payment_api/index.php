@@ -141,7 +141,7 @@ if (isset($cancel) && "true" == $cancel) {
       <div class="form-group">
         <label for="choose-file" class="label-title">Description</label>
         <textarea class="form-input" id="description" rows="3" cols="30"
-          style="height:auto; resize: none;">Testing Payfluid api</textarea>
+          style="height:auto; resize: none;">Online Payment For Covid-19 Test</textarea>
       </div>
 
       <div class="form-group">
