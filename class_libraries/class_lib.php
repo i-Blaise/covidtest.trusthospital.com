@@ -163,7 +163,7 @@ public function checkDataNum($reg_num){
  }
 
 
- public function insertBookingData($data,$reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
+ public function insertBookingData($data, $reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
    //  print_r($$data['name']);
    //  die();
     if(isset($data['submit']) && $data['submit'] == "Submit"){
@@ -183,7 +183,8 @@ public function checkDataNum($reg_num){
 		$age = $data['age'];
 		$receipt_number = $data['receipt_number'];
 		$hospital_number = $data['hospital_number'];
-		$package_selected = $data["packages"];
+      $package_amount = $data["package_amount"];
+      $package_name = $data["package_name"];
 
 
       $fever_or_chills = (!empty($data["fever_or_chills"])) ?  $data["fever_or_chills"] : 0;
@@ -243,7 +244,8 @@ public function checkDataNum($reg_num){
             receipt_number, 
             hospital_number, 
             sex, 
-            packages,
+            package_amount,
+            package_name,
             fever_or_chills, 
             general_weakness, 
             cough, 
@@ -295,7 +297,8 @@ public function checkDataNum($reg_num){
            '$receipt_number', 
            '$hospital_number', 
            '$gender', 
-           '$package_selected',
+           '$package_amount',
+           '$package_name',
            '$fever_or_chills', 
            '$generalWeakness', 
            '$cough', 
@@ -706,7 +709,7 @@ if(!$bookingQueryStatus){
       $checkDuplicate = $this->checkResultNum($registration_number);
 
 
-      if($checkDuplicate > 1)
+      if($checkDuplicate <= 1)
       {
 
       if(isset($registration_number)){
@@ -747,8 +750,16 @@ if(!$bookingQueryStatus){
            '$results',
            '$unit',
            '$normal_range')";
+           
+        $updatedStatus = 1;   
+        $updateResultQuery = "UPDATE patientbookingform SET 
+         result_status = '$updatedStatus'
+         WHERE 
+         registration_number = '$registration_number'";
+         
+       $updateResultStatus=mysqli_query($this->dbh, $updateResultQuery);
        $resultStatus=mysqli_query($this->dbh, $resultQuery);
-   if(!$resultStatus){  
+   if(!$resultStatus || !$updateResultStatus){  
        echo "Error: " .mysqli_error($this->dbh);
        die();
    }else{

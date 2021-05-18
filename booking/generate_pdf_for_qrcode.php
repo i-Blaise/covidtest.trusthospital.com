@@ -157,7 +157,7 @@ tr:nth-child(even) {
   </tr>
   <tr>
   <th>Selected Package: </th>
-  <td>'.$row["packages"].'</td>
+  <td>'.$row["package_name"].'</td>
 </tr>
 </table>
 

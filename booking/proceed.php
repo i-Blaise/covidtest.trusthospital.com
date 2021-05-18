@@ -1,5 +1,6 @@
 <?php
 	include('../class_libraries/class_lib.php');
+	$database_con = new DB_con();
 	$getData = new dbData();
 	// For php mailer
 	require_once '../vendor/autoload.php';
@@ -18,7 +19,7 @@ if(isset($_GET['status']) && $_GET['status'] == "save")
 
 	}else{
 		session_destroy();
-		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=session_errrror'</script>";
+		echo "<script>location='https://covidtest.thetrusthospital.com/index.php?status=session_errrror'</script>";
 		die();
 	}
 
@@ -60,22 +61,22 @@ if(isset($fullName, $email, $raw_phone)){
     if($result == "good"){
 
 		session_destroy();
-		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=saved'</script>";
+		echo "<script>location='https://covidtest.thetrusthospital.com/index.php?status=saved'</script>";
 		die();
 
 	}else{
 		session_destroy();
-		echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=notsaved'</script>";
+		echo "<script>location='https://covidtest.thetrusthospital.com/index.php?status=notsaved'</script>";
 		die();
 		}
 
 
 }else{
-		// echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=error'</script>";
+		// echo "<script>location='https://covidtest.thetrusthospital.com/index.php?status=error'</script>";
 		echo "<script>location='http://localhost/covid.trusthospital/index.php?status=error'</script>";
 	}
 }else{
 	session_destroy();
-	// echo "<script>location='https://covidtest.thetrusthospital.com/dev/index.php?status=notset'</script>";
-	echo "<script>location='https://covidtest.thetrusthospital.com/dev/booking/index.php?status=notset'</script>";
+	// echo "<script>location='https://covidtest.thetrusthospital.com/index.php?status=notset'</script>";
+	echo "<script>location='https://covidtest.thetrusthospital.com/booking/index.php?status=notset'</script>";
 }

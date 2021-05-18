@@ -208,26 +208,26 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 	$receipt_number = $_POST["receipt_number"];
   $hospital_number = $_POST["hospital_number"];
 
-  $packages = $_POST["packages"];
+  $package_name = $_POST["package_name"];
 
-  switch ($packages) {
-    case 300:
-      $package_selected = "48 hours - GHS 300 (On-Premises)";
+  switch ($package_name) {
+    case "48 hours - GHS 300 (On-Premises)":
+      $package_amount = 300;
       break;
-    case 500:
-      $package_selected = "12 hours - GHS 500 (On-Premises)";
+    case "12 hours - GHS 500 (On-Premises)":
+      $package_amount = 500 ;
       break;
-    case 900:
-      $package_selected = "2-4 hours - GHS 900 (On-Premises)";
+    case "2-4 hours - GHS 900 (On-Premises)":
+      $package_amount = 900;
       break;
-    case 700:
-      $package_selected = "12 hours - GHS 700 per test (Premium)";
+    case "12 hours - GHS 700 per test (Premium)":
+      $package_amount = 700;
       break;
-    case 1000;
-      $package_selected = "4 hours - GHS 1000 per test (Premium)";
+    case "4 hours - GHS 1000 per test (Premium)";
+      $package_amount = 1000;
       break;
       default:
-      $package_selected = "Error - Unknown";
+      $package_amount = "Error - Unknown";
   }
 
 	// Symptoms Information
@@ -286,21 +286,22 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
 <h3 class="h3-one">Please review the data you provided</h3>
 
 
-<div class="multi-button">-->
+<div class="multi-button">
 <button><a href="javascript:history.go(-1)">Go back</a></button>
  <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
  <button><a href="http://localhost/covid.trusthospital/payment_api/redirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb&qs=%7B%22aapf_txn_amt%22%3A%220.5%22,%22aapf_txn_clientRspRedirectURL%22%3A%22https%3A%2F%2Fcovidtest.thetrusthospital.com%2Fdev%2Fpayment_api%2Fredirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb%22,%22aapf_txn_clientTxnWH%22%3A%22http%3A%2F%2F4a767a17.ngrok.io%2Frest%2Fapi%2Fcallback%22,%22aapf_txn_cref%22%3A%2278babbd4d%22,%22aapf_txn_currency%22%3A%22GHS%22,%22aapf_txn_datetime%22%3A%222021%2F02%2F25%2018%3A19%3A14%22,%22aapf_txn_gw_ref%22%3A%2209FG02251817276146462%22,%22aapf_txn_gw_sc%22%3A%2299-PENDING%22,%22aapf_txn_maskedInstr%22%3A%2205452**150%22,%22aapf_txn_otherInfo%22%3A%22test%20payment%22,%22aapf_txn_payLink%22%3A%223P4Yu8At%22,%22aapf_txn_payScheme%22%3A%22MTNMM%22,%22aapf_txn_ref%22%3A%222991-451a-8d1e%22,%22aapf_txn_sc%22%3A%2206%22,%22aapf_txn_sc_msg%22%3A%2299-PENDING%22,%22aapf_txn_signature%22%3A%223B13B61DDB0B5087B7B7103914181E0C049F0B71C26C60353C2623DC03139B6A%22%7D">Sumbmit and pay online</a></button>
-  <button onclick="checkout()" >Sumbmit and pay online</button>
-<button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>
+  <!-- <button onclick="checkout()" >Sumbmit and pay online</button> -->
+<button>  <a href="http://localhost/covidtest.trusthospital.com/booking/proceed.php?status=save">Submit and Pay Later</a></button>
 </a>
 </div>
+
+
 
   <!-- <div class="multi-button">
   <button><a href="javascript:history.go(-1)">Go back</a></button>
    <button><a href="https://covidtest.thetrusthospital.com/booking/generate_pdf.php?download=true">Download as PDF</a></button>
   <button><a href="https://covidtest.thetrusthospital.com/payment_api">Save and pay online</a></button>
   <button>  <a href="https://covidtest.thetrusthospital.com/booking/proceed.php?status=save">Save and pay later</a></button>
-  </a>
 </div> -->
 
 </div>
@@ -357,11 +358,11 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   </tr>
   <tr>
     <th>Selected Package: </th>
-    <td><?php echo $package_selected ?></td>
+    <td><?php echo $package_name ?></td>
   </tr>
   <tr style="display:none;">
     <th>Amount: </th>
-    <td id='amount'><?php echo $packages ?></td>
+    <td id='amount'><?php echo $package_amount ?></td>
   </tr>
 </table>
 
@@ -584,14 +585,14 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   // $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
   // $_SESSION['date_of_isolation']  = $date_of_isolation;
   // $_SESSION['ventilated']  =	$ventilated;
-  // $_SESSION['date_of_death']  =	$date_of_death;
   // $_SESSION['other_symptoms'] =	$other_symptoms;
 
   
   $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
   $_SESSION['request'] = 'createPayLink';
-  $_SESSION['amount'] = $packages;
-  $_SESSION['packages'] = $package_selected;
+  $_SESSION['amount'] = $package_amount;
+  $_SESSION['post']['package_amount'] = $package_amount;
+  $_SESSION['package_name'] = $package_name;
   ?>
 </body>
 </html>

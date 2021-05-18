@@ -471,7 +471,7 @@ $email_status = 0;
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left"><h5>Package:</h5></td>
-                                                <td style="word-break:break-all"><h6><?php echo $_SESSION['packages']?></h6></td>
+                                                <td style="word-break:break-all"><h6><?php echo $_SESSION['package_amount']?></h6></td>
                                             </tr>
 						</tbody>
 					</table>

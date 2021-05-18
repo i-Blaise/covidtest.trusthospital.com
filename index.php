@@ -105,7 +105,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'Submit')
         $_SESSION['post']['name'] = $patientDetails['full_name'];
         $_SESSION['post']['phone'] = $patientDetails['phone_number'];
         $_SESSION['post']['email'] = $patientDetails['email'];
-        $_SESSION['post']['packages'] = $patientDetails['packages'];
+        $_SESSION['post']['package_amount'] = $patientDetails['package_amount'];
 
 		echo "<script>location='https://covidtest.thetrusthospital.com/dev/payment_api'</script>";
         }

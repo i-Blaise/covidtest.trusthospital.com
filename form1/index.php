@@ -5,44 +5,19 @@
 	<title>Covid Test Portal - The Trust Hospital</title>
 	<link rel="icon" type="image/png" href="img/trust-logo.png">
 	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
-<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- Font-->
 	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
 	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 	<!-- Main Style Css -->
     <link rel="stylesheet" href="css/style.css"/>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 </head>
 <!-- @if (session('status') === 'email exists')
 <body class="form-v10" onload="email_exixts()">
 @elseif (session('status') === 'tmc')
 <body class="form-v10" onload="tmc()">
 @else -->
-<style>
-	/* .container {
-    width:100%;
-    border:1px solid #d3d3d3;
-} */
-/* .container div {
-    width:100%;
-} */
-.container .header {
-    background-color: transparent;
-	text-align: center;
-    /* padding: 2px; */
-    cursor: pointer;
-    font-weight: bold;
-}
-.container .content {
-    display: none;
-    /* padding : 5px; */
-}
-</style>
+
 
 
 
@@ -56,7 +31,295 @@
 
 
 <?php
+include('../class_libraries/class_lib.php');
+$database_con = new DB_con();
+$getData = new dbData();
 
+
+
+if(isset($_POST['submit']))
+{
+
+    // Personal info
+	$fullName = $_POST["name"];
+	$email = $_POST["email"];
+	$phone = $_POST["phone"];
+	$gender = $_POST["gender"];
+	$passport = $_POST["passport"];
+	$address = $_POST["address"];
+	$receipt_number = $_POST["receipt"];
+    $hospital_number = $_POST["hospital"];
+
+	// Symptoms Information
+
+if(isset($_POST["fever_or_chills"]))
+{
+	$fever_or_chills = $_POST["fever_or_chills"];
+
+}else
+{
+	$fever_or_chills = 0;
+}
+if(isset($_POST["generalWeakness"]))
+{
+	$generalWeakness = $_POST["generalWeakness"];
+}else
+{
+	$generalWeakness = 0;
+}
+if(isset($_POST["cough"]))
+{
+	$cough = $_POST["cough"];
+}else
+{
+	$cough = 0;
+}
+if(isset($_POST["soreThroat"]))
+{
+	$soreThroat = $_POST["soreThroat"];
+}else
+{
+	$soreThroat = 0;
+}
+if(isset($_POST["runnyNose"]))
+{
+	$runnyNose = $_POST["runnyNose"];
+}else
+{
+	$runnyNose = 0;
+}
+if(isset($_POST["loss_of_smell"]))
+{
+	$loss_of_smell = $_POST["loss_of_smell"];
+}else
+{
+	$loss_of_smell = 0;
+}
+if(isset($_POST["shortness_of_breath"]))
+{
+	$shortness_of_breath = $_POST["shortness_of_breath"];
+}else
+{
+	$shortness_of_breath = 0;
+}
+if(isset($_POST["diarrhoea"]))
+{
+	$diarrhoea = $_POST["diarrhoea"];
+}else
+{
+	$diarrhoea = 0;
+}
+if(isset($_POST["nausea_or_vomiting"]))
+{
+	$nausea_or_vomiting = $_POST["nausea_or_vomiting"];
+}else
+{
+	$nausea_or_vomiting = 0;
+}
+if(isset($_POST["irritability_or_confusion"]))
+{
+	$irritability_or_confusion = $_POST["irritability_or_confusion"];
+}else
+{
+	$irritability_or_confusion = 0;
+}
+if(isset($_POST["loss_of_taste"]))
+{
+	$loss_of_taste = $_POST["loss_of_taste"];
+}else
+{
+	$loss_of_taste = 0;
+}
+if(isset($_POST["muscular_pain"]))
+{
+	$muscular_pain = $_POST["muscular_pain"];
+}else
+{
+	$muscular_pain = 0;
+}
+if(isset($_POST["abdominal_pain"]))
+{
+	$abdominal_pain = $_POST["abdominal_pain"];
+}else
+{
+	$abdominal_pain = 0;
+}
+if(isset($_POST["chest_pain"]))
+{
+	$chest_pain = $_POST["chest_pain"];
+}else
+{
+	$chest_pain = 0;
+}
+if(isset($_POST["joint_pain"]))
+{
+	$joint_pain = $_POST["joint_pain"];
+}else
+{
+	$joint_pain = 0;
+}
+if(isset($_POST["headache"]))
+{
+	$headache = $_POST["headache"];
+}else
+{
+	$headache = 0;
+}
+
+
+	// Patient Vital Signs
+	if(isset($_POST["seizure"]))
+	{
+		$seizure = $_POST["seizure"];
+	}else{
+		$seizure = 0;
+	}
+	if(isset($_POST["pharnygeal_exudate"]))
+	{
+		$pharnygeal_exudate = $_POST["pharnygeal_exudate"];
+	}else{
+		$pharnygeal_exudate = 0;
+	}
+	if(isset($_POST["abnormal_lung_xray"]))
+	{
+		$abnormal_lung_xray = $_POST["abnormal_lung_xray"];
+	}else{
+		$abnormal_lung_xray = 0;
+	}
+	if(isset($_POST["conjuctival_injection"]))
+	{
+		$conjuctival_injection = $_POST["conjuctival_injection"];
+	}else{
+		$conjuctival_injection = 0;
+	}
+	if(isset($_POST["dyspnea_or_tachpnea"]))
+	{
+		$dyspnea_or_tachpnea = $_POST["dyspnea_or_tachpnea"];
+	}else{
+		$dyspnea_or_tachpnea = 0;
+	}
+	if(isset($_POST["abnormal_lung_ausculation"]))
+	{
+		$abnormal_lung_ausculation = $_POST["abnormal_lung_ausculation"];
+	}else{
+		$abnormal_lung_ausculation = 0;
+	}
+
+
+
+    // Patient Clinical Course
+	$date_of_onset_symptoms = $_POST["date_of_onset_symptoms"];
+	$date_first_at_hospital = $_POST["date_first_at_hospital"];
+    $asymptomatic = $_POST["asymptomatic"];
+    $name_of_hospital = $_POST["name_of_hospital"];
+    $hospital_visit_number = $_POST["hospital_visit_number"];
+    $ventialted = $_POST["ventialted"];
+    $date_of_death = $_POST["date_of_death"];
+    $date_of_admission = $_POST["date_of_admission"];
+    $date_of_isolation = $_POST["date_of_isolation"];
+    $admitted_to_hospital = $_POST["admitted_to_hospital"];
+    $other_symptoms = $_POST["other_symptoms"];
+    
+    
+
+
+if(isset($fullName, $email, $phone, $gender, $passport, $address, $receipt_number, $hospital_number)){
+
+
+    $myQuery = "INSERT INTO patientbookingform (
+		 full_name, 
+		 phone_number,
+		 email, 
+		 passportID, 
+		 home_address, 
+		 receipt_number, 
+		 hospital_number, 
+		 sex, 
+		 fever_or_chills, 
+		 general_weakness, 
+		 cough, 
+		 sore_throat, 
+		 runny_nose, 
+		 shortness_of_breath, 
+		 diarrhoea, 
+		 nausea_or_vomiting, 
+		 headache, 
+		 irritability_or_confusion, 
+		 loss_of_smell, 
+		 loss_of_taste,
+		 muscular_pain, 
+		 chest_pain, 
+		 abdominal_pain, 
+		 joint_pain,
+		 seizure,
+		 pharnygeal_exudate, 
+		 abnormal_lung_xray,
+		 conjuctival_injection,
+		 dyspnea_or_tachpnea,
+		 abnormal_lung_ausculation,
+		 date_of_onset_of_symptoms, 
+		 date_first_at_hospital,
+		 asymptomatic, 
+		 admitted_to_hospital, 
+		 date_of_admission, 
+		 name_of_hospital, 
+		 hospital_visit_number, 
+		 date_of_isolation, 
+		 was_person_ventilated, 
+		 date_of_death, 
+		 other_underlying_conditions) VALUES (
+		'$fullName',
+		'$phone',
+		'$email',
+		'$passport',
+		'$address', 
+		'$receipt_number', 
+		'$hospital_number', 
+		'$gender', 
+		'$fever_or_chills', 
+		'$generalWeakness', 
+		'$cough', 
+		'$soreThroat', 
+		'$runnyNose', 
+		'$shortness_of_breath', 
+		'$diarrhoea', 
+		'$nausea_or_vomiting', 
+		'$headache', 
+		'$irritability_or_confusion', 
+		'$loss_of_smell', 
+		'$loss_of_taste', 
+		'$muscular_pain', 
+		'$chest_pain', 
+		'$abdominal_pain', 
+		'$joint_pain', 
+		'$seizure', 
+		'$pharnygeal_exudate', 
+		'$abnormal_lung_xray', 
+		'$conjuctival_injection', 
+		'$dyspnea_or_tachpnea', 
+		'$abnormal_lung_ausculation', 
+		'$date_of_onset_symptoms', 
+		'$date_first_at_hospital', 
+		'$asymptomatic', 
+		'$admitted_to_hospital', 
+		'$date_of_admission', 
+		'$name_of_hospital', 
+		'$hospital_visit_number', 
+		'$date_of_isolation', 
+		'$ventialted', 
+		'$date_of_death', 
+		'$other_symptoms')";
+    $result=mysqli_query($database_con->dbh, $myQuery);
+    if($result){
+		echo "worked";
+		// echo $result;
+    }else{
+		echo "Error" .mysqli_error($database_con->dbh);
+	}
+}else{
+	echo "not set";
+}
+}
 ?>
 <body class="form-v10">
 <!-- @endif -->
@@ -65,7 +328,7 @@
 		<img class="logo" src="img/Trust-hspital-logo.png">
 		</a>
 		<div class="form-v10-content">
-			<form class="form-detail" action="http://localhost/covidtest.trusthospital.com/booking/submitted_data.php" method="post" enctype="multipart/form-data" id="myform">
+			<form class="form-detail" action="http://localhost/covid.trusthospital/submitted_data.php" method="post" enctype="multipart/form-data" id="myform">
 				<div class="form-left">
 					<h2>Patient Information</h2>
 					<div class="form-row">
@@ -92,61 +355,12 @@
 					<div class="form-row">
 						<input type="text" name="passport" class="input-text" placeholder="Passport ID (For Travellers)">
 					</div>
-					
-					<div class="form-row">
-					<select name="district" required>
-						<option value="" disabled selected>District*</option>
-						<option value=""disabled style="font-weight: bold;"><b>Greater Accra Region</b></option>
-						<option value="Ablekuma Central">Ablekuma Central</option>
-						<option value="Ablekuma North">Ablekuma North</option>
-						<option value="Ablekuma West">Ablekuma West</option>
-						<option value="Accra Metropolitan">Accra Metropolitan</option>
-						<option value="Ada East">Ada East</option>
-						<option value="Ada West">Ada West</option>
-						<option value="Adenta">Adenta</option>
-						<option value="Ashaiman">Ashaiman</option>
-						<option value="Ayawaso East">Ayawaso East</option>
-						<option value="Ayawaso Central">Ayawaso Central</option>
-						<option value="Ayawaso North">Ayawaso North</option>
-						<option value="Ayawaso West">Ayawaso West</option>
-						<option value="Ga Central">Ga Central</option>
-						<option value="Ga East">Ga East</option>
-						<option value="Ga North">Ga North</option>
-						<option value="Ga South">Ga South</option>
-						<option value="Ga West">Ga West</option>
-						<option value="Korle Klottey">Korle Klottey</option>
-						<option value="Kpone Katamanso">Kpone Katamanso</option>
-						<option value="Krowor">Krowor</option>
-						<option value="La Dade Kotopon">La Dade Kotopon</option>
-						<option value="La Nkwantanang Madina">La Nkwantanang Madina</option>
-						<option value="Ledzokuku">Ledzokuku</option>
-						<option value="Ningo Prampram">Ningo Prampram</option>
-						<option value="Okaikwei North">Okaikwei North</option>
-						<option value="Shai Osudoku">Shai Osudoku</option>
-						<option value="Tema Metropolitan">Tema Metropolitan</option>
-						<option value="Tema West">Tema West</option>
-						<option value="Weija Gbawe">Weija Gbawe</option>
-					</select>
-					<span class="select-btn">
-			  		<i class="zmdi zmdi-chevron-down"></i>
-					</span>
-					</div>
-
 					<div class="form-row">
 						<input type="text" name="address" class="input-text" required placeholder="Home Address*">
 					</div>
 					<div class="form-row">
-						<input type="text" name="landmark" class="input-text" placeholder="Landmark">
-					</div>
-					<div class="form-row">
-						<label class="date-label" style="color: black;">Date Of Birth*:</label>
-						<input type="date" name="DOB" id="DOB" class="input-text" required placeholder="YYYY-MM-DD" onchange="ageCalculator()" value="">
-					</div>
-					<div class="form-row">
-						<input type="hidden" name="age" id="age" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
-					</div>
-					<div class="form-row">
-						<input type="text" name="age1" id="age1" class="input-text" placeholder="Please Input Your Date of Birth above" readonly>
+						<label style="color: black;">Date Of Birth*:</label>
+						<input type="date" name="DOB" class="input-text" required placeholder="Date Of Birth">
 					</div>
 						<div class="form-group">
 							<div class="form-row form-row-1">
@@ -156,59 +370,10 @@
 								<input type="text" name="hospital_number" class="input-text" placeholder="Hospital Number">
 							</div>
 						</div>
-					
-				  	<h5 style="font-weight: bold; color: #EC8D62; ">Insurance</h5>
-					  <div class="form-row">
-					<select name="insuranceVal" id="insuranceVal" required onchange="insuranceCheck()">
-						<option value="" disabled selected>Insurance Type*</option>
-						<option value="Insurance">Insurance</option>
-						<option value="Corporate">Corporate</option>
-						<option value="Private">Private</option>
-					</select>
-					<span class="select-btn">
-			  		<i class="zmdi zmdi-chevron-down"></i>
-					</span>
-					</div>
-
-					<div class="form-row">
-						<input type="text" name="my_company" id="my_company" class="input-text" placeholder="My Company" disabled>
-					</div>
-					<div class="form-row">
-						<input type="text" name="insurance_name" id="insurance_name" class="input-text" placeholder="Insurance Name" disabled>
-					</div>
-					<div class="form-row">
-						<input type="text" name="insurance_number" id="insurance_number" class="input-text" placeholder="Insurance Number" disabled>
-					</div>
-
-					<h5 style="font-weight: bold; color: #EC8D62; ">Please select a package</h5>
-
-					<div class="form-row">
-			<select name="package_name" required>
-				<option value=""disabled selected>Available Packages*:</option>
-				<option value=""disabled style="font-weight: bold;"><b>On-Premises</b></option>
-				<option value="48 hours - GHS 300 (On-Premises)">48 hours - GHS 300</option>
-				<option value="12 hours - GHS 500 (On-Premises)">12 hours - GHS 500</option>
-				<option value="2-4 hours - GHS 900 (On-Premises)">2-4 hours - GHS 900</option>
-				<option value=""disabled style="font-weight: bold;"><b>Home Service (Premium)</b></option>
-				<option value="12 hours - GHS 700 per test (Premium)">12 hours - GHS 700 per test</option>
-				<option value="4 hours - GHS 1000 per test (Premium)">4 hours - GHS 1000 per test</option>
-			</select>
-			<span class="select-btn">
-				  <i class="zmdi zmdi-chevron-down"></i>
-			</span>
 				</div>
-				</div>
-
-
-
-
 				<div class="form-right">
 					<h2>Symptoms Information</h2>
 					<h5 style="font-weight: bold; ">Patient symptoms(check all reported informations)</h5>
-			<div class="container">
-   			<div class="header"><span>Expand</span>
-			</div>
-			<div class="content">
 					<div class="form-group">
 						<div class="form-row form-row-1">
 					<div class="form-checkbox">
@@ -288,17 +453,8 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			</div>
-
-
-
 
 			<h5 style="font-weight: bold; ">Pain (Check all that apply)</h5>
-			<div class="container">
-   			<div class="header"><span>Expand</span>
-			</div>
-			<div class="content">
 					<div class="form-group">
 						<div class="form-row form-row-1">
 					<div class="form-checkbox">
@@ -330,22 +486,8 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			</div>
-
-
-
-			<!-- <h2>Patient Vital Signs</h2>
+			<h2>Patient Vital Signs</h2>
 			<h5 style="font-weight: bold; ">Check all observed signs:</h5>
-			
-			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-			<div id="demo" class="collapse">
-			<div class="container">
-    <div class="header"><span>Expand</span>
-
-    </div>
-
-	<div class="content">
 			<div class="form-group">
 			<div class="form-row form-row-1">
 			<div class="form-checkbox">
@@ -389,15 +531,13 @@
 			</div>
 		</div>
 	</div>
-    </div>
-</div> -->
 
 
-	<!-- <h2>Patient Clinical Course</h2>	
+	<h2>Patient Clinical Course</h2>	
 	
 	<div class="form-row">
-	<label class="date-label" style="color: white;">Date of onset of symptoms:</label>
-		<input type="date" name="date_of_onset_symptoms" class="input-text" placeholder="YYYY-MM-DD">
+	<label style="color: white;">Date of onset of symptoms*:</label>
+		<input type="date" name="date_of_onset_symptoms" class="input-text" required>
 	</div>
 			<div class="form-group">
 			<div class="form-row form-row-1">
@@ -414,8 +554,8 @@
 	</div>
 
 	<div class="form-row">
-		<label class="date-label" style="color: white;">Date first seen at hospital:</label>
-			<input type="date" name="date_first_at_hospital" class="input-text" placeholder="YYYY-MM-DD">
+		<label style="color: white;">Date first seen at hospital:</label>
+			<input type="date" name="date_first_at_hospital" class="input-text">
 	</div>
 
 	<div class="form-row">
@@ -438,16 +578,16 @@
 		</div>		
 		
 		<div class="form-row">
-			<label class="date-label" style="color: white;">Date of admission:</label>
-					<input type="date" name="date_of_admission" class="input-text" placeholder="YYYY-MM-DD">
+			<label style="color: white;">Date of admission:</label>
+					<input type="date" name="date_of_admission" class="input-text">
 		</div>
 		<div class="form-row">
-			<label class="date-label" style="color: white;">Date of isolation:</label>
-					<input type="date" name="date_of_isolation" class="input-text" placeholder="YYYY-MM-DD">
+			<label style="color: white;">Date of isolation:</label>
+					<input type="date" name="date_of_isolation" class="input-text">
 		</div>
 
 		<div class="form-row">
-			<select name="ventilated" required>
+			<select name="ventialted" required>
 				<option value=""disabled selected>Was the person ventilated*:</option>
 				<option value="1">Yes</option>
 				<option value="0">No</option>
@@ -459,12 +599,12 @@
 		</div>
 
 		<div class="form-row">
-			<label class="date-label" style="color: white;">Date of death, if applicable:</label>
-					<input type="date" name="date_of_death" class="input-text" placeholder="YYYY-MM-DD">
+			<label style="color: white;">Date of death, if applicable:</label>
+					<input type="date" name="date_of_death" class="input-text">
 		</div>
 		<div class="form-row">
 			<input type="text" name="other_symptoms" placeholder="Other underlying conditions" class="input-text">
-		</div> -->
+		</div>
 					<div class="form-row-last">
 						<input type="submit" name="submit" class="register" value="Submit">
 					</div>
@@ -480,96 +620,6 @@
 function tmc() {
   alert("accept terms and conditions");
 }
-
-function ageCalculator() {  
-    var userinput = document.getElementById("DOB").value;  
-    var dob = new Date(userinput);  
-    if(userinput==null || userinput=='') {  
-      document.getElementById("age").innerHTML = "**Choose a date please!";    
-      return false;   
-    } else {  
-      
-    //calculate month difference from current date in time  
-    var month_diff = Date.now() - dob.getTime();  
-      
-    //convert the calculated difference in date format  
-    var age_dt = new Date(month_diff);   
-      
-    //extract year from date      
-    var year = age_dt.getUTCFullYear()
-      
-    //now calculate the age of the user  
-    var age = Math.abs(year - 1970);
-      
-    //display the calculated age  
-    document.getElementById("age1").value = age + ' years'; 
-    document.getElementById("age").value = age; 
-    }  
-}  
-
-
-
-
-function insuranceCheck() {  
-	var disabled = true;
-	var required = false;
-    var insuranceVal = document.getElementById("insuranceVal").value;
-	// alert(insuranceVal);
-	if(insuranceVal == 'Insurance')
-	{
-        if (disabled)
-		{
-			$("#my_company").prop('disabled', false);
-			$("#my_company").prop('required', true);
-			
-			$("#insurance_name").prop('disabled', false);
-			$("#insurance_name").prop('required', true);
-
-			$("#insurance_number").prop('disabled', false);
-			$("#insurance_number").prop('required', true);
-		}
-	}else if(insuranceVal == 'Corporate')
-	{
-		if (disabled)
-		{
-			$("#my_company").prop('disabled', false);
-			$("#my_company").prop('required', true);
-
-			$("#insurance_name").prop('disabled', true);
-			$("#insurance_name").prop('required', false);
-
-			$("#insurance_number").prop('disabled', true);
-			$("#insurance_number").prop('required', false);
-		}
-
-	}else if(insuranceVal == 'Private')
-	{
-		if (disabled)
-		{
-		$("#my_company").prop('disabled', false);
-		$("#insurance_name").prop('disabled', true);
-		$("#insurance_number").prop('disabled', true);
-		}
-	}
-}
-</script>
-<script>
-	$(".header").click(function () {
-
-$header = $(this);
-//getting the next element
-$content = $header.next();
-//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-$content.slideToggle(500, function () {
-	//execute this after slideToggle is done
-	//change text of header based on visibility of content div
-	$header.text(function () {
-		//change text based on condition
-		return $content.is(":visible") ? "Collapse" : "Expand";
-	});
-});
-
-});
 </script>
 </body>
 </html>
