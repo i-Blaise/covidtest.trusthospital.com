@@ -197,30 +197,28 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
 	$fullName = $_POST["name"];
 	$email = $_POST["email"];
 	$raw_phone = $_POST["phone"];
-  $phone = $getData->addCountryCode($raw_phone);
+    $phone = $getData->addCountryCode($raw_phone);
 	$gender = $_POST["gender"];
 	$passport = (!empty($_POST["passport"])) ?  $_POST["passport"] : 'N/A';
-  $district = $_POST["district"];
-  $address = $_POST["address"];
-  $landmark = $_POST["landmark"];
-  $date_of_birth = $_POST["DOB"];
-  $age = $_POST["age"];
+    $district = $_POST["district"];
+    $address = $_POST["address"];
+    $landmark = $_POST["landmark"];
+    $date_of_birth = $_POST["DOB"];
+    $age = $_POST["age"];
 	$receipt_number = (!empty($_POST["receipt_number"])) ?  $_POST["receipt_number"] : 'N/A';
-  $hospital_number = (!empty($_POST["hospital_number"])) ?  $_POST["hospital_number"] : 'N/A';
-  $insuranceVal = $_POST["insuranceVal"];
-  $my_company = (!empty($_POST["my_company"])) ?  $_POST["my_company"] : 'N/A';
-  $insurance_name = (!empty($_POST["insurance_name"])) ?  $_POST["insurance_name"] : 'N/A';
-  $insurance_number = (!empty($_POST["insurance_number"])) ?  $_POST["insurance_number"] : 'N/A';
-
-
-  $package_name = $_POST["package_name"];
+    $hospital_number = (!empty($_POST["hospital_number"])) ?  $_POST["hospital_number"] : 'N/A';
+    $package_name = $_POST["package_name"];
+    $insuranceVal = $_POST["insuranceVal"];
+    $my_company = (!empty($_POST["my_company"])) ?  $_POST["my_company"] : 'N/A';
+    $insurance_name = (!empty($_POST["insurance_name"])) ?  $_POST["insurance_name"] : 'N/A';
+    $insurance_number = (!empty($_POST["insurance_number"])) ?  $_POST["insurance_number"] : 'N/A';
 
   switch ($package_name) {
-    case "48 hours - GHS 300 (On-Premises)":
+    case "24 hours - GHS 300 (On-Premises)":
       $package_amount = 300;
       break;
     case "12 hours - GHS 500 (On-Premises)":
-      $package_amount = 500 ;
+      $package_amount = 400 ;
       break;
     case "2-4 hours - GHS 900 (On-Premises)":
       $package_amount = 900;
@@ -234,6 +232,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Submit")
       default:
       $package_amount = "Error - Unknown";
   }
+
 
 	// Symptoms Information
 
@@ -294,21 +293,20 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
 <div class="multi-button">
 <button><a href="javascript:history.go(-1)">Go back</a></button>
  <button><a href="http://localhost/covid.trusthospital/booking/generate_pdf.php?download=true">Download as PDF</a></button>
-<?php if($insuranceVal == 'Private' || $insuranceVal == 'Corporate') {?>
  <button><a href="http://localhost/covid.trusthospital/payment_api/redirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb&qs=%7B%22aapf_txn_amt%22%3A%220.5%22,%22aapf_txn_clientRspRedirectURL%22%3A%22https%3A%2F%2Fcovidtest.thetrusthospital.com%2Fdev%2Fpayment_api%2Fredirect.php?token=3a5c6651f230d818ccd0715fd91e7a527ec0bb8c93185b790dc986196cf935dededa7230c309ecbd0d27265e19cee8fb%22,%22aapf_txn_clientTxnWH%22%3A%22http%3A%2F%2F4a767a17.ngrok.io%2Frest%2Fapi%2Fcallback%22,%22aapf_txn_cref%22%3A%2278babbd4d%22,%22aapf_txn_currency%22%3A%22GHS%22,%22aapf_txn_datetime%22%3A%222021%2F02%2F25%2018%3A19%3A14%22,%22aapf_txn_gw_ref%22%3A%2209FG02251817276146462%22,%22aapf_txn_gw_sc%22%3A%2299-PENDING%22,%22aapf_txn_maskedInstr%22%3A%2205452**150%22,%22aapf_txn_otherInfo%22%3A%22test%20payment%22,%22aapf_txn_payLink%22%3A%223P4Yu8At%22,%22aapf_txn_payScheme%22%3A%22MTNMM%22,%22aapf_txn_ref%22%3A%222991-451a-8d1e%22,%22aapf_txn_sc%22%3A%2206%22,%22aapf_txn_sc_msg%22%3A%2299-PENDING%22,%22aapf_txn_signature%22%3A%223B13B61DDB0B5087B7B7103914181E0C049F0B71C26C60353C2623DC03139B6A%22%7D">Sumbmit and pay online</a></button>
- <?php } ?>
-  <!-- <button onclick="checkout()" >Sumbmit and pay online</button> -->
-<button>  <a href="http://localhost/covidtest.trusthospital.com/booking/proceed.php?status=save">Submit and Pay Later</a></button>
+  <button onclick="checkout()" >Sumbmit and pay online</button>
+<button>  <a href="http://localhost/covid.trusthospital/booking/proceed.php?status=save">Submit and Pay Later</a></button>
 </a>
 </div>
-
-
 
   <!-- <div class="multi-button">
   <button><a href="javascript:history.go(-1)">Go back</a></button>
    <button><a href="https://covidtest.thetrusthospital.com/booking/generate_pdf.php?download=true">Download as PDF</a></button>
-  <button><a href="https://covidtest.thetrusthospital.com/payment_api">Save and pay online</a></button>
+   <?php if($insuranceVal == 'Private' || $insuranceVal == 'Corporate') {?>
+  <button onclick="confirmBalance()"><a href="#">Save and pay online</a></button>
+    <?php } ?>
   <button>  <a href="https://covidtest.thetrusthospital.com/booking/proceed.php?status=save">Save and pay later</a></button>
+  </a>
 </div> -->
 
 </div>
@@ -366,7 +364,7 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   <tr>
     <th>Selected Package: </th>
     <td><?php echo $package_name ?></td>
-  </tr>
+  </tr> 
   <tr>
     <th>Insurance Type: </th>
     <td><?php echo $insuranceVal ?></td>
@@ -608,16 +606,41 @@ $abnormal_lung_ausculation = (!empty($_POST["abnormal_lung_ausculation"])) ?  $_
   // $_SESSION['hospital_visit_number']  =	$hospital_visit_number;
   // $_SESSION['date_of_isolation']  = $date_of_isolation;
   // $_SESSION['ventilated']  =	$ventilated;
+  // $_SESSION['date_of_death']  =	$date_of_death;
   // $_SESSION['other_symptoms'] =	$other_symptoms;
 
   
-  $_SESSION['registration_number'] = 'TTH'.mt_rand(10000000, 99999999);
+  
+  $generated_reg_num = 'TTH'.mt_rand(10000000, 99999999);
+  
+  for ($i=0; $i <= 5; $i++){
+  $verify_reg_num = $getData->verifyRegistrationNum($generated_reg_num);
+  if($verify_reg_num >= 1)
+  {
+      $generated_reg_num = 'TTH'.mt_rand(10000000, 99999999);
+  }else{
+      $_SESSION['registration_number'] = $generated_reg_num;
+      $i = 6;
+  }
+  }
+
+  
   $_SESSION['request'] = 'createPayLink';
   $_SESSION['amount'] = $package_amount;
   $_SESSION['post']['package_amount'] = $package_amount;
   $_SESSION['package_name'] = $package_name;
+  print_r($_SESSION['post']);
+  die();
   ?>
 </body>
+<script>
+function confirmBalance() {
+ if( confirm("Do you have sufficient balance in account for the selected package?"))
+ {
+     window.location = "https://covidtest.thetrusthospital.com/payment_api";
+ }
+}
+</script>
 </html>
 
 

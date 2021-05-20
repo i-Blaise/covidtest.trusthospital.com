@@ -65,7 +65,7 @@
 		<img class="logo" src="img/Trust-hspital-logo.png">
 		</a>
 		<div class="form-v10-content">
-			<form class="form-detail" action="http://localhost/covidtest.trusthospital.com/booking/submitted_data.php" method="post" enctype="multipart/form-data" id="myform">
+			<form class="form-detail" action="http://localhost/covid.trusthospital/booking/reveiw_data.php" method="post" enctype="multipart/form-data" id="myform">
 				<div class="form-left">
 					<h2>Patient Information</h2>
 					<div class="form-row">
@@ -160,7 +160,7 @@
 				  	<h5 style="font-weight: bold; color: #EC8D62; ">Insurance</h5>
 					  <div class="form-row">
 					<select name="insuranceVal" id="insuranceVal" required onchange="insuranceCheck()">
-						<option value="" disabled selected>Insurance Type*</option>
+						<option value="" disabled style="font-weight: bold;" selected>Insurance Type*</option>
 						<option value="Insurance">Insurance</option>
 						<option value="Corporate">Corporate</option>
 						<option value="Private">Private</option>
@@ -197,6 +197,7 @@
 				  <i class="zmdi zmdi-chevron-down"></i>
 			</span>
 				</div>
+
 				</div>
 
 
@@ -546,7 +547,7 @@ function insuranceCheck() {
 	{
 		if (disabled)
 		{
-		$("#my_company").prop('disabled', false);
+		$("#my_company").prop('disabled', true);
 		$("#insurance_name").prop('disabled', true);
 		$("#insurance_number").prop('disabled', true);
 		}

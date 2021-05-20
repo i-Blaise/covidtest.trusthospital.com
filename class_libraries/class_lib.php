@@ -73,6 +73,13 @@ public function checkDataNum($reg_num){
    $num = mysqli_num_rows($result);
     return $num;
  }
+ 
+ public function verifyRegistrationNum($reg_num){
+   $myQuery = "SELECT * FROM patientbookingform WHERE registration_number = '$reg_num'";
+   $result=mysqli_query($this->dbh, $myQuery);
+   $num = mysqli_num_rows($result);
+    return $num;
+ }
 
   public function checkLogin($admin_email, $admin_pass){
    $encrypted_pass = md5($admin_pass);
@@ -163,7 +170,7 @@ public function checkDataNum($reg_num){
  }
 
 
- public function insertBookingData($data, $reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
+ public function insertBookingData($data,$reg_id, $sms_msgid, $sms_status, $email_status, $payment = false){
    //  print_r($$data['name']);
    //  die();
     if(isset($data['submit']) && $data['submit'] == "Submit"){
@@ -185,7 +192,10 @@ public function checkDataNum($reg_num){
 		$hospital_number = $data['hospital_number'];
       $package_amount = $data["package_amount"];
       $package_name = $data["package_name"];
-
+      $insurance_type = $data["insuranceVal"];
+      $my_company = $data["my_company"];
+      $insurance_name = $data["insurance_name"];
+      $insurance_number = $data["insurance_number"];
 
       $fever_or_chills = (!empty($data["fever_or_chills"])) ?  $data["fever_or_chills"] : 0;
       $generalWeakness = (!empty($data["generalWeakness"])) ?  $data["generalWeakness"] : 0;
@@ -217,17 +227,17 @@ public function checkDataNum($reg_num){
 
 
     // Patient Clinical Course
-	   $date_of_onset_symptoms = $data["date_of_onset_symptoms"];
-      $date_first_at_hospital = $data["date_first_at_hospital"];
+	   $date_of_onset_symptoms =  (!empty($data["date_of_onset_symptoms"])) ?  $data["date_of_onset_symptoms"] : 'N/A';
+      $date_first_at_hospital = (!empty($data["date_first_at_hospital"])) ?  $data["date_first_at_hospital"] : 'N/A';
       $asymptomatic = (!empty($data["asymptomatic"])) ?  $data["asymptomatic"] : 0;
-      $name_of_hospital = $data["name_of_hospital"];
-      $hospital_visit_number = $data["hospital_visit_number"];
-      $ventilated = $data["ventilated"];
-      $date_of_death = $data["date_of_death"];
-      $date_of_admission = $data["date_of_admission"];
-      $date_of_isolation = $data["date_of_isolation"];
-      $admitted_to_hospital = $data["admitted_to_hospital"];
-      $other_symptoms = $data["other_symptoms"];
+      $name_of_hospital = (!empty($data["name_of_hospital"])) ?  $data["name_of_hospital"] : 'N/A';
+      $hospital_visit_number = (!empty($data["hospital_visit_number"])) ?  $data["hospital_visit_number"] : 'N/A';
+      $ventilated = (!empty($data["ventilated"])) ?  $data["ventilated"] : 'N/A';
+      $date_of_death = (!empty($data["date_of_death"])) ?  $data["date_of_death"] : 'N/A';
+      $date_of_admission = (!empty($data["date_of_admission"])) ?  $data["date_of_admission"] : 'N/A';
+      $date_of_isolation = (!empty($data["date_of_isolation"])) ?  $data["date_of_isolation"] : 'N/A';
+      $admitted_to_hospital = (!empty($data["admitted_to_hospital"])) ?  $data["admitted_to_hospital"] : 'N/A';
+      $other_symptoms = (!empty($data["other_symptoms"])) ?  $data["other_symptoms"] : 'N/A';
       //  die();
       if(isset($sms_status)){
 
@@ -243,9 +253,13 @@ public function checkDataNum($reg_num){
             age,
             receipt_number, 
             hospital_number, 
-            sex, 
+            sex,  
             package_amount,
             package_name,
+            insurance_type,
+            my_company,
+            insurance_name,
+            insurance_number,
             fever_or_chills, 
             general_weakness, 
             cough, 
@@ -299,6 +313,10 @@ public function checkDataNum($reg_num){
            '$gender', 
            '$package_amount',
            '$package_name',
+           '$insurance_type',
+           '$my_company',
+           '$insurance_name',
+           '$insurance_number',
            '$fever_or_chills', 
            '$generalWeakness', 
            '$cough', 
@@ -550,7 +568,7 @@ function addCountryCode($raw_phone){
       $fullName = $patientDetails['full_name'];
       $raw_phone = $patientDetails['phone_number'];
       $email = $patientDetails['email'];
-      $amount_paid = $patientDetails['packages'];
+      $amount_paid = $patientDetails['package_amount'];
 
       // Send Confirmation sms and email
       $client = 'TTH101010';
@@ -670,7 +688,7 @@ if(!$bookingQueryStatus){
 
  public function fetchPatientDetails($registration_number)
  {
- $myQuery = "SELECT full_name, phone_number, email, packages, payment_status FROM patientbookingform WHERE registration_number = '$registration_number'";
+ $myQuery = "SELECT full_name, phone_number, email, package_amount, package_name payment_status FROM patientbookingform WHERE registration_number = '$registration_number'";
  $result=mysqli_query($this->dbh, $myQuery);
  $row = mysqli_fetch_assoc($result);
  return $row;
